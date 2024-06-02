@@ -1,0 +1,41 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+
+.bg{
+	background: #EF9A9A;
+}
+
+.flex-row{
+	display: flex;
+	flex-direction: row;
+}
+
+.bg-card{
+	background: #00796B;
+}
+
+.round-img{
+	border-radius: 50%;
+}
+
+.icon-s{
+	width: 20px;
+	height: 20px;
+}
+
+.color{
+	color: yellow;
+}
+
+.blink_me {
+  animation: blinker 3s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0.6;
+  }
+}

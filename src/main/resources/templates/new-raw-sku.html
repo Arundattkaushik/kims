@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{css/bootstrap.min.css.map}">
+<link rel="stylesheet" th:href="@{/css/home.css}">
+<title>New::RAW SKU</title>
+</head>
+<body class="bg">
+<nav th:insert="~{fragments/navbar.html::nav}"></nav>
+
+<!--Title area  -->
+<div class="container text-center  mt-4 pt-4">
+	<h1>New RAW SKU</h1>
+</div>
+
+<div class="container mt-4">
+
+<div class="row">
+		<div class="col-md-6 offset-md-3 bg-card p-5" style="border-radius: 10px;">
+		
+			<form action="/process-raw-sku" method="post">
+				
+					<div style="display: flex; flex-direction: row;" class="row">
+						<div class="col mb-3" >
+							 <label class="form-label">Title*</label>
+						     <input type="text" style="width: 280px;" class="form-control" id="name" name="name" placeholder="name....." >
+						</div>
+						
+						<div class="col mb-3">
+							 <label class="form-label">Quantity*</label>
+						     <input type="number" style="width: 100px;" class="form-control" id="quantity" name="quantity" placeholder="eg 100.">
+						</div>
+						
+						<div class="col mb-3">
+							 <label class="form-label">Price/Unit*</label>
+						     <input type="number" style="width: 120px;" class="form-control" id="price_per_unit" name="price_per_unit" placeholder="eg 100.">
+						</div>
+					</div>
+						<div class="form-floating">
+						  <textarea class="form-control" name="description" id="description" placeholder="Leave a comment here" style="height: 200px"></textarea>
+						  <label>Description</label>
+						</div>
+	
+	
+						<div style="text-align: center;" class="mt-4">
+					  		<button type="submit" class="btn btn-primary" >Add</button>				  
+					  	</div>
+					  
+				</form>	
+			</div>			
+		</div>
+	</div>
+
+</body>
+</html>

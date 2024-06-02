@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{css/bootstrap.min.css.map}">
+<link rel="stylesheet" th:href="@{/css/home.css}">
+<title>PARTIES</title>
+</head>
+<body class="bg">
+<nav th:insert="~{fragments/navbar.html::nav}"></nav>
+<!-- page heading area -->
+<div>
+<h2 style="text-align: center; padding-top: 20px;">PARTY LIST</h2>
+</div>
+
+<!-- add button area -->
+<div style="display: flex; flex-direction: row-reverse; margin-right: 110px">
+<a type="button" class="btn btn-primary" href="/new-party" ><img class="icon-s me-1 pb-0" alt="" th:src="@{img/plus.png}">New Party</a>
+</div>
+
+<!-- table area -->
+<div class="mt-2 p-0 container">
+			
+			<table class="table table-primary">
+				  <thead>
+				    <tr>
+				      <th scope="col">P.Id</th>
+				      <th scope="col">Party</th>
+				      <th scope="col">Email</th>
+				      <th scope="col">Mobile</th>
+				      <th scope="col">Address</th>
+				      <th scope="col">Action</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr th:each="party : ${session.partyList}">
+				      <th scope="row" th:text="${party.id}"/>
+				      <td th:text="${party.partyName}"/>
+				      <td th:text="${party.email}"/>
+				      <td th:text="${party.mobile}"/>
+				      <td th:text="${party.address}"/>
+				      <td>
+				      
+				      <!-- Pending for fix  -->
+				      
+				      <a th:href="@{delete-party?party_id=}+${party.id}"><img alt="delete-icon" th:src="@{/img/delete.png}" class="icon-s"></a>
+					  <a href="#"><img alt="edit-icon" th:src="@{/img/edit.png}" class="icon-s"></a>      
+				      </td>
+				    </tr>
+				  </tbody>
+				</table>
+
+		</div>
+</body>
+</html>

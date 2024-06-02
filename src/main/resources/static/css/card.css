@@ -1,0 +1,41 @@
+.popup{
+	border-radius:14px;
+	width: 350px;
+	height: 350px;
+}
+
+.popup-h{
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+    width: 350px;
+    height: 175px;
+    background: #0D47A1;
+}
+
+.popup-b{
+    width: 350px;
+    height: 140px;
+    border-bottom-left-radius:14px;
+    border-bottom-right-radius:14px;
+    padding-top:25px;
+    background: black;
+}
+
+.popup-img{
+    height: 150px;
+    width: 150px;
+}
+
+.popup-center{
+    text-align: center;
+    top: 50%; 
+    position: absolute;
+}
+
+.container {
+    width:100%;
+    height:100%;
+    background-color:yellow;
+    position:absolute;
+    text-align:center;
+}

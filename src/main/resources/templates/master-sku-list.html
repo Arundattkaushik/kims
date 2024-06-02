@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{css/bootstrap.min.css.map}">
+<link rel="stylesheet" th:href="@{/css/home.css}">
+<title>MASTER::SKU</title>
+</head>
+<body class="bg">
+<nav th:insert="~{fragments/navbar.html::nav}"></nav>
+
+<!-- page heading area -->
+<div>
+<h2 style="text-align: center; padding-top: 20px; font-weight: bolder;" class="blink_me">MASTER SKU LIST</h2>
+</div>
+
+<!-- add button area -->
+<div style="display: flex; flex-direction: row-reverse; margin-right: 109px;">
+<a type="button" class="btn btn-primary" href="/new-master-sku" ><img class="icon-s me-1 pb-0" alt="" th:src="@{img/plus.png}">New Master SKU</a>
+</div>
+
+<!-- table area -->
+<div class="mt-2 p-0 container">
+			
+			<table class="table table-primary">
+				  <thead>
+				    <tr>
+				      <th scope="col">Id</th>
+				      <th scope="col" style="width: 340px; text-align: center;">SKU Item</th>
+				      <th scope="col" style="text-align: center;">Description</th>				      
+				      <th scope="col" style="width: 300px; text-align: center;">Available Stock</th>
+				      <th scope="col" style="text-align: center;">Stock Value</th>
+				      <th scope="col" style="text-align: center;">Action</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr th:each="mSku : ${session.mSkuList}">
+				      <th scope="row" th:text="${mSku.id}"/>
+				      <td style="text-align: center;"><a href="#" th:text="${mSku.masterSkuTitle}" style="text-decoration: none;"></a></td>
+				      
+				      <td th:text="${mSku.masterSkuDescription}" style="text-align: center;"/>
+				      <td th:text="${mSku.masterSkuQty}" style="text-align: center;"/>	
+				      <td th:text="${mSku.stockValue}" style="text-align: center;"/>	
+				      
+				      <!-- Action Column  -->			
+				      <td style="text-align: center;">
+				      
+				      <!-- Pending for fix  -->				      
+				      <a th:href="@{/delete-master-sku?master_id=}+${mSku.id}"><img alt="delete-btn" th:src="@{/img/delete.png}" class="icon-s"></a>
+					  <a th:href="@{#}"><img alt="edit-icon" th:src="@{/img/edit.png}" class="icon-s"></a>      
+				      </td>
+				    </tr>
+				  </tbody>
+				</table>
+
+		</div>
+
+
+</body>
+</html>

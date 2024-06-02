@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{css/bootstrap.min.css.map}">
+<link rel="stylesheet" th:href="@{/css/home.css}">
+<title>Sign Up</title>
+</head>
+<body class="bg">
+<div class="text-center mt-5 pt-2">
+<h1><a href="/home" style="color: black; text-decoration: none;">Sign up</a></h1>
+<p><a href="/home" style="color: black; text-decoration: none;">It's quick and easy.</a></p>
+</div>
+
+<div class="container mt-2">
+	<div class="row">
+		<div class="col-md-4 offset-md-4 bg-card p-4" style="border-radius: 14px;">
+		
+			<form th:action="@{/do-sign-up}" method="post">
+			
+				<div>
+					<div class="row">
+						<div class="col mb-3" >
+							 <label for="email" class="form-label">First Name</label>
+						     <input 
+						     type="text" 
+						     class="form-control" 
+						     id="firstName" 
+						     name="fName" >
+						  
+						</div>
+						
+						<div class="col mb-3">
+							 <label class="form-label">Last Name</label>
+						     <input 
+						     type="text" 
+						     class="form-control" 
+						     id="lastName" 
+						     name="lName">
+						</div>
+					
+					</div>
+					
+				</div>
+				
+					<div class="mb-3">
+					    <label class="form-label">Mobile No.</label>
+					    <input 
+					    type="number" 
+					    class="form-control" 
+					    id="mobile" 
+					    name="mobile" >
+					    
+				 	</div>
+				 	
+				 	
+				 	<!-- Hidden filed -->
+				 	<div class="mb-3">
+					    <input 
+					    type="hidden" 
+					    class="form-control" 
+					    id="empRole" 
+					    name="empRole" 
+					    value="ADMIN"
+					    >
+				 	</div>
+				 	
+				 	
+				<div>
+					<div class="row">
+						<div class="col mb-3" >
+							 <label class="form-label">DOB</label>
+						     <input 
+						     type="date" 
+						     class="form-control" 
+						     id="dob"
+						     name="dob"
+						     >
+						</div>
+						
+						<div class="col mb-3">
+							 <label class="form-label">Gender</label>
+						     <select name="gender" id="gender" class="form-control">
+							    <option value="">Please select one…</option>
+							    <option value="female">Female</option>
+							    <option value="male">Male</option>
+							    <option value="other">Other</option>
+							    <option value="Prefer not to answer">Prefer not to Answer</option>
+							  </select>
+						</div>
+					
+					</div>
+					
+				</div>
+						
+				  <div class="mb-3">
+				    <label class="form-label">Email address</label>
+				    <input 
+				    type="email" 
+				    class="form-control" 
+				    id="email" 
+				    name="email">
+				    
+				  </div>
+				  
+				  <div class="mb-3">
+				    <label class="form-label">Password</label>
+				    <input 
+				    type="password" 
+				    class="form-control" 
+				    id="password" 
+				    name="password">
+				  </div>
+				
+				  <button type="submit" class="btn btn-primary" >Register</button>
+			</form>		
+					
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

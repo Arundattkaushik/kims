@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{css/bootstrap.min.css.map}">
+<link rel="stylesheet" th:href="@{/css/home.css}">
+<title>Raw SKU</title>
+</head>
+<body class="bg">
+<nav th:insert="~{fragments/navbar.html::nav}"></nav>
+
+<!-- page heading area -->
+<div>
+<h2 style="text-align: center; padding-top: 20px;">ITEM SKU LIST</h2>
+</div>
+
+<!-- add button area -->
+<div style="display: flex; flex-direction: row-reverse; margin-right: 110px">
+<a type="button" class="btn btn-primary" href="/new-raw-sku" ><img class="icon-s me-1 pb-0" alt="" th:src="@{img/plus.png}">ADD SKU</a>
+</div>
+
+<!-- table area -->
+<div class="mt-2 p-0 container">
+			
+			<table class="table table-primary">
+				  <thead>
+				    <tr>
+				      <th scope="col">Id</th>
+				      <th scope="col">All Item SKU</th>
+				      <th scope="col">Price/Unit</th>
+				      <th scope="col">Available Stock</th>
+				      <th scope="col">Description</th>
+				      <th scope="col">Action</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr th:each="rawsku : ${session.rawSkuList}">
+				      <th scope="row" th:text="${rawsku.id}"/>
+				      <td th:text="${rawsku.name}"/>
+				      <td th:text="${rawsku.price_per_unit}"/>
+				      <td th:text="${rawsku.quantity}"/>				      
+				      <td th:text="${rawsku.description}"/>
+				      <td>
+				      
+				      <!-- Pending for fix  -->
+				      
+				      <a th:href="@{/delete_rawsku?rawsku_id=}+${rawsku.id}"><img alt="delete-icon" th:src="@{/img/delete.png}" class="icon-s"></a>
+					  <a href="#"><img alt="edit-icon" th:src="@{/img/edit.png}" class="icon-s"></a>      
+				      </td>
+				    </tr>
+				  </tbody>
+				</table>
+
+		</div>
+</body>
+</html>

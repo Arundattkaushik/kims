@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{css/bootstrap.min.css.map}">
+<link rel="stylesheet" th:href="@{/css/home.css}">
+<title>SALES</title>
+</head>
+<body class="bg">
+<nav th:insert="~{fragments/navbar.html::nav}"></nav>
+
+<!-- page heading area -->
+<div>
+<h2 style="text-align: center; padding-top: 20px;">SALES</h2>
+</div>
+
+<!-- add button area -->
+
+<!-- table area -->
+<div class="mt-2 p-0 container">
+			
+			<table class="table table-primary">
+				  <thead>
+				    <tr>
+				      <th scope="col">Id</th>
+				      <th scope="col" style="width: 340px; text-align: center;">Ordered Items</th>
+				      
+				      <th scope="col" style="width: 300px;"> 
+				      
+				      <div style="display: flex; flex-direction: column;"> 
+					       <div style="text-align: center;">Quantity</div>
+					       
+					       <div style="display: flex; flex-direction: row; justify-content: space-evenly;">
+					       		<div>Item 1</div>
+					       		<div>Item 2</div>
+					       		<div>Item 3</div>
+					       		<div>Item 4</div>
+					       </div> 
+				      </div> 
+				      
+				      </th>
+				      <th scope="col" style="text-align: center;">Ordered By</th>
+				      <th scope="col" style="text-align: center;">Order Date</th>
+				      <th scope="col" style="text-align: center;">Action</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr th:each="genOrder : ${session.gOrderList}">
+				      <th scope="row" th:text="${genOrder.id}"/>
+				      <td><a th:href="@{/order-summary?order_id=}+${genOrder.id}" th:each="prod: ${genOrder.products}" th:text="${prod}+' '" style="text-decoration: none;"></a></td>
+				      <td>
+					      <div style="display: flex; flex-direction: row; justify-content: space-evenly;"> 
+						       	<div style="margin-left: 20px;" th:each="qty: ${genOrder.orderQuantity}" th:text="${qty}"></div>
+						          
+					      </div> 
+				      </td>
+				      <td th:text="${genOrder.party}" style="text-align: center;"/>
+				      <td th:text="${genOrder.orderDate}" style="text-align: center;"/>	
+				      
+				      <!-- Action Column  -->			
+				      <td style="text-align: center;">
+				      
+				      <!-- Pending for fix  -->
+				      
+				      <a th:href="@{/order-summary?orderId=}+${genOrder.id}"><img alt="delete-icon" th:src="@{/img/delete.png}" class="icon-s"></a>
+					  <a th:href="@{#}"><img alt="edit-icon" th:src="@{/img/edit.png}" class="icon-s"></a>      
+				      </td>
+				    </tr>
+				  </tbody>
+				</table>
+
+		</div>
+
+
+</body>
+</html>
