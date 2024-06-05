@@ -138,5 +138,19 @@ public class MasterSkuController {
 		return "error-new-master-sku";
 	}
 	
+	
+	@GetMapping("/summary-master-sku")
+	public String summaryMasterSku(@RequestParam("mSku_id") int mSku_id, Model model, HttpSession session) {
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/home";
+		} 
+		else {
+		model.addAttribute("mSummary", mSkuServices.getMasterSkuById(mSku_id));
+		return "summary-master-sku";
+		}
+	}
+	
+	
 
 }

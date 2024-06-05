@@ -37,7 +37,7 @@
 				  <tbody>
 				    <tr th:each="mSku : ${session.mSkuList}">
 				      <th scope="row" th:text="${mSku.id}"/>
-				      <td style="text-align: center;"><a href="#" th:text="${mSku.masterSkuTitle}" style="text-decoration: none;"></a></td>
+				      <td style="text-align: center;"><a th:href="@{/summary-master-sku?mSku_id=}+${mSku.id}" th:text="${mSku.masterSkuTitle}" style="text-decoration: none;"></a></td>
 				      
 				      <td th:text="${mSku.masterSkuDescription}" style="text-align: center;"/>
 				      <td th:text="${mSku.masterSkuQty}" style="text-align: center;"/>	
