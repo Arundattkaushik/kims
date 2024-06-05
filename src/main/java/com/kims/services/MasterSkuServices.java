@@ -25,4 +25,8 @@ public class MasterSkuServices {
 	public List<MasterSku> getAllMasterSkus(){
 		return masterSkuRepository.getAllMasterSkus();
 	}
+	
+	public void deleteMasterSkuById(int master_id) {
+		masterSkuRepository.deleteById(master_id);
+	}
 }

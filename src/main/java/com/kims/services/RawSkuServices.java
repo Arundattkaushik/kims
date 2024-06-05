@@ -27,4 +27,8 @@ public class RawSkuServices {
 	public RawSku getRawSkuByTitle(String title) {
 		return rawSkuRepository.getSkuByTitle(title);
 	}
+	
+	public RawSku getRawSkuById(int rawSku_id) {
+		return rawSkuRepository.getSkuById(rawSku_id);
+	}
 }

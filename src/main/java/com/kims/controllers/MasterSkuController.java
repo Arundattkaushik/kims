@@ -31,6 +31,7 @@ public class MasterSkuController {
 	@Autowired
 	private RawSkuServices rawSkuServices;
 	
+	
 	private int stockValue = 0;
 
 	@GetMapping("/master-sku-list")
@@ -86,6 +87,7 @@ public class MasterSkuController {
 				}
 				newMaster.setStockValue(String.valueOf(stockValue));
 				MasterSku mSku = mSkuServices.saveMasterSku(newMaster);
+				stockValue = 0;
 				List<MasterSku> mSkuList = new ArrayList<MasterSku>();
 				mSkuList.add(mSku);
 				session.setAttribute("mSkuList", mSkuServices.getAllMasterSkus());
@@ -110,7 +112,20 @@ public class MasterSkuController {
 			return "redirect:/home";
 		} 
 		else {
-			System.out.println(mSkuServices.getMasterSkuById(master_id));
+			MasterSku mSku = mSkuServices.getMasterSkuById(master_id);
+			List<RawSku> lSkus = utils.getRawSkuListByTitle(mSku.getRawSku());
+			
+			for (int i = 0; i < lSkus.size(); i++) {
+				
+				int q = Integer.parseInt(mSku.getRawskuquantity()[i])*mSku.getMasterSkuQty();
+				RawSku rSku = lSkus.get(i);
+				rSku.setQuantity(String.valueOf(q+Integer.parseInt(rSku.getQuantity())));
+				rawSkuServices.createRawSku(rSku);
+				q=0;
+			}
+			mSkuServices.deleteMasterSkuById(master_id);
+			session.setAttribute("mSkuList", mSkuServices.getAllMasterSkus());
+			session.setAttribute("rawSkuList", rawSkuServices.getRawSkuList());
 			return "redirect:/master-sku-list";
 		}
 	}
