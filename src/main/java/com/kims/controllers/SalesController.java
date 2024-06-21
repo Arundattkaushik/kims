@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.kims.entites.User;
 
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @Controller
@@ -21,5 +23,18 @@ public class SalesController {
 			return "sales";
 		}
 	}
+	
+	
+	@GetMapping("/new-sales-order")
+	public String newSaleOrder(HttpSession session) {
+		User user = (User)session.getAttribute("user");
+		if (user==null) {
+			return "redirect:/home";
+		}
+		else {
+			return "new-sales-order";
+		}
+	}
+	
 	
 }

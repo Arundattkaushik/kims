@@ -16,6 +16,10 @@
 </div>
 
 <!-- add button area -->
+<div style="display: flex; flex-direction: row-reverse; margin-right: 110px">
+<a type="button" class="btn btn-primary" href="/new-sales-order" ><img class="icon-s me-1 pb-0" alt="" th:src="@{img/plus.png}">New Sale Order</a>
+</div>
+
 
 <!-- table area -->
 <div class="mt-2 p-0 container">
@@ -23,25 +27,16 @@
 			<table class="table table-primary">
 				  <thead>
 				    <tr>
-				      <th scope="col">Id</th>
-				      <th scope="col" style="width: 340px; text-align: center;">Ordered Items</th>
-				      
-				      <th scope="col" style="width: 300px;"> 
-				      
-				      <div style="display: flex; flex-direction: column;"> 
-					       <div style="text-align: center;">Quantity</div>
-					       
-					       <div style="display: flex; flex-direction: row; justify-content: space-evenly;">
-					       		<div>Item 1</div>
-					       		<div>Item 2</div>
-					       		<div>Item 3</div>
-					       		<div>Item 4</div>
-					       </div> 
-				      </div> 
-				      
-				      </th>
-				      <th scope="col" style="text-align: center;">Ordered By</th>
-				      <th scope="col" style="text-align: center;">Order Date</th>
+				      <th scope="col">Invoice No.</th>
+				      <th scope="col" style="text-align: center;">Party</th>				      
+				      <th scope="col" style="text-align: center;">Item SKU</th>
+				      <th scope="col" style="text-align: center;">Quantity</th>
+				      <th scope="col" style="text-align: center;">Sales Amount</th>
+				      <th scope="col" style="text-align: center;">CGST</th>
+				      <th scope="col" style="text-align: center;">SGST</th>
+				      <th scope="col" style="text-align: center;">IGST</th>
+				      <th scope="col" style="text-align: center;">HSN</th>
+				      <th scope="col" style="text-align: center;">Total Amount</th>
 				      <th scope="col" style="text-align: center;">Action</th>
 				    </tr>
 				  </thead>

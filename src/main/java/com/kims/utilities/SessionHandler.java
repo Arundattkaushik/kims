@@ -29,4 +29,7 @@ public class SessionHandler {
 		session.setAttribute("rawSkuList", rawSkuServices.getRawSkuList());
 		session.setAttribute("mSkuList", mSkuServices.getAllMasterSkus());
 	}
+	
+	
+	
 }

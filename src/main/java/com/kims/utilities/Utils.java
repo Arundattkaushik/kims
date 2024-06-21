@@ -25,20 +25,21 @@ public class Utils {
 	}
 	
 	
-	public List<Integer> canCreateMasterSku(List<RawSku> list, String[] arr, int masterSkuQty){
-		List<Integer> l = new ArrayList<Integer>();		
-		for (int i = 0; i < arr.length; i++) {
+	public List<Integer> canCreateMasterSku(List<RawSku> orderedRawSkus, String[] orderedRawSkuQuantity, int masterSkuQty){
+		List<Integer> newList = new ArrayList<Integer>();
+		
+		for (int i = 0; i < orderedRawSkuQuantity.length; i++) {
 			
-			if(arr[i].isEmpty()) {
+			if(orderedRawSkuQuantity[i].isEmpty()) {
 				
-				return l;
+				return newList;
 			}
 			
-			if(Integer.parseInt(arr[i])*masterSkuQty > Integer.parseInt(list.get(i).getQuantity())) {
-				l.add(Integer.parseInt(arr[i])*masterSkuQty - Integer.parseInt(list.get(i).getQuantity()));
+			if(Integer.parseInt(orderedRawSkuQuantity[i])*masterSkuQty > Integer.parseInt(orderedRawSkus.get(i).getQuantity())) {
+				newList.add(Integer.parseInt(orderedRawSkuQuantity[i])*masterSkuQty - Integer.parseInt(orderedRawSkus.get(i).getQuantity()));
 			}			
 		}
-		return l;
+		return newList;
 	}
 	
 	

@@ -57,34 +57,55 @@ public class MasterSkuController {
 
 	@PostMapping("/process-new-master-sku")
 	public String postMethodName(@ModelAttribute("newMaster") MasterSku newMaster, HttpSession session, Model model) {
+		
 		User user = (User) session.getAttribute("user");
+		
 		if (user == null) {
 			return "redirect:/home";
-		} else {
-			//Ordered Raw SKUs
+		} 
+		else {
+			
+			/* This line will return us a list of Ordered Raw SKUs */
 			List<RawSku> rawSkus = utils.getRawSkuListByTitle(newMaster.getRawSku());
 			
-			List<Integer> l = utils.canCreateMasterSku(utils.getRawSkuListByTitle(newMaster.getRawSku()),
+			/* This line will return us a list of left over Raw Sku after order placed successfully */
+			List<Integer> remainingRawSkuQuantity = utils.canCreateMasterSku(utils.getRawSkuListByTitle(newMaster.getRawSku()),
 					newMaster.getRawskuquantity(), newMaster.getMasterSkuQty());
 			
-			if (l.size() == 0) {
-
+			/* This check here is telling us that if the size of 'remainingRawSkuQuantity' list is 0. It clearly means that
+			 * ordered RawSkus's quantity is either equal or less than available quantity in database. So order can be placed 
+			 * successfully.
+			*/
+			if (remainingRawSkuQuantity.size() == 0) {
+				
+				/*
+				 * This loop is giving us all those Raw-Skus which are ordered more than their available quantity.
+				*/
 				for (int i=0; i<rawSkus.size(); i++) {
+					/* Get ordered Raw Sku at i-th order */
 					RawSku sku = rawSkus.get(i);
+					
+					/* Get available quantity of Raw Sku at i-th order */
 					int avlQty = Integer.parseInt(sku.getQuantity());
-					int ordQty = Integer.parseInt(newMaster.getRawskuquantity()[i]);
+					
+					/* Get ordered quantity of Raw Sku at i-th order */
+					int ordQty = Integer.parseInt(newMaster.getRawskuquantity()[i])*newMaster.getMasterSkuQty();
+					
+					/* Calculating remaining quantity of Raw Sku at i-th order */
 					int remQty = avlQty - ordQty;
 					
 					/*
 					 * Check points
 					 */
-//					System.out.println("Quantity before update: "+sku.getQuantity());
-					sku.setQuantity(String.valueOf(remQty));
-//					System.out.println("Quantity after update: "+sku.getQuantity());
+					System.out.println("Quantity of raw sku when it was ordered: "+sku.getQuantity());
+//					sku.setQuantity(String.valueOf(remQty));
+					
+//					System.out.println("Quantity after raw sku's order placed: "+sku.getQuantity());
 //					System.out.println(sku);
-					stockValue += ordQty*Integer.parseInt(sku.getPrice_per_unit())*newMaster.getMasterSkuQty();
+					stockValue += ordQty*Integer.parseInt(sku.getPrice_per_unit());
 					rawSkuServices.createRawSku(sku);
 				}
+				
 				newMaster.setStockValue(String.valueOf(stockValue));
 				MasterSku mSku = mSkuServices.saveMasterSku(newMaster);
 				stockValue = 0;
@@ -95,7 +116,7 @@ public class MasterSkuController {
 				return "redirect:/master-sku-list";
 			} 
 			else {
-				session.setAttribute("exceedValue", l);
+				session.setAttribute("exceedValue", remainingRawSkuQuantity);
 				session.setAttribute("newMaster", newMaster);				
 				session.setAttribute("rawSkus", rawSkus);
 				return "redirect:/error-new-master-sku";

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{css/bootstrap.min.css.map}">
+<link rel="stylesheet" th:href="@{/css/home.css}">
+<script th:src="@{js/jquery.min.js}"></script>
+<title>New Sale Order</title>
+</head>
+<body class="bg">
+	<nav th:insert="~{fragments/navbar.html::nav}"></nav>
+
+	<!--Title area  -->
+	<div class="container text-center  mt-1 pt-2">
+		<h1>New Sales Order</h1>
+	</div>
+
+	<div class="container mt-4">
+
+		<div class="row">
+			<div class="bg-card p-1"
+				style="border-radius: 10px;">
+
+				<form action="" method="post">
+					<div class="d-flex flex-column">
+
+						<!-- Company Logo -->
+						<div>
+							<!-- Company logo goes here  -->
+							<img alt="company logo" th:src="@{img/storm-cloud.png}"
+								class="icon-s round-img">
+						</div>
+
+
+						<!-- Company Address Goes here  -->
+						<div class="d-flex flex-row mt-2">
+
+							<!-- Box 1 for address  -->
+							<div>
+								<input value="Noida Sector 62 Near fortis hospital">
+							</div>
+
+							<!-- Box 2 for mobile title  -->
+							<div>
+								<label>Mobile</label>
+							</div>
+
+							<!-- Box 3 for mobile value  -->
+							<div>
+								<input value="9756412006">
+							</div>
+
+						</div>
+
+						<!-- Delivery Chalan To : -->
+						<div>
+							<label>Delivery Chalan To :</label>
+						</div>
+
+						<!-- Name Area  -->
+						<div class="d-flex flex-row mt-2">
+
+							<!-- Box 1 for Name  -->
+							<div>
+								<label>Name</label>
+							</div>
+
+							<!-- Box 2 for description  -->
+							<div>
+								<input value="asd">
+							</div>
+
+							<!-- Box 3 for date label -->
+							<div>
+								<label>Date</label>
+							</div>
+
+							<!-- Box 4 for date value -->
+							<div>
+								<input value="25/09/9899">
+							</div>
+
+						</div>
+
+
+						<!-- Address Area  -->
+						<div class="d-flex flex-row mt-2">
+
+							<!-- Box 1 for Name  -->
+							<div>
+								<label>Address</label>
+							</div>
+
+							<!-- Box 2 for description  -->
+							<div>
+								<input value="asd">
+							</div>
+
+							<!-- Box 3 for Serial No. label -->
+							<div>
+								<label>S.No.</label>
+							</div>
+
+							<!-- Box 4 for Serial Number -->
+							<div>
+								<input value="1214">
+							</div>
+
+						</div>
+
+
+						<!-- Mobile Area  -->
+						<div class="d-flex flex-row mt-2">
+
+							<!-- Box 1 for Mobile  -->
+							<div>
+								<label>Mobile</label>
+							</div>
+
+							<!-- Box 2 for description  -->
+							<div>
+								<input value="asd">
+							</div>
+						</div>
+
+						<!-- Table for Particulars -->
+						<table class="table">
+							  <thead>
+							    <tr>							     
+									<th>SKU</th>
+									<th>Particulars</th>
+									<th>Quantity</th>
+									<th>Price</th>
+									<th>Amount</th>
+									<th><button class="btn btn-warning mt-2" type="button"
+											onclick="addRow()">+</button></th>
+							    </tr>
+							    
+							  </thead>
+							  <tbody id="tbody">
+							    <tr id="trow">
+							      <td>
+							      		<select class="form-select" name="masterSku[]" id="masterSku" >
+											  <option selected>Select a product</option>
+											  <option th:each="masterSku: ${session.mSkuList}" th:value="${masterSku.masterSkuTitle}" th:text="${masterSku.masterSkuTitle}"/>
+										</select>
+							      </td>
+							      <td><textarea></textarea></td>
+							      <td><input></td>
+							      <td><input></td>
+							      <td><input></td>
+							      <th><button class="btn btn-warning mt-2" type="button"
+											onclick="removeRow(this)">-</button></th>							      
+							    </tr>
+							  </tbody>
+						</table>
+					</div>
+
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+</body>
+<script>
+
+	$(document).ready(function(){
+		$('label').css('color','yellow');	
+	});
+	
+	function addRow(){
+		var v = $('#trow').clone().appendTo('#tbody');
+		$(v).find("input").val('');
+	}
+	
+	function removeRow(e){
+			$(e).parent().parent().remove();
+    	}
+	
+	
+</script>
+</html>
