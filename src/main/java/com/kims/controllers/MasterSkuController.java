@@ -97,8 +97,8 @@ public class MasterSkuController {
 					/*
 					 * Check points
 					 */
-					System.out.println("Quantity of raw sku when it was ordered: "+sku.getQuantity());
-//					sku.setQuantity(String.valueOf(remQty));
+//					System.out.println("Quantity of raw sku when it was ordered: "+sku.getQuantity());
+					sku.setQuantity(String.valueOf(remQty));
 					
 //					System.out.println("Quantity after raw sku's order placed: "+sku.getQuantity());
 //					System.out.println(sku);

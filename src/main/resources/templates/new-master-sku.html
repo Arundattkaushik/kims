@@ -18,7 +18,7 @@
 <div class="container mt-2">
 
 <div class="row">
-		<div class="col-md-4 offset-md-4 bg-card p-2" style="border-radius: 10px;">
+		<div class="col-md-6 offset-md-3 bg-card p-2" style="border-radius: 10px;">
 		
 			<form th:action="@{/process-new-master-sku}" method="post" id="order_form">
 					
@@ -49,77 +49,34 @@
 							 </div>
 					   		
 					   		
-					   		<!-- Product Row -->
-					   		<div class="d-flex flex-row mb-3">
-					   		
-							   		<div>
-							   			<label class="mb-2">RAW SKU 1</label>
-								    	<select class="form-select" name="rawSku[]" id="rawSku" >
+					   	<!-- Table for Products -->
+						<table class="table">
+							  <thead>
+							    <tr>							     
+									<th>Item SKU</th>
+									<th>Quantity/SKU</th>									
+									<th><button class="btn btn-warning" type="button"
+											onclick="addRow()">+</button></th>
+							    </tr>
+							    
+							  </thead>
+							  <tbody id="tbody">
+							    <tr id="trow">
+							      <td>
+							      		<select class="form-select" name="rawSku[]" id="rawSku" >
 											  <option selected>Select a product</option>
 											  <option th:each="rawSku: ${session.rawSkuList}" th:value="${rawSku.name}" th:text="${rawSku.name}"/>
 										</select>
-							   		</div>
-						   		
-							   		<div class="ms-2">	
-							   			 <label class="mb-2">Quantity/SKU</label>					   		 
-									     <input type="number" class="form-control" id="rawskuquantity" name="rawskuquantity[]" placeholder="eg. 5">
-							   		</div>							   							   		
-					      	 </div>
-					      	 
-					      	  		<!-- Product Row -->
-					   		<div class="d-flex flex-row mb-3">
+							      </td>							      
+							      <td><input type="number" class="form-control" id="rawskuquantity" name="rawskuquantity[]" placeholder="eg. 5"></td>
+							      <th><button class="btn btn-warning" type="button"
+											onclick="removeRow(this)">-</button></th>							      
+							    </tr>
+							  </tbody>
+						</table>
 					   		
-							   		<div>
-							   			<label class="mb-2">RAW SKU 2</label>
-								    	<select class="form-select" name="rawSku[]" id="rawSku">
-											  <option selected></option>
-											  <option th:each="rawSku: ${session.rawSkuList}" th:value="${rawSku.name}" th:text="${rawSku.name}"/>
-										</select>
-							   		</div>
-						   		
-							   		<div class="ms-2">	
-							   			 <label class="mb-2">Quantity/SKU</label>					   		 
-									     <input type="number" class="form-control" id="rawskuquantity" name="rawskuquantity[]" placeholder="eg. 5">
-							   		</div>  		
-						   							   		
-					      	 </div>
-					      	 
-					      	 <!-- Product Row  -->
-					      	  		<!-- Product Row -->
-					   		<div class="d-flex flex-row mb-3">
 					   		
-							   		<div>
-							   			<label class="mb-2">RAW SKU 3</label>
-								    	<select class="form-select" name="rawSku[]" id="rawSku">
-											  <option selected></option>
-											  <option th:each="rawSku: ${session.rawSkuList}" th:value="${rawSku.name}" th:text="${rawSku.name}"/>
-										</select>
-							   		</div>
-						   		
-							   		<div class="ms-2">	
-							   			 <label class="mb-2">Quantity/SKU</label>					   		 
-									     <input type="number" class="form-control" id="rawskuquantity" name="rawskuquantity[]" placeholder="eg. 5">
-							   		</div>	   		
-					      	 </div>
-					      	 
-					      	 <!-- Product Row  -->
-					      	 
-					      	 <!-- Product Row -->
-					   		<div class="d-flex flex-row mb-3">
-					   		
-							   		<div>
-							   			<label class="mb-2">RAW SKU 4</label>
-								    	<select class="form-select" name="rawSku[]" id="rawSku">
-											  <option selected></option>
-											  <option th:each="rawSku: ${session.rawSkuList}" th:value="${rawSku.name}" th:text="${rawSku.name}"/>
-										</select>
-							   		</div>
-						   		
-							   		<div class="ms-2">	
-							   			 <label class="mb-2">Quantity/SKU</label>					   		 
-									     <input type="number" class="form-control" id="rawskuquantity" name="rawskuquantity[]" placeholder="eg. 5">
-							   		</div>			   		
-					      	 </div>
+
 				    </div>	
 	
 					<div style="text-align: center;" class="mt-4">
@@ -136,7 +93,17 @@
 <script>
 $(document).ready(function(){
 	$("label").css("color","yellow");	
+	$("th").css("color","yellow");	
 })
+
+function addRow(){
+		var v = $('#trow').clone().appendTo('#tbody');
+		$(v).find("input").val('');
+	}
+	
+function removeRow(e){
+			$(e).parent().parent().remove();
+    	}
 </script>
 
 </body>
