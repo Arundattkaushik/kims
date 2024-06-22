@@ -6,187 +6,290 @@
 <link rel="stylesheet" th:href="@{css/bootstrap.min.css.map}">
 <link rel="stylesheet" th:href="@{/css/home.css}">
 <script th:src="@{js/jquery.min.js}"></script>
+
 <title>New Sale Order</title>
 </head>
 <body class="bg">
 	<nav th:insert="~{fragments/navbar.html::nav}"></nav>
-
-	<!--Title area  -->
-	<div class="container text-center  mt-1 pt-2">
-		<h1>New Sales Order</h1>
-	</div>
-
-	<!-- hidden field -->
-	<input hidden="hidden" id="hidden-input" th:value="${session.mSkuList}"> 
 	
 	<div class="container mt-4">
-
-		<div class="row">
-			<div class="bg-card p-1"
-				style="border-radius: 10px;">
-
-				<form action="" method="post">
-					<div class="d-flex flex-column">
-
-						<!-- Company Logo -->
-						<div>
-							<!-- Company logo goes here  -->
-							<img alt="company logo" th:src="@{img/storm-cloud.png}"
-								class="icon-s round-img">
-						</div>
-
-
-						<!-- Company Address Goes here  -->
-						<div class="d-flex flex-row mt-2">
-
-							<!-- Box 1 for address  -->
-							<div>
-								<input value="Noida Sector 62 Near fortis hospital">
-							</div>
-
-							<!-- Box 2 for mobile title  -->
-							<div>
-								<label>Mobile</label>
-							</div>
-
-							<!-- Box 3 for mobile value  -->
-							<div>
-								<input value="9756412006">
-							</div>
-
-						</div>
-
-						<!-- Delivery Chalan To : -->
-						<div>
-							<label>Delivery Chalan To :</label>
-						</div>
-
-						<!-- Name Area  -->
-						<div class="d-flex flex-row mt-2">
-
-							<!-- Box 1 for Name  -->
-							<div>
-								<label>Name</label>
-							</div>
-
-							<!-- Box 2 for description  -->
-							<div>
-								<input value="asd">
-							</div>
-
-							<!-- Box 3 for date label -->
-							<div>
-								<label>Date</label>
-							</div>
-
-							<!-- Box 4 for date value -->
-							<div>
-								<input value="25/09/9899">
-							</div>
-
-						</div>
-
-
-						<!-- Address Area  -->
-						<div class="d-flex flex-row mt-2">
-
-							<!-- Box 1 for Name  -->
-							<div>
-								<label>Address</label>
-							</div>
-
-							<!-- Box 2 for description  -->
-							<div>
-								<input value="asd">
-							</div>
-
-							<!-- Box 3 for Serial No. label -->
-							<div>
-								<label>S.No.</label>
-							</div>
-
-							<!-- Box 4 for Serial Number -->
-							<div>
-								<input value="1214">
-							</div>
-
-						</div>
-
-
-						<!-- Mobile Area  -->
-						<div class="d-flex flex-row mt-2">
-
-							<!-- Box 1 for Mobile  -->
-							<div>
-								<label>Mobile</label>
-							</div>
-
-							<!-- Box 2 for description  -->
-							<div>
-								<input value="asd">
-							</div>
-						</div>
-
-						<!-- Table for Particulars -->
-						<table class="table">
-							  <thead>
+	
+		<form action="" method="post">
+			
+			<div class="card">
+				  <div class="card-header text-center"><h4>TAX INVOICE</h4></div>
+				  
+				  <div class="card-body">
+				    
+				    <!-- Row 1  -->
+				    <div class="row">
+				    
+				     <!-- Column 1  -->
+					    <div class="col-6">
+					    	 <div class="input-group mb-3">
+								  <h6>DETAILS OF RECEIVERS (BILL TO)</h6>								
+							 </div>
+					    	  
+					    
+						      <div class="input-group mb-3">
+								  <span class="input-group-text" id="basic-addon1">Name</span>
+								  <input type="text" class="form-control" placeholder="Name" name="name">
+							 </div>
+							 
+							 <div class="input-group mb-3">
+								  <span class="input-group-text" id="basic-addon1">Address</span>
+								  <input type="text" class="form-control" placeholder="Address.." name="address">
+							 </div>
+							 
+							 <div class="input-group mb-3">
+								  <span class="input-group-text" id="basic-addon1">State</span>
+								  <input type="text" class="form-control" placeholder="state" name="state">
+							 </div>
+							 
+							 <div class="input-group mb-3">
+								  <span class="input-group-text" id="basic-addon1">State Code</span>
+								  <input type="text" class="form-control" placeholder="state_code" name="stateCode">
+							 </div>
+							 
+							 <div class="input-group mb-3">
+								  <span class="input-group-text" id="basic-addon1">GSTIN No.</span>
+								  <input type="text" class="form-control" placeholder="GSTIN Number..." name="gstnNo">
+							 </div>
+							 
+					    </div>
+					    
+					      <!-- Column 2  -->
+					      <div class="col-6">
+					      
+					      	 <div class="input-group mb-3">
+								  <h6>DETAILS OF CONSIGNEE (SHIPPED TO)</h6>								
+							 </div>
+					    	  
+					    
+						      <div class="input-group mb-3">
+								  <span class="input-group-text" id="basic-addon1">Name</span>
+								  <input type="text" class="form-control" placeholder="Name" name="name">
+							 </div>
+							 
+							 <div class="input-group mb-3">
+								  <span class="input-group-text" id="basic-addon1">Address</span>
+								  <input type="text" class="form-control" placeholder="Address.." name="address">
+							 </div>
+							 
+							 <div class="input-group mb-3">
+								  <span class="input-group-text" id="basic-addon1">State</span>
+								  <input type="text" class="form-control" placeholder="state" name="state">
+							 </div>
+							 
+							 <div class="input-group mb-3">
+								  <span class="input-group-text" id="basic-addon1">State Code</span>
+								  <input type="text" class="form-control" placeholder="state_code" name="stateCode">
+							 </div>
+							 
+							 <div class="input-group mb-3">
+								  <span class="input-group-text" id="basic-addon1">GSTIN No.</span>
+								  <input type="text" class="form-control" placeholder="GSTIN Number..." name="gstnNo">
+							 </div>
+					      
+					      </div>
+					    
+					    
+					    <!-- Column 3  -->
+					   
+					</div>
+					
+					<!-- GSTIN Details -->
+					 <div class="row">
+					 	<div class="col-6">
+					 	
+					 		<div class="input-group mb-3">
+								  <span class="input-group-text" id="basic-addon1">Inv. No.</span>
+								  <input type="number" class="form-control" placeholder="Invoice No." name="invNo">
+						  </div>
+						  
+						  <div class="input-group mb-3">
+								  <span class="input-group-text" id="basic-addon1">Inv. Date.</span>
+								  <input type="number" class="form-control" placeholder="Invoice date." name="invDate">
+						  </div>
+						  
+					 	</div>
+					      
+					      <div class="col-6">
+					 	
+					 		<!-- left blank -->
+						  
+					 	  </div>
+					       
+					      
+					      
+					 </div>
+					
+					
+					<!-- Table for Particulars -->
+						<table class="table table-bordered" id="order-table">
+							  <thead class="table-dark">
 							    <tr>							     
-									<th>SKU</th>
-									<th>Particulars</th>
-									<th>Quantity</th>
-									<th>Price</th>
-									<th>Amount</th>
-									<th><button class="btn btn-warning mt-2" type="button"
-											onclick="addRow()">+</button></th>
+									<th class="text-center">SKU</th>
+									<th class="text-center">Particulars</th>
+									<th class="text-center">Quantity</th>
+									<th class="text-center">Price</th>
+									<th class="text-center">Amount</th>
+									<th class="no-print">
+									<img alt="add button" th:src="@{/img/plus.png}" class="icon-s" onclick="addRow()"></img>
+									</th>
 							    </tr>
 							    
 							  </thead>
 							  <tbody id="tbody">
 							    <tr id="trow">
 							      <td>
-							      		<select class="form-select" name="masterSku[]" id="masterSku" >
+							      		<select class="form-select masterSku" name="masterSku" id="masterSku" onchange="setDesc(this)">
 											  <option selected>Select a product</option>
-											  <option id="mSku_selected" th:each="mSku: ${session.mSkuList}" th:value="${mSku.masterSkuTitle}" th:text="${mSku.masterSkuTitle}"/>
+											  <option id="mSku_selected" th:each="mSku: ${session.mSkuList}" th:name="mSku[]" th:text="${mSku.masterSkuTitle}"/>
 										</select>
-							      </td>
-							      <td><textarea></textarea></td>
-							      <td><input></td>
-							      <td><input></td>
-							      <td><input></td>
-							      <th><button class="btn btn-warning mt-2" type="button"
-											onclick="removeRow(this)">-</button></th>							      
+							      </td>							      
+								  <td><input class="form-control particulars" type="text" name="particulars"></td>
+							      <td><input class="form-control qty" type="number" name="qty" onchange="cal(this)"></td>
+							      <td><input class="form-control price" type="number" name="price" onchange="cal(this)"></td>
+							      <td><input class="form-control amount" type="number" name="amount" readonly="readonly"></td>
+							      <td class="no-print"><img alt="delete row" th:src="@{img/minus_btn.png}" class="icon-s" onclick="removeRow(this)">
+							      </td>							      
 							    </tr>
 							  </tbody>
 						</table>
+					
+					
+					
+					<!-- Footer Area  -->
+					<div class="row">
+					    <div class="col-8">
+					     <!--  Column to make a space empty -->
+					    </div>
+					    
+					    <div class="col-4">
+					      
+							<div class="input-group mb-3">
+								  <span class="input-group-text" id="basic-addon1">Total</span>
+								  <input type="number" class="form-control" readonly="readonly" name="total">
+							 </div>
+							 
+							 <div class="input-group mb-3">
+								  <span class="input-group-text" id="basic-addon1">CGST</span>
+								  <input type="number" class="form-control" name="cgst">
+							 </div>
+							 
+							 <div class="input-group mb-3">
+								  <span class="input-group-text" id="basic-addon1">SGST</span>
+								  <input type="number" class="form-control" name="sgst">
+							 </div>
+							 
+							 <div class="input-group mb-3">
+								  <span class="input-group-text" id="basic-addon1">IGST</span>
+								  <input type="number" class="form-control" name="igst">
+							 </div>
+							 
+							 <div class="input-group mb-3">
+								  <span class="input-group-text" id="basic-addon1">G.Total</span>
+								  <input type="number" class="form-control" readonly="readonly" name="gTotal">
+							 </div>
+
+					    </div>
+					    
+					    
 					</div>
-
-
-				</form>
-			</div>
-		</div>
+					
+					<!-- Checkout button -->
+					<div class="text-center">
+						<button type="button" class="btn btn-primary me-3" onclick="goPrint()" style="display: none">Print</button>
+						<button type="button" class="btn btn-primary">Checkout</button>
+					</div>				    
+				   
+				 </div>
+				  
+			</div>			
+					
+		</form>
 	</div>
 
 </body>
 <script>
-
-	$(document).ready(function(){
-		$('label').css('color','yellow');	
-	});
 	
 	function addRow(){
+		
+		/* cloning the whole row */
 		var v = $('#trow').clone().appendTo('#tbody');
+		
+		
+		/* clearing newly created input and textareas */
 		$(v).find("input").val('');
+		
 	}
 	
 	function removeRow(e){
 			$(e).parent().parent().remove();
     	}
 	
-	$('body').change(function getMsku(){
-		const ms = [];
-		console.log($('#hidden-input').val())	
-		alert()
-	})
+	/* function called when a change is done in any price or quantity field */
+	function cal(e){
+		/* finding row index */
+		let index = $(e).parent().parent().index();
+		alert(index);
+		
+	}
+	
+	
+	/* Setting description  */
+	function setDesc(e){
+		let index = $(e).parent().parent().index();
+		let x = document.getElementsByName("masterSku")[index].value;
+		
+		/* making an ajax call to retreive data from database by sending a request to controller */
+				$.ajax({
+			            type: 'POST',
+			            url: '/get-mSku-desc',
+			            data: {'title':x},
+			            success: function (data, textStatus ,jqXHR) {
+			                //console.log("Success block: "+data)
+			                document.getElementsByName("particulars")[index].value=data;
+			                $('textarea').val(data);
+			            },
+			            error: function (jqXHR, textStatus, errorThrown) {
+			            	console.log("Error block: "+errorThrown)
+			            }
+		        });
+	}
+	
+	/* function to print invoice */
+	function goPrint(){
+		window.print();
+	}
 	
 </script>
+
+
+<!-- For media print related tasks  -->
+<style>
+@media print {
+
+	/* hiding these elements at the time of print */
+	.btn, .no-print{
+		display: none;
+	}
+	
+	/* Removing border */
+	.form-control, .form-select, .input-group-text {
+		border: 0px;
+	}
+	
+	.input-group-text{
+		border: 0px;
+		background: none;
+	}
+}
+
+	.input-group-text{
+		width: 95px;
+	}
+
+</style>
 </html>

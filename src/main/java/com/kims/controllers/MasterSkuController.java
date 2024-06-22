@@ -171,7 +171,5 @@ public class MasterSkuController {
 		return "summary-master-sku";
 		}
 	}
-	
-	
 
 }

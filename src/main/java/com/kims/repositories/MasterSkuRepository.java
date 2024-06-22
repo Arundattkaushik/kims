@@ -15,5 +15,8 @@ public interface MasterSkuRepository extends JpaRepository<MasterSku, Integer> {
 	
 	@Query("SELECT m FROM MasterSku m WHERE m.id=:x")
 	public MasterSku getMasterSkuById(@Param("x") int masterId);
+	
+	@Query("SELECT masterSkuDescription m FROM MasterSku m WHERE m.masterSkuTitle=:title")
+	public String getDescriptionFromSkuTitle(@Param("title") String masteTitle);
 
 }

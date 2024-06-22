@@ -29,4 +29,9 @@ public class MasterSkuServices {
 	public void deleteMasterSkuById(int master_id) {
 		masterSkuRepository.deleteById(master_id);
 	}
+	
+	public String getMasterDescriptionByMasterTitle(String masterTitle) {
+		return masterSkuRepository.getDescriptionFromSkuTitle(masterTitle);
+	}
+	
 }
