@@ -169,28 +169,28 @@
 					    <div class="col-4">
 					      
 							<div class="input-group mb-3">
-								  <span class="input-group-text" id="basic-addon1">Total</span>
-								  <input type="number" class="form-control" readonly="readonly" name="total">
+								  <span class="input-group-text">Total</span>
+								  <input type="number" class="form-control" readonly="readonly" name="fTotal" id="fTotal">
 							 </div>
 							 
 							 <div class="input-group mb-3">
-								  <span class="input-group-text" id="basic-addon1">CGST</span>
-								  <input type="number" class="form-control" name="cgst">
+								  <span class="input-group-text">CGST %</span>
+								  <input type="number" class="form-control" id="fcgst" name="fcgst" onchange="calGST()">
 							 </div>
 							 
 							 <div class="input-group mb-3">
-								  <span class="input-group-text" id="basic-addon1">SGST</span>
-								  <input type="number" class="form-control" name="sgst">
+								  <span class="input-group-text" >SGST %</span>
+								  <input type="number" class="form-control" id="fsgst" name="fsgst" onchange="calGST()">
 							 </div>
 							 
 							 <div class="input-group mb-3">
-								  <span class="input-group-text" id="basic-addon1">IGST</span>
-								  <input type="number" class="form-control" name="igst">
+								  <span class="input-group-text" >IGST %</span>
+								  <input type="number" class="form-control" id="figst" name="figst" onchange="calGST()">
 							 </div>
 							 
 							 <div class="input-group mb-3">
-								  <span class="input-group-text" id="basic-addon1">G.Total</span>
-								  <input type="number" class="form-control" readonly="readonly" name="gTotal">
+								  <span class="input-group-text" >G.Total</span>
+								  <input type="number" class="form-control" id="fgTotal" readonly="readonly" name="fgTotal">
 							 </div>
 
 					    </div>
@@ -200,7 +200,7 @@
 					
 					<!-- Checkout button -->
 					<div class="text-center">
-						<button type="button" class="btn btn-primary me-3" onclick="goPrint()" style="display: none">Print</button>
+						<button type="button" class="btn btn-primary me-3" onclick="goPrint()" >Print</button>
 						<button type="button" class="btn btn-primary">Checkout</button>
 					</div>				    
 				   
@@ -225,17 +225,98 @@
 		
 	}
 	
+	
+	
+	
+	
 	function removeRow(e){
+			/* finding row index before removing it */
+			subtractDeletedAmount(e);
+			/* Recalculating GST if row is deleted */
+			calGST();
+			
 			$(e).parent().parent().remove();
     	}
 	
-	/* function called when a change is done in any price or quantity field */
+	
+	
+	
+	
+	
+	/* function to recalculate Total Amount if a raw is deleted */
+	function subtractDeletedAmount(e){
+		let index = $(e).parent().parent().index();
+		let amt = document.getElementsByName("amount")[index].value;
+		let fTotal = document.getElementById("fTotal").value;
+		let newValue = fTotal-amt;
+		document.getElementById("fTotal").value = newValue;
+	}
+	
+	
+	
+	
+	
+	/* Checking we can create invoice for entered SKU quantity  */
+	function checkMasterSkuQuantity(e){
+		let index = $(e).parent().parent().index();
+		let qty = parseInt(document.getElementsByName("qty")[index].value)
+	}
+	
+	
+	
+	
+	/* function called when any change is done in any price or quantity field */
 	function cal(e){
+		
 		/* finding row index */
 		let index = $(e).parent().parent().index();
-		alert(index);
+		let amt = parseInt(document.getElementsByName("qty")[index].value)*parseInt(document.getElementsByName("price")[index].value);
+		document.getElementsByName("amount")[index].value = amt;
 		
+		/* Checking whether enterd quantity is available  */
+		checkMasterSkuQuantity(e);
+		/* Setting total  */
+		setTotal();
+		/* calculatin CGST on every change  */
+		calGST();
 	}
+	
+	
+	
+	
+	/* Get Total */
+	function setTotal(){
+		let sum=0;
+		let amounts = document.getElementsByName("amount");
+		for(let i=0; i<amounts.length; i++){
+			sum = sum + +(amounts[i].value);
+		}
+		document.getElementById("fTotal").value=sum;
+	}
+	
+	
+	
+	
+	/* Calculating CGST */
+	function calGST(){
+		
+		let fTotal = document.getElementById("fTotal").value;
+		
+		let fcgst =0;
+		let fsgst =0;
+		let figst =0;
+		fcgst= document.getElementById("fcgst").value;
+		fsgst= document.getElementById("fsgst").value;
+		figst= document.getElementById("figst").value;
+		let newCgst = (fcgst*fTotal)/100;
+		let newfSgst = (fsgst*fTotal)/100;
+		let newfIgst = (figst*fTotal)/100;
+		
+		document.getElementById("fgTotal").value = (+(fTotal)+ +(newCgst)+ +(newfSgst) + +(newfIgst));
+	}
+	
+	
+	
 	
 	
 	/* Setting description  */
@@ -258,6 +339,9 @@
 			            }
 		        });
 	}
+	
+	
+	
 	
 	/* function to print invoice */
 	function goPrint(){
