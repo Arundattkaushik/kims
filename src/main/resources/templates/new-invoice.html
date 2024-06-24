@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en-EN">
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
@@ -26,7 +26,7 @@
 				    <!-- Row 1  -->
 				    <div class="row">
 				    
-				     <!-- Column 1  -->
+				     <!-- Column 1 Billed To -->
 					    <div class="col-6">
 					    	 <div class="input-group mb-3">
 								  <h6>DETAILS OF RECEIVERS (BILL TO)</h6>								
@@ -60,7 +60,9 @@
 							 
 					    </div>
 					    
-					      <!-- Column 2  -->
+					    
+					    
+					      <!-- Column 2 Shipped To -->
 					      <div class="col-6">
 					      
 					      	 <div class="input-group mb-3">
@@ -91,8 +93,8 @@
 							 <div class="input-group mb-3">
 								  <span class="input-group-text" id="basic-addon1">GSTIN No.</span>
 								  <input type="text" class="form-control" placeholder="GSTIN Number..." name="gstnNo">
-							 </div>
-					      
+							 </div>					  
+					      	
 					      </div>
 					    
 					    
@@ -181,21 +183,30 @@
 							 <div class="input-group mb-3">
 								  <span class="input-group-text">CGST %</span>
 								  <input type="number" class="form-control" id="fcgst" name="fcgst" onchange="calGST()">
+								  
+								  <span class="input-group-text" style="width: 50px" >Rs</span>
+								  <input type="number" class="form-control bg-light" id="fcgstAmt" name="fcgstAmt" readonly="readonly">
 							 </div>
 							 
 							 <div class="input-group mb-3">
 								  <span class="input-group-text" >SGST %</span>
 								  <input type="number" class="form-control" id="fsgst" name="fsgst" onchange="calGST()">
+								  
+								  <span class="input-group-text" style="width: 50px" >Rs</span>
+								  <input type="number" class="form-control bg-light" id="fsgstAmt" name="fsgstAmt" readonly="readonly">
 							 </div>
 							 
 							 <div class="input-group mb-3">
 								  <span class="input-group-text" >IGST %</span>
 								  <input type="number" class="form-control" id="figst" name="figst" onchange="calGST()">
+								  
+								  <span class="input-group-text" style="width: 50px" >Rs</span>
+								  <input type="number" class="form-control bg-light" id="figstAmt" name="figstAmt" readonly="readonly">
 							 </div>
 							 
 							  <div class="input-group mb-3">
 								  <span class="input-group-text" >Courier Ch.</span>
-								  <input type="number" class="form-control" id="courierCharges" name="courierCharges" onchange="courierCharges()">
+								  <input type="number" class="form-control" id="courierCharges" name="courierCharges" onchange="calGST()">
 							 </div>
 							 
 							 <div class="input-group mb-3">

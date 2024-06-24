@@ -9,16 +9,16 @@
 </head>
 <body class="bg">
 
-<div class="text-center mt-5 pt-5">
-<h1 class="main-head">Login</h1>
-</div>
-
-<div class="container mt-2 pt-4">
+<div class="container mt-2 pt-4 mt-5">
 	<div class="row">
-		<div class="col-md-4 offset-md-4 card bg-card" style="border-radius: 10px;">
+		<div class="col-md-4 offset-md-4 card bg-card mt-5" style="border-radius: 10px;">
 		
 			<form th:action="@{/login}" method="post" class="p-4">
 			
+					<div class="text-center row">
+					<h1 class="main-head text-warning">Login</h1>
+					</div>
+				
 				  <div class="mb-3">
 				    <label for="email" class="form-label">Email address</label>
 				    <input 
@@ -26,7 +26,7 @@
 				    class="form-control" 
 				    id="email"
 				    name="email" 
-				    placeholder="Email..." >
+				    placeholder="Email" >
 				    
 				    
 				  </div>
@@ -39,7 +39,7 @@
 				    class="form-control" 
 				    id="password" 
 				    name="password"
-				    placeholder="Password..." >
+				    placeholder="**********" >
 				    
 				  </div>
 				
@@ -48,7 +48,7 @@
 				  </div>
 			</form>		
 			
-			<div style="display: flex;" class="ms-3">
+			<div style="display: flex;" class="ms-5">
 				<p><a class="link-opacity-75" href="/forgot-password" style="margin-left: 3px; text-decoration: none; color: black;">Reset Password</a></p>
 				<p><a class="link-opacity-75" href="/sign-up" style="margin-left: 130px; text-decoration: none; color: black;">Register</a></p>
 			</div>	

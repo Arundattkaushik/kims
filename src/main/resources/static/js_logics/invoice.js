@@ -16,8 +16,6 @@ $(document).ready(()=>{
 	
 	
 	
-	
-	
 	function removeRow(e){
 			/* finding row index before removing it */
 			subtractDeletedAmount(e);
@@ -81,7 +79,7 @@ $(document).ready(()=>{
 		
 	}
 	
-	function submitButtonStatus(e){
+	function submitButtonStatus(){
 		let col = document.getElementsByName("qty");
 		let count= 0;
 		for(let x=0; x<col.length; x++){
@@ -96,7 +94,6 @@ $(document).ready(()=>{
 			$('.btn-status').prop('disabled', false);
 		}
 	}
-	
 	
 	
 	
@@ -143,20 +140,26 @@ $(document).ready(()=>{
 		fcgst= document.getElementById("fcgst").value;
 		fsgst= document.getElementById("fsgst").value;
 		figst= document.getElementById("figst").value;
+	
+		
+		/*getting courier charges*/
+		let courCharge= 0; 
+		courCharge = document.getElementById("courierCharges").value;
+		
 		let newCgst = (fcgst*fTotal)/100;
 		let newfSgst = (fsgst*fTotal)/100;
 		let newfIgst = (figst*fTotal)/100;
 		
-		document.getElementById("fgTotal").value = (+(fTotal)+ +(newCgst)+ +(newfSgst) + +(newfIgst));
+		
+		/*Setting GST values in their respective fields*/
+		document.getElementById("fcgstAmt").value = newCgst;
+		document.getElementById("fsgstAmt").value = newfSgst;
+		document.getElementById("figstAmt").value = newfIgst;
+		
+		document.getElementById("fgTotal").value = (+(fTotal)+ +(newCgst)+ +(newfSgst) + +(newfIgst) + +(courCharge));
+		
 	}
-	
-	
-	/*Getting and adding courier charges to Grand Total*/
-	function courierCharges(){
-		//let x = document.getElementById("courierCharges").value;
-		console.log('hello');
-	}
-	
+
 	
 	
 	/* Setting description  */
@@ -182,8 +185,6 @@ $(document).ready(()=>{
 		/* Calling this function here to get the latest product select from the sku list */
 		getMasterSkuQuantity(e);
 	}
-	
-    function 
 	
 	
 	
