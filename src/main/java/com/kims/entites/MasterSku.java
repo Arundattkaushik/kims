@@ -14,7 +14,6 @@ public class MasterSku {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private int masterSkuQty;
 	private String masterSkuTitle;
 	private String masterSkuDescription;
 	
@@ -22,8 +21,8 @@ public class MasterSku {
 	private String[] rawSku;
 	
 	@ElementCollection
-	private String[] rawskuquantity;
-	private String stockValue;
+	private int[] rawskuquantity;
+	private int masterSkuPrice;
 	
 	public int getId() {
 		return id;
@@ -31,17 +30,12 @@ public class MasterSku {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getMasterSkuQty() {
-		return masterSkuQty;
-	}
-	public void setMasterSkuQty(int masterSkuQty) {
-		this.masterSkuQty = masterSkuQty;
-	}
+	
 	public String getMasterSkuTitle() {
 		return masterSkuTitle;
 	}
 	public void setMasterSkuTitle(String masterSkuTitle) {
-		this.masterSkuTitle = masterSkuTitle.trim();
+		this.masterSkuTitle = masterSkuTitle.trim().toLowerCase();
 	}
 	public String getMasterSkuDescription() {
 		return masterSkuDescription;
@@ -55,23 +49,23 @@ public class MasterSku {
 	public void setRawSku(String[] rawSku) {
 		this.rawSku = rawSku;
 	}
-	public String[] getRawskuquantity() {
+	public int[] getRawskuquantity() {
 		return rawskuquantity;
 	}
-	public void setRawskuquantity(String[] rawskuquantity) {
+	public void setRawskuquantity(int[] rawskuquantity) {
 		this.rawskuquantity = rawskuquantity;
 	}
-	public String getStockValue() {
-		return stockValue;
+	public int getMasterSkuPrice() {
+		return masterSkuPrice;
 	}
-	public void setStockValue(String stockValue) {
-		this.stockValue = stockValue;
+	public void setMasterSkuPrice(int masterSkuPrice) {
+		this.masterSkuPrice = masterSkuPrice;
 	}
 	@Override
 	public String toString() {
-		return "MasterSku [id=" + id + ", masterSkuQty=" + masterSkuQty + ", masterSkuTitle=" + masterSkuTitle
-				+ ", masterSkuDescription=" + masterSkuDescription + ", rawSku=" + Arrays.toString(rawSku)
-				+ ", rawskuquantity=" + Arrays.toString(rawskuquantity) + ", stockValue=" + stockValue + "]";
+		return "MasterSku [id=" + id + ", masterSkuTitle=" + masterSkuTitle + ", masterSkuDescription="
+				+ masterSkuDescription + ", rawSku=" + Arrays.toString(rawSku) + ", rawskuquantity="
+				+ Arrays.toString(rawskuquantity) + ", masterSkuPrice=" + masterSkuPrice + "]";
 	}
-	
+		
 }

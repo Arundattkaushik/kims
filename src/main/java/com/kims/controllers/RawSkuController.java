@@ -32,15 +32,16 @@ public class RawSkuController {
 	}
 	
 	
-	@PostMapping("/process-raw-sku")
-	public String processRawSku(@ModelAttribute("rawsku") RawSku rawSku, HttpSession session) {
+	@PostMapping("/create-raw-sku")
+	public String createNewRawSku(@ModelAttribute("rawsku") RawSku rawSku, HttpSession session) {
 		User user = (User)session.getAttribute("user");
 		if (user==null) {
 			return "home";
 		}
 		else {
+			
 			rawSkuServices.createRawSku(rawSku);
-			session.setAttribute("rawSkuList", rawSkuServices.getRawSkuList());
+			session.setAttribute("rSkuList", rawSkuServices.getRawSkuList());
 			return "redirect:/raw-sku-list";
 		}
 	}
@@ -54,8 +55,7 @@ public class RawSkuController {
 		}
 		else {
 			rawSkuServices.deleteRawSkuById(rawSkuId);
-			List<RawSku> rawSkuList = rawSkuServices.getRawSkuList();
-			session.setAttribute("rawSkuList", rawSkuList);
+			session.setAttribute("rSkuList", rawSkuServices.getRawSkuList());
 			return "redirect:/raw-sku-list";
 		}
 	}

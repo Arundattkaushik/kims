@@ -5,9 +5,11 @@
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 <link rel="stylesheet" th:href="@{css/bootstrap.min.css.map}">
 <link rel="stylesheet" th:href="@{/css/home.css}">
+<link rel="stylesheet" th:href="@{/css_logics/invoice.css}">
 <script th:src="@{js/jquery.min.js}"></script>
+<script th:src="@{js_logics/invoice.js}"></script>
 
-<title>New Sale Order</title>
+<title>INVOICE</title>
 </head>
 <body class="bg">
 	<nav th:insert="~{fragments/navbar.html::nav}"></nav>
@@ -102,7 +104,8 @@
 					 <div class="row">
 					 	<div class="col-6">
 					 	
-					 		<div class="input-group mb-3">
+					 		<!-- value of this field to be generated dynamically -->
+					 		<div class="input-group mb-3 d-none">
 								  <span class="input-group-text" id="basic-addon1">Inv. No.</span>
 								  <input type="number" class="form-control" placeholder="Invoice No." name="invNo">
 						  </div>
@@ -129,6 +132,7 @@
 						<table class="table table-bordered" id="order-table">
 							  <thead class="table-dark">
 							    <tr>							     
+									<th class="text-center">HSN</th>
 									<th class="text-center">SKU</th>
 									<th class="text-center">Particulars</th>
 									<th class="text-center">Quantity</th>
@@ -142,6 +146,7 @@
 							  </thead>
 							  <tbody id="tbody">
 							    <tr id="trow">
+							      <td><input class="form-control particulars" type="text" name="hsn" id="hsn"></td>
 							      <td>
 							      		<select class="form-select masterSku" name="masterSku" id="masterSku" onchange="setDesc(this)">
 											  <option selected>Select a product</option>
@@ -188,6 +193,11 @@
 								  <input type="number" class="form-control" id="figst" name="figst" onchange="calGST()">
 							 </div>
 							 
+							  <div class="input-group mb-3">
+								  <span class="input-group-text" >Courier Ch.</span>
+								  <input type="number" class="form-control" id="courierCharges" name="courierCharges" onchange="courierCharges()">
+							 </div>
+							 
 							 <div class="input-group mb-3">
 								  <span class="input-group-text" >G.Total</span>
 								  <input type="number" class="form-control" id="fgTotal" readonly="readonly" name="fgTotal">
@@ -201,7 +211,7 @@
 					<!-- Checkout button -->
 					<div class="text-center">
 						<button type="button" class="btn btn-primary me-3" onclick="goPrint()" >Print</button>
-						<button type="button" class="btn btn-primary">Checkout</button>
+						<button type="button" class="btn btn-primary btn-status">Checkout</button>
 					</div>				    
 				   
 				 </div>
@@ -212,168 +222,4 @@
 	</div>
 
 </body>
-<script>
-	
-	function addRow(){
-		
-		/* cloning the whole row */
-		var v = $('#trow').clone().appendTo('#tbody');
-		
-		
-		/* clearing newly created input and textareas */
-		$(v).find("input").val('');
-		
-	}
-	
-	
-	
-	
-	
-	function removeRow(e){
-			/* finding row index before removing it */
-			subtractDeletedAmount(e);
-			/* Recalculating GST if row is deleted */
-			calGST();
-			
-			$(e).parent().parent().remove();
-    	}
-	
-	
-	
-	
-	
-	
-	/* function to recalculate Total Amount if a raw is deleted */
-	function subtractDeletedAmount(e){
-		let index = $(e).parent().parent().index();
-		let amt = document.getElementsByName("amount")[index].value;
-		let fTotal = document.getElementById("fTotal").value;
-		let newValue = fTotal-amt;
-		document.getElementById("fTotal").value = newValue;
-	}
-	
-	
-	
-	
-	
-	/* Checking we can create invoice for entered SKU quantity  */
-	function checkMasterSkuQuantity(e){
-		let index = $(e).parent().parent().index();
-		let qty = parseInt(document.getElementsByName("qty")[index].value)
-	}
-	
-	
-	
-	
-	/* function called when any change is done in any price or quantity field */
-	function cal(e){
-		
-		/* finding row index */
-		let index = $(e).parent().parent().index();
-		let amt = parseInt(document.getElementsByName("qty")[index].value)*parseInt(document.getElementsByName("price")[index].value);
-		document.getElementsByName("amount")[index].value = amt;
-		
-		/* Checking whether enterd quantity is available  */
-		checkMasterSkuQuantity(e);
-		/* Setting total  */
-		setTotal();
-		/* calculatin CGST on every change  */
-		calGST();
-	}
-	
-	
-	
-	
-	/* Get Total */
-	function setTotal(){
-		let sum=0;
-		let amounts = document.getElementsByName("amount");
-		for(let i=0; i<amounts.length; i++){
-			sum = sum + +(amounts[i].value);
-		}
-		document.getElementById("fTotal").value=sum;
-	}
-	
-	
-	
-	
-	/* Calculating CGST */
-	function calGST(){
-		
-		let fTotal = document.getElementById("fTotal").value;
-		
-		let fcgst =0;
-		let fsgst =0;
-		let figst =0;
-		fcgst= document.getElementById("fcgst").value;
-		fsgst= document.getElementById("fsgst").value;
-		figst= document.getElementById("figst").value;
-		let newCgst = (fcgst*fTotal)/100;
-		let newfSgst = (fsgst*fTotal)/100;
-		let newfIgst = (figst*fTotal)/100;
-		
-		document.getElementById("fgTotal").value = (+(fTotal)+ +(newCgst)+ +(newfSgst) + +(newfIgst));
-	}
-	
-	
-	
-	
-	
-	/* Setting description  */
-	function setDesc(e){
-		let index = $(e).parent().parent().index();
-		let x = document.getElementsByName("masterSku")[index].value;
-		
-		/* making an ajax call to retreive data from database by sending a request to controller */
-				$.ajax({
-			            type: 'POST',
-			            url: '/get-mSku-desc',
-			            data: {'title':x},
-			            success: function (data, textStatus ,jqXHR) {
-			                //console.log("Success block: "+data)
-			                document.getElementsByName("particulars")[index].value=data;
-			                $('textarea').val(data);
-			            },
-			            error: function (jqXHR, textStatus, errorThrown) {
-			            	console.log("Error block: "+errorThrown)
-			            }
-		        });
-	}
-	
-	
-	
-	
-	/* function to print invoice */
-	function goPrint(){
-		window.print();
-	}
-	
-</script>
-
-
-<!-- For media print related tasks  -->
-<style>
-@media print {
-
-	/* hiding these elements at the time of print */
-	.btn, .no-print{
-		display: none;
-	}
-	
-	/* Removing border */
-	.form-control, .form-select, .input-group-text {
-		border: 0px;
-	}
-	
-	.input-group-text{
-		border: 0px;
-		background: none;
-	}
-}
-
-	.input-group-text{
-		width: 95px;
-	}
-
-</style>
 </html>

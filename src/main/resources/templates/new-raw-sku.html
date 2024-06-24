@@ -5,39 +5,49 @@
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 <link rel="stylesheet" th:href="@{css/bootstrap.min.css.map}">
 <link rel="stylesheet" th:href="@{/css/home.css}">
+<script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+<link rel="stylesheet" th:href="@{js/datatables.min.css}">
+<script type="text/javascript" th:src="@{js/datatables.min.js}"></script>
 <title>NEW :: RAW SKU</title>
+
+
 </head>
 <body class="bg">
 <nav th:insert="~{fragments/navbar.html::nav}"></nav>
 
 <!--Title area  -->
-<div class="container text-center  mt-1 pt-2">
-	<h1>New RAW SKU</h1>
-</div>
 
-<div class="container mt-4">
+<div class="container mt-5">
 
 <div class="row">
-		<div class="col-md-6 offset-md-3 bg-card p-2" style="border-radius: 10px;">
+		<div class="col-md-8 offset-md-2 bg-card p-4" style="border-radius: 10px;">
 		
-			<form action="/process-raw-sku" method="post">
-				
-					<div style="display: flex; flex-direction: row;" class="row">
-						<div class="col mb-3" >
-							 <label class="form-label">Title*</label>
-						     <input type="text" style="width: 280px;" class="form-control" id="name" name="name" placeholder="name....." >
-						</div>
-						
-						<div class="col mb-3">
-							 <label class="form-label">Quantity*</label>
-						     <input type="number" style="width: 100px;" class="form-control" id="quantity" name="quantity" placeholder="eg 100.">
-						</div>
-						
-						<div class="col mb-3">
-							 <label class="form-label">Price/Unit*</label>
-						     <input type="number" style="width: 120px;" class="form-control" id="price_per_unit" name="price_per_unit" placeholder="eg 100.">
-						</div>
+			<form action="/create-raw-sku" method="post">
+			
+					<div class="row text-center p-3">
+						<h2 class="color yellow">NEW RAW SKU</h2>
 					</div>
+				
+					<div class="row">
+						
+							<div class="input-group mb-3">
+								  <input type="text" class="form-control" id="name" name="name" placeholder="Title Item SKU.....">
+								  <span class="input-group-text" style="width: 100px; font-weight: bold;">Quantity</span>
+								  <input type="text" class="form-control" id="quantity" name="quantity" placeholder="eg 100.">
+								  <span class="input-group-text" style="width: 100px; font-weight: bold;">HSN</span>
+								  <input type="text" class="form-control" id="hsn" name="hsn" placeholder="HSN">
+							</div>	
+							
+							<div class="input-group mb-3">
+								  <select class="form-control" id="party_list" name="party_list">
+									  <option selected>Select a party from the list</option>									  
+								  </select>
+								  <span class="input-group-text" style="width: 100px; font-weight: bold;">Price</span>
+								  <input type="text" class="form-control" id="price_per_unit" name="price_per_unit" placeholder="eg 100.">
+							</div>							
+					</div>
+					
+					
 						<div class="form-floating">
 						  <textarea class="form-control" name="description" id="description" placeholder="Leave a comment here" style="height: 200px"></textarea>
 						  <label>Description</label>
@@ -45,7 +55,7 @@
 	
 	
 						<div style="text-align: center;" class="mt-4">
-					  		<button type="submit" class="btn btn-primary" >Add</button>				  
+					  		<button type="submit" class="btn btn-primary" >Create Raw Sku</button>				  
 					  	</div>
 					  
 				</form>	
@@ -54,4 +64,31 @@
 	</div>
 
 </body>
+
+<script>
+	$(document).ready(()=>{
+		$.ajax({
+            type: 'GET',
+            url: '/party-titles-list',
+            
+            success: function (data, textStatus ,jqXHR) {
+                /* console.log("Success block: "+data); */
+                
+                $.each(data, function (i, item) {
+                	$("#party_list").append($('<option>', { 
+                        value: item,
+                        text : item 
+                    }));
+                });
+                
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+            	console.log("Error block: "+errorThrown)
+            }
+    });
+
+		
+	})
+
+</script>
 </html>

@@ -5,14 +5,17 @@
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 <link rel="stylesheet" th:href="@{css/bootstrap.min.css.map}">
 <link rel="stylesheet" th:href="@{/css/home.css}">
-<title>Master :: SKU</title>
+<script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+<link rel="stylesheet" th:href="@{js/datatables.min.css}">
+<script type="text/javascript" th:src="@{js/datatables.min.js}"></script>
+<title>MASTER  SKU</title>
 </head>
 <body class="bg">
 <nav th:insert="~{fragments/navbar.html::nav}"></nav>
 
 <!-- page heading area -->
 <div>
-<h2 style="text-align: center; padding-top: 20px; font-weight: bolder;" class="blink_me">MASTER SKU LIST</h2>
+<h2 style="text-align: center; padding-top: 20px; font-weight: bolder;" class="blink_me">MASTER SKU TABLE</h2>
 </div>
 
 <!-- add button area -->
@@ -23,25 +26,22 @@
 <!-- table area -->
 <div class="mt-2 p-0 container">
 			
-			<table class="table table-primary">
-				  <thead>
+			<table id="data-table" class="table">
+				  <thead class="table-dark">
 				    <tr>
 				      <th scope="col">Id</th>
 				      <th scope="col" style="width: 340px; text-align: center;">SKU Item</th>
-				      <th scope="col" style="text-align: center;">Description</th>				      
-				      <th scope="col" style="width: 300px; text-align: center;">Available Stock</th>
-				      <th scope="col" style="text-align: center;">Stock Value</th>
+				      <th scope="col" style="text-align: left;">Description</th>				     
+				      <th scope="col" style="text-align: center;">Price</th>
 				      <th scope="col" style="text-align: center;">Action</th>
 				    </tr>
 				  </thead>
 				  <tbody>
 				    <tr th:each="mSku : ${session.mSkuList}">
 				      <th scope="row" th:text="${mSku.id}"/>
-				      <td style="text-align: center;"><a th:href="@{/summary-master-sku?mSku_id=}+${mSku.id}" th:text="${mSku.masterSkuTitle}" style="text-decoration: none;"></a></td>
-				      
-				      <td th:text="${mSku.masterSkuDescription}" style="text-align: center;"/>
-				      <td th:text="${mSku.masterSkuQty}" style="text-align: center;"/>	
-				      <td th:text="${mSku.stockValue}" style="text-align: center;"/>	
+				      <td style="text-align: center;"><a th:href="@{/summary-master-sku?mSku_id=}+${mSku.id}" th:text="${mSku.masterSkuTitle}" style="text-decoration: none;  color: black;"></a></td>				      
+				      <td th:text="${mSku.masterSkuDescription}" style="text-align: left;"/>
+				      <td th:text="${mSku.masterSkuPrice}" style="text-align: center;"/>	
 				      
 				      <!-- Action Column  -->			
 				      <td style="text-align: center;">
@@ -58,4 +58,10 @@
 
 
 </body>
+<script>
+$(document).ready(()=>{
+	$('#data-table').dataTable();
+})
+
+</script>
 </html>

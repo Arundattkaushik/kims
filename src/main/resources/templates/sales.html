@@ -5,6 +5,10 @@
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 <link rel="stylesheet" th:href="@{css/bootstrap.min.css.map}">
 <link rel="stylesheet" th:href="@{/css/home.css}">
+<script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+<link rel="stylesheet" th:href="@{js/datatables.min.css}">
+<script type="text/javascript" th:src="@{js/datatables.min.js}"></script>
+<script type="text/javascript" th:src="@{js_logics/sales.js}"></script>
 <title>SALES</title>
 </head>
 <body class="bg">
@@ -17,25 +21,26 @@
 
 <!-- add button area -->
 <div style="display: flex; flex-direction: row-reverse; margin-right: 110px">
-<a type="button" class="btn btn-primary" href="/new-sales-order" ><img class="icon-s me-1 pb-0" alt="" th:src="@{img/plus.png}">New Sale Order</a>
+<a type="button" class="btn btn-primary" href="/new-invoice" ><img class="icon-s me-1 pb-0" alt="" th:src="@{img/plus.png}">New Invoice</a>
 </div>
 
 
 <!-- table area -->
 <div class="mt-2 p-0 container">
 			
-			<table class="table table-primary">
-				  <thead>
+			<table class="table" id="table-data">
+				  <thead class="table-dark">
 				    <tr>
 				      <th scope="col">Invoice No.</th>
 				      <th scope="col" style="text-align: center;">Party</th>				      
+				      <th scope="col" style="text-align: center;">HSN</th>
 				      <th scope="col" style="text-align: center;">SKU</th>
 				      <th scope="col" style="text-align: center;">Quantity</th>
+				      <th scope="col" style="text-align: center;">Price</th>
 				      <th scope="col" style="text-align: center;">Sales Amount</th>
 				      <th scope="col" style="text-align: center;">CGST</th>
 				      <th scope="col" style="text-align: center;">SGST</th>
 				      <th scope="col" style="text-align: center;">IGST</th>
-				      <th scope="col" style="text-align: center;">HSN</th>
 				      <th scope="col" style="text-align: center;">Total Amount</th>
 				      <th scope="col" style="text-align: center;">Action</th>
 				    </tr>

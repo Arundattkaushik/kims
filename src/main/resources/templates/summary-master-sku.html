@@ -12,83 +12,79 @@
 	<nav th:insert="~{fragments/navbar.html::nav}"></nav>
 
 	<div class="container text-center pt-3">
-		<h1>Available Raw SKU Status</h1>
+		<h1>Master Details</h1>
 	</div>
 
 	<div class="container mt-3">
 
 		<div class="row">
-			<div class="col-md-4 offset-md-4 bg-card p-4"
+			<div class="col-md-6 offset-md-3 bg-card p-4"
 				style="border-radius: 10px;">
-
-				<form th:action="@{/process-new-master-sku}" method="post"
-					id="order_form">
-
-
+				
 					<!-- Master SKU Title -->
-					<div class="d-flex flex-row mb-3">
+					<div class="row">
 
-						<div>
-							<div>
+						
+							<div class="col-6">
 								<label class="mb-2 color">SKU Title</label> 
 								
 								<input
-									class="form-control" 
+									class="form-control mb-2" 
 									readonly="readonly"
 									th:value="${mSummary.masterSkuTitle}" />
 							</div>
 
-							<div class="mt-3">
-								<label class="mb-2 color">SKU Quantity</label> 
+							<div class="col-6">
+								<label class="mb-2 color">SKU Price</label> 
 								
 								<input
-									class="form-control" 
+									class="form-control mb-2" 
 									readonly="readonly"
 									id="skuQuantity"
-									th:value="${mSummary.masterSkuQty}" />
+									th:value="${mSummary.masterSkuPrice}" />
 							</div>
 
-						</div>
+					</div>	
 
-						<div class="ms-2">
-							<label class="mb-2 color" style="margin-left: 25px;">Description</label>
+						<div >
+							<label class="mb-2 color">Description</label>
 							
-							<textarea type="text" 
+							<textarea 
 								readonly="readonly" 
-								class="form-control"
+								class="form-control mb-2"
 								th:text="${mSummary.masterSkuDescription}"
 								style= "height: 123px;"
 								placeholder="PO description goes here.......">
 							</textarea>
 						</div>
 
-					</div>
+					
 
 
 					<!-- Product Row -->
-					<div class="d-flex flex-row mb-3">
+					<div class="row">
 
-						<div class="mb-2">
-							<label class="mb-2 color">RAW SKU 1</label> 
+						<div class="mb-2 col-6">
+							<label class="mb-2 color">RAW SKU</label> 
 							
 							<input
-								readonly="readonly" class="form-control"
+								readonly="readonly" class="form-control mb-2"
 								th:each="r:${mSummary.rawSku}" th:if="${r} != ''"
 								th:value="${r}">
 						</div>
 
-						<div class="ms-2 mb-2">
-							<label class="mb-2 color">Quantity/SKU</label> 
+						<div class="mb-2 col-6">
+							<label class="mb-2 color">Quantity</label> 
 							
 							<input
 								readonly="readonly" type="number"
-								class="form-control qty_per_sku"
+								class="form-control qty_per_sku mb-2"
 								th:each="rq:${mSummary.rawskuquantity}"
 								th:if="${rq} != ''" th:value="${rq}">
 						</div>
 
 					</div>
-				</form>
+
 			</div>
 		</div>
 	</div>

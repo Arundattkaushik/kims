@@ -18,4 +18,5 @@ public interface RawSkuRepository extends JpaRepository<RawSku, Integer> {
 	
 	@Query("SELECT r FROM RawSku r WHERE r.id=:y")
 	public RawSku getSkuById(@Param("y") int id);
+	
 }

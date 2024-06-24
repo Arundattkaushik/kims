@@ -24,5 +24,9 @@ public class PartyServices {
 	public void deletePartyById(int partyId) {
 		partyRepository.deleteById(partyId);
 	}
+	
+	public List<String> getListOfPartyTitles(){
+		return partyRepository.getTitleListOfParties();
+	}
 
 }

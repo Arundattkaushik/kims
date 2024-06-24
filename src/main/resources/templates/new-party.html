@@ -22,14 +22,14 @@
 		
 		<!-- action="/process-new-party" -->
 		
-			<form action="/process-new-party" method="post" id="partyForm" >
+			<form action="/create-new-party" method="post" id="partyForm" >
 						
 						
 				<div>
 					<div class="row">
 						<div class="col mb-3" >
 							 <label class="form-label">Party Name</label>
-						     <input type="text" class="form-control" name="partyName">
+						     <input type="text" class="form-control" name="partyName" required="required">
 					
 						</div>	
 					
@@ -70,10 +70,4 @@
 </div>
 
 </body>
-
-<script>
-	$(document).ready(function(){
-		
-	})
-</script>
 </html>

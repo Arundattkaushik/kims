@@ -1,0 +1,22 @@
+@charset "UTF-8";
+@media print {
+
+	/* hiding these elements at the time of print */
+	.btn, .no-print{
+		display: none;
+	}
+	
+	/* Removing border */
+	.form-control, .form-select, .input-group-text {
+		border: 0px;
+	}
+	
+	.input-group-text{
+		border: 0px;
+		background: none;
+	}
+}
+
+	.input-group-text{
+		width: 95px;
+	}

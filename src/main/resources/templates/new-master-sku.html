@@ -6,6 +6,7 @@
 <link rel="stylesheet" th:href="@{css/bootstrap.min.css.map}">
 <link rel="stylesheet" th:href="@{/css/home.css}">
 <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js_logics/master_sku.js}"></script>
 <title>New Master SKU</title>
 </head>
 <body class="bg">
@@ -18,34 +19,33 @@
 <div class="container mt-2">
 
 <div class="row">
-		<div class="col-md-6 offset-md-3 bg-card p-2" style="border-radius: 10px;">
+		<div class="col-md-8 offset-md-2 bg-card p-3" style="border-radius: 10px;">
 		
-			<form th:action="@{/process-new-master-sku}" method="post" id="order_form">
+			<form th:action="@{/create-master-sku}" method="post" id="order_form">
 					
 					<div id="order_row">
 					   		
 					   		
 					   		<!-- Master SKU Title -->
-					   		<div class="d-flex flex-row mb-3">
-					   		
-					   							   	
-							   		
-							   			<div>
-								   			<label class="mb-2">SKU Title</label>
-									    	<input class="form-control" required="required" name="masterSkuTitle" id="masterSkuTitle" placeholder="Title....."/>
-										</div>
-										
-										<div class=" ms-2">
-								   			<label class="mb-2" >Units</label>
-									    	<input class="form-control" value="1" name="masterSkuQty" id="masterSkuQty" placeholder="5 or 10.......etc..."/>
-										</div>
-							   		
-									   							   		
+					   		<div class="row p-2">
+					   					<div class="col-6">
+					   					
+					   						<label class="mb-2">SKU Title</label>
+									    	<input class="form-control" required="required" name="masterSkuTitle" id="masterSkuTitle" placeholder="Title"/>
+												
+					   					</div>
+					   					
+					   					<div class="col-6">
+					   					
+					   						<label class="mb-2">Price</label>
+									    	<input type="number" class="form-control" required="required" name="masterSkuPrice" id="masterSkuPrice" placeholder="Price"/>
+												
+					   					</div>									   							   		
 					      	 </div>
 					      	 
-					      	 <div >	
+					      	 <div class="row p-3">	
 							   	<label class="mb-2 color" >Description</label>					   		 
-								<textarea type="text" class="form-control mb-2" name="masterSkuDescription" placeholder="PO description goes here......."></textarea>
+								<textarea class="form-control mb-2" style="height: 150px" name="masterSkuDescription" placeholder="Item description."></textarea>
 							 </div>
 					   		
 					   		
@@ -54,23 +54,23 @@
 							  <thead>
 							    <tr>							     
 									<th>Item SKU</th>
-									<th>Quantity/SKU</th>									
-									<th><button class="btn btn-warning" type="button"
-											onclick="addRow()">+</button></th>
+									<th>Quantity</th>
+									<th></th>																		
+									<th><button class="btn btn-warning" type="button" onclick="addRow()">+</button></th>
 							    </tr>
 							    
 							  </thead>
 							  <tbody id="tbody">
 							    <tr id="trow">
 							      <td>
-							      		<select class="form-select" name="rawSku[]" id="rawSku" >
+							      		<select class="form-select" name="rawSku" id="rawSku" >
 											  <option selected>Select a product</option>
-											  <option th:each="rawSku: ${session.rawSkuList}" th:value="${rawSku.name}" th:text="${rawSku.name}"/>
+											  <option th:each="rawSku: ${session.rSkuList}" th:value="${rawSku.name}" th:text="${rawSku.name}"/>
 										</select>
 							      </td>							      
-							      <td><input type="number" class="form-control" id="rawskuquantity" name="rawskuquantity[]" placeholder="eg. 5"></td>
-							      <th><button class="btn btn-warning" type="button"
-											onclick="removeRow(this)">-</button></th>							      
+							      <td><input type="number" class="form-control" id="rawskuquantity" name="rawskuquantity" placeholder="eg. 5"></td>							      
+							      <td></td>
+							      <td><button class="btn btn-warning" type="button"	onclick="removeRow(this)">-</button></td>							      
 							    </tr>
 							  </tbody>
 						</table>
@@ -80,31 +80,13 @@
 				    </div>	
 	
 					<div style="text-align: center;" class="mt-4">
-					  	<input type="submit" class="btn btn-primary" value="Process Order"/>				  
+					  	<input type="submit" class="btn btn-primary" value="Create Master"/>				  
 					</div>
 							  
 				</form>	
 			</div>			
 		</div>
 	</div>
-	
-	
-<!-- Adding JQuery -->
-<script>
-$(document).ready(function(){
-	$("label").css("color","yellow");	
-	$("th").css("color","yellow");	
-})
-
-function addRow(){
-		var v = $('#trow').clone().appendTo('#tbody');
-		$(v).find("input").val('');
-	}
-	
-function removeRow(e){
-			$(e).parent().parent().remove();
-    	}
-</script>
 
 </body>
 </html>

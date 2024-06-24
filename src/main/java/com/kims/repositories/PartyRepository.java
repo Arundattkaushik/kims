@@ -11,4 +11,7 @@ public interface PartyRepository extends JpaRepository<Party, Integer> {
 
 	@Query("SELECT p FROM Party p")
 	public List<Party> getAllParties();
+	
+	@Query("SELECT partyName p FROM Party p")
+	public List<String> getTitleListOfParties();
 }

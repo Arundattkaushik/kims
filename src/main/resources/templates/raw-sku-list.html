@@ -5,6 +5,11 @@
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 <link rel="stylesheet" th:href="@{css/bootstrap.min.css.map}">
 <link rel="stylesheet" th:href="@{/css/home.css}">
+<script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
+<link rel="stylesheet" th:href="@{js/datatables.min.css}">
+<script type="text/javascript" th:src="@{js/datatables.min.js}"></script>
+<script type="text/javascript" th:src="@{js_logics/raw_sku.js}"></script>
+
 <title>Raw SKU</title>
 </head>
 <body class="bg">
@@ -12,7 +17,7 @@
 
 <!-- page heading area -->
 <div>
-<h2 style="text-align: center; padding-top: 20px;">ITEM SKU LIST</h2>
+<h2 style="text-align: center; padding-top: 20px;">ITEM SKU TABLE</h2>
 </div>
 
 <!-- add button area -->
@@ -23,35 +28,44 @@
 <!-- table area -->
 <div class="mt-2 p-0 container">
 			
-			<table class="table table-primary">
-				  <thead>
+			<table class="table" id="data-table">
+				  <thead class="table-dark"> 
 				    <tr>
-				      <th scope="col">Id</th>
-				      <th scope="col">All Item SKU</th>
-				      <th scope="col">Price/Unit</th>
-				      <th scope="col">Available Stock</th>
-				      <th scope="col">Description</th>
-				      <th scope="col">Action</th>
+				      <th scope="col" class="text-center">ID</th>
+				      <th scope="col" class="text-center">ITEM SKU</th>
+				      <th scope="col" class="text-center">HSN</th>
+				      <th scope="col" class="text-center">Party</th>
+				      <th scope="col" class="text-center">PRICE/UNIT</th>
+				      <th scope="col" class="text-center">AVAILABLE IN STOCK</th>
+				      <th scope="col" class="text-center">DESCRIPTION</th>				      
+				      <th scope="col" style="text-align: right;">ACTION</th>				      
 				    </tr>
 				  </thead>
 				  <tbody>
-				    <tr th:each="rawsku : ${session.rawSkuList}">
-				      <th scope="row" th:text="${rawsku.id}"/>
-				      <td th:text="${rawsku.name}"/>
-				      <td th:text="${rawsku.price_per_unit}"/>
-				      <td th:text="${rawsku.quantity}"/>				      
-				      <td th:text="${rawsku.description}"/>
+				    <tr th:each="rSku : ${session.rSkuList}">
+				      <th scope="row" th:text="${rSku.id}" style="text-align: center;"/>
 				      <td>
+				      <a th:href="@{/#?rSku_id=}+${rSku.id}" th:text="${rSku.name}" style="text-decoration: none; color: black;"></a>
+				      </td>				      
+				      <td th:text="${rSku.hsn}" style="text-align: center;"/>
+				      <td th:text="${rSku.party_list}" style="text-align: center;"/>
+				      <td th:text="${rSku.price_per_unit}" style="text-align: center;"/>	
+				      <td th:text="${rSku.quantity}" style="text-align: center;"/>	
+				      <td th:text="${rSku.description}"/>	
 				      
-				      <!-- Pending for fix  -->
+				      <!-- Action Column  -->			
+				      <td style="text-align: right;">
 				      
-				      <a th:href="@{/delete_rawsku?rawsku_id=}+${rawsku.id}"><img alt="delete-icon" th:src="@{/img/delete.png}" class="icon-s"></a>
-					  <a href="#"><img alt="edit-icon" th:src="@{/img/edit.png}" class="icon-s"></a>      
+				      <!-- Pending for fix  -->				      
+				      <a th:href="@{/delete_rawsku?rawsku_id=}+${rSku.id}"><img alt="delete-btn" th:src="@{/img/delete.png}" class="icon-s"></a>
+					  <a th:href="@{#}"><img alt="edit-icon" th:src="@{/img/edit.png}" class="icon-s"></a>      
 				      </td>
 				    </tr>
 				  </tbody>
+				  
 				</table>
 
 		</div>
 </body>
+
 </html>

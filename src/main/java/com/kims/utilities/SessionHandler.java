@@ -21,12 +21,12 @@ public class SessionHandler {
 	public static void resetSession(HttpSession session) {
 		session.removeAttribute("user");
 		session.removeAttribute("partyList");
-		session.removeAttribute("rawSkuList");
+		session.removeAttribute("rSkuList");
 	}
 	
 	public void sessionLoader(HttpSession session) {
 		session.setAttribute("partyList", partyServices.getParties());
-		session.setAttribute("rawSkuList", rawSkuServices.getRawSkuList());
+		session.setAttribute("rSkuList", rawSkuServices.getRawSkuList());
 		session.setAttribute("mSkuList", mSkuServices.getAllMasterSkus());
 	}
 	

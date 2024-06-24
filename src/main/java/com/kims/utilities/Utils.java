@@ -35,8 +35,8 @@ public class Utils {
 				return newList;
 			}
 			
-			if(Integer.parseInt(orderedRawSkuQuantity[i])*masterSkuQty > Integer.parseInt(orderedRawSkus.get(i).getQuantity())) {
-				newList.add(Integer.parseInt(orderedRawSkuQuantity[i])*masterSkuQty - Integer.parseInt(orderedRawSkus.get(i).getQuantity()));
+			if(Integer.parseInt(orderedRawSkuQuantity[i])*masterSkuQty > orderedRawSkus.get(i).getQuantity()) {
+				newList.add(Integer.parseInt(orderedRawSkuQuantity[i])*masterSkuQty - orderedRawSkus.get(i).getQuantity());
 			}			
 		}
 		return newList;

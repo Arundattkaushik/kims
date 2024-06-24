@@ -49,23 +49,17 @@ public class PartyController {
 	}
 	
 	
-	@PostMapping("/process-new-party")
+	@PostMapping("/create-new-party")
 	public String processNewParty(@ModelAttribute("newParty") Party party, HttpSession session, Model model) {
 		User user = (User)session.getAttribute("user");
 		if (user==null) {
 			return "redirect:/home";
 		}
 		else {
-			Party p = partyServices.createParty(party);
-			if (p==null) {
-				return "new-party";
-			}
-			else {
-			List<Party> partyList = new ArrayList<Party>();
-			partyList.add(party);
-			session.setAttribute("partyList", partyList);
-			return "party-list";
-			}
+			partyServices.createParty(party);			
+			session.setAttribute("partyList", partyServices.getParties());
+			return "redirect:/party-list";
+			
 		}
 	}
 	

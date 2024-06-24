@@ -1,4 +1,4 @@
-package com.kims.controllers;
+package com.kims.api;
 
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 @RestController
-public class General {
+public class MasterSkuAPI {
 	@Autowired
 	MasterSkuServices mSkuServices;
 	
@@ -19,5 +19,6 @@ public class General {
 	public String getMasterSkuDescByTitle(HttpServletRequest request) {
 		return mSkuServices.getMasterDescriptionByMasterTitle(request.getParameter("title"));
 	}
+	
 	
 }
