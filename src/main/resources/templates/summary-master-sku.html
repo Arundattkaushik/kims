@@ -25,7 +25,7 @@
 					<div class="row">
 
 						
-							<div class="col-6">
+							<div class="col">
 								<label class="mb-2 color">SKU Title</label> 
 								
 								<input
@@ -34,14 +34,22 @@
 									th:value="${mSummary.masterSkuTitle}" />
 							</div>
 
-							<div class="col-6">
+							<div class="col">
 								<label class="mb-2 color">SKU Price</label> 
 								
 								<input
-									class="form-control mb-2" 
+									class="form-control mb-2"
 									readonly="readonly"
-									id="skuQuantity"
 									th:value="${mSummary.masterSkuPrice}" />
+							</div>
+							
+							<div class="col">
+								<label class="mb-2 color">HSN</label> 
+								
+								<input
+									class="form-control mb-2"
+									readonly="readonly" 									
+									th:value="${mSummary.hsn}" />
 							</div>
 
 					</div>	
@@ -53,8 +61,7 @@
 								readonly="readonly" 
 								class="form-control mb-2"
 								th:text="${mSummary.masterSkuDescription}"
-								style= "height: 123px;"
-								placeholder="PO description goes here.......">
+								style= "height: 123px;">
 							</textarea>
 						</div>
 

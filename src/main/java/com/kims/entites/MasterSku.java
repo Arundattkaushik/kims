@@ -23,6 +23,7 @@ public class MasterSku {
 	@ElementCollection
 	private int[] rawskuquantity;
 	private int masterSkuPrice;
+	private String hsn;
 	
 	public int getId() {
 		return id;
@@ -61,11 +62,18 @@ public class MasterSku {
 	public void setMasterSkuPrice(int masterSkuPrice) {
 		this.masterSkuPrice = masterSkuPrice;
 	}
+	
+	public String getHsn() {
+		return hsn;
+	}
+	public void setHsn(String hsn) {
+		this.hsn = hsn;
+	}
 	@Override
 	public String toString() {
 		return "MasterSku [id=" + id + ", masterSkuTitle=" + masterSkuTitle + ", masterSkuDescription="
 				+ masterSkuDescription + ", rawSku=" + Arrays.toString(rawSku) + ", rawskuquantity="
-				+ Arrays.toString(rawskuquantity) + ", masterSkuPrice=" + masterSkuPrice + "]";
-	}
+				+ Arrays.toString(rawskuquantity) + ", masterSkuPrice=" + masterSkuPrice + ", hsn=" + hsn + "]";
+	}	
 		
 }

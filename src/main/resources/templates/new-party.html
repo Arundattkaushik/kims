@@ -18,40 +18,67 @@
 <div class="container mt-4">
 
 <div class="row">
-		<div class="col-md-4 offset-md-4 bg-card p-4" style="border-radius: 10px;">
+		<div class="col-md-6 offset-md-3 bg-card p-4" style="border-radius: 10px;">
 		
 		<!-- action="/process-new-party" -->
 		
 			<form action="/create-new-party" method="post" id="partyForm" >
 						
 						
-				<div>
+				<!-- Row 1 -->
 					<div class="row">
-						<div class="col mb-3" >
-							 <label class="form-label">Party Name</label>
-						     <input type="text" class="form-control" name="partyName" required="required">
 					
+						<div class="col mb-3" >
+							 <label class="form-label">Party Name*</label>
+						     <input type="text" class="form-control" name="partyName" required="required" placeholder="Party Name">					
 						</div>	
+						
+						<div class="col mb-3">
+						    <label for="exampleInputEmail1" class="form-label">Mobile No.</label>
+						    <input type="number" class="form-control" id="mobile" name="mobile" placeholder="9756*****3">					   
+				 		</div>	
 					
 					</div>
 					
-				</div>
-				
-					<div class="mb-3">
-					    <label for="exampleInputEmail1" class="form-label">Mobile No.</label>
-					    <input type="number" class="form-control" id="mobile" name="mobile">
-					   
-				 	</div>	
+				<!-- Row 2 -->
+					<div class="row">
+					
+							<div class="col mb-3" >
+								 <label class="form-label">State</label>
+							     <input type="text" class="form-control" name="state" placeholder="Uttar Pradesh">					
+							</div>	
+							
+							<div class="col mb-3">
+							    <label for="exampleInputEmail1" class="form-label">State Code</label>
+							    <input type="number" class="form-control" id="stateCode" name="stateCode" placeholder="20***1">					   
+					 		</div>	
+					
+					</div>
+					
+					
+					<!-- Row 3  -->
+					<div class="row">
+					
+							<div class="col mb-3">
+							    <label for="exampleInputEmail1" class="form-label">Email address</label>
+							    <input type="email" class="form-control" id="email" name="email" placeholder="someone@xyz.com">
+						   </div>
+							
+							<div class="col mb-3">
+							    <label for="exampleInputEmail1" class="form-label">GSTIN</label>
+							    <input type="text" class="form-control" id="gstin" name="gstin" placeholder="HS123876B">					   
+					 		</div>	
+					
+					</div>
+					
+					
 				
 			
-				  <div class="mb-3">
-				    <label for="exampleInputEmail1" class="form-label">Email address</label>
-				    <input type="email" class="form-control" id="email" name="email" >
-				  </div>
+				  
 				  
 				  <div class="form-floating mb-4 mt-4">
 					  <textarea class="form-control" placeholder="Leave a comment here" name="address" style="height: 150px"></textarea>
-					  <label>Address</label>
+					  <label id="address">Address</label>
 				  </div>
 				  
 				  
@@ -68,6 +95,13 @@
 	</div>
 
 </div>
+
+<script>
+	$(document).ready(()=>{
+		$('label').css('color','yellow');
+		$('#address').css('color','red');
+	})
+</script>
 
 </body>
 </html>

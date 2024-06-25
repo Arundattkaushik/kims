@@ -21,6 +21,9 @@ public class Party {
 	private String mobile;
 	private String email;
 	private String address;
+	private String state;
+	private int stateCode;
+	private String gstin;
 	private Date doc;
 	
 	
@@ -61,14 +64,28 @@ public class Party {
 	public void setDoc(Date doc) {
 			this.doc = doc;
 	}
-
-	public Party() {
-		super();
-		// TODO Auto-generated constructor stub
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	public int getStateCode() {
+		return stateCode;
+	}
+	public void setStateCode(int stateCode) {
+		this.stateCode = stateCode;
+	}
+	public String getGstin() {
+		return gstin;
+	}
+	public void setGstin(String gstin) {
+		this.gstin = gstin;
 	}
 	@Override
 	public String toString() {
-		return "Party [id=" + id + ", fName=" + partyName + ", mobile=" + mobile + ", email=" + email
-				+ ", address=" + address + ", doc=" + doc + "]";
-	}
+		return "Party [id=" + id + ", partyName=" + partyName + ", mobile=" + mobile + ", email=" + email + ", address="
+				+ address + ", state=" + state + ", stateCode=" + stateCode + ", gstin=" + gstin + ", doc=" + doc + "]";
+	}	
+
 }

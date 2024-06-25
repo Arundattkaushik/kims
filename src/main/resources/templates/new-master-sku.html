@@ -12,11 +12,13 @@
 <body class="bg">
 <nav th:insert="~{fragments/navbar.html::nav}"></nav>
 
-<div class="container text-center pt-3">
-	<h1>New Master SKU</h1>
-</div>
+
 
 <div class="container mt-2">
+
+<div class="container text-center pt-3">
+	<h1>New SKU</h1>
+</div>
 
 <div class="row">
 		<div class="col-md-8 offset-md-2 bg-card p-3" style="border-radius: 10px;">
@@ -28,24 +30,32 @@
 					   		
 					   		<!-- Master SKU Title -->
 					   		<div class="row p-2">
-					   					<div class="col-6">
+					   					<div class="col">
 					   					
-					   						<label class="mb-2">SKU Title</label>
+					   						<label class="mb-2">SKU Title*</label>
 									    	<input class="form-control" required="required" name="masterSkuTitle" id="masterSkuTitle" placeholder="Title"/>
 												
 					   					</div>
 					   					
-					   					<div class="col-6">
+					   					<div class="col">
 					   					
 					   						<label class="mb-2">Price</label>
-									    	<input type="number" class="form-control" required="required" name="masterSkuPrice" id="masterSkuPrice" placeholder="Price"/>
+									    	<input type="number" class="form-control" name="masterSkuPrice" id="masterSkuPrice" placeholder="Price"/>											
 												
-					   					</div>									   							   		
+					   					</div>
+					   					
+					   					<div class="col">
+					   					
+					   						<label class="mb-2">HSN</label>
+									    	<input type="text" class="form-control" name="hsn" id="hsn" placeholder="HSN"/>
+					   					
+					   					</div>
+					   													   							   		
 					      	 </div>
 					      	 
 					      	 <div class="row p-3">	
-							   	<label class="mb-2 color" >Description</label>					   		 
-								<textarea class="form-control mb-2" style="height: 150px" name="masterSkuDescription" placeholder="Item description."></textarea>
+							   	<label class="mb-2" >Description</label>					   		 
+								<textarea class="form-control mb-2" style="height: 150px" name="masterSkuDescription" placeholder="Description."></textarea>
 							 </div>
 					   		
 					   		
@@ -64,8 +74,10 @@
 							    <tr id="trow">
 							      <td>
 							      		<select class="form-select" name="rawSku" id="rawSku" >
+							      		
 											  <option selected>Select a product</option>
 											  <option th:each="rawSku: ${session.rSkuList}" th:value="${rawSku.name}" th:text="${rawSku.name}"/>
+										
 										</select>
 							      </td>							      
 							      <td><input type="number" class="form-control" id="rawskuquantity" name="rawskuquantity" placeholder="eg. 5"></td>							      

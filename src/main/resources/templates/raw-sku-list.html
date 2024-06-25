@@ -33,7 +33,7 @@
 				    <tr>
 				      <th scope="col" class="text-center">ID</th>
 				      <th scope="col" class="text-center">ITEM SKU</th>
-				      <th scope="col" class="text-center">HSN</th>
+				      
 				      <th scope="col" class="text-center">Party</th>
 				      <th scope="col" class="text-center">PRICE/UNIT</th>
 				      <th scope="col" class="text-center">AVAILABLE IN STOCK</th>
@@ -47,7 +47,7 @@
 				      <td>
 				      <a th:href="@{/#?rSku_id=}+${rSku.id}" th:text="${rSku.name}" style="text-decoration: none; color: black;"></a>
 				      </td>				      
-				      <td th:text="${rSku.hsn}" style="text-align: center;"/>
+				      
 				      <td th:text="${rSku.party_list}" style="text-align: center;"/>
 				      <td th:text="${rSku.price_per_unit}" style="text-align: center;"/>	
 				      <td th:text="${rSku.quantity}" style="text-align: center;"/>	

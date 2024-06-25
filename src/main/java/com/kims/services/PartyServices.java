@@ -28,5 +28,9 @@ public class PartyServices {
 	public List<String> getListOfPartyTitles(){
 		return partyRepository.getTitleListOfParties();
 	}
+	
+	public Party getPartyFromTitle(String pTitle) {
+		return partyRepository.getPartyFromTitle(pTitle);
+	}
 
 }

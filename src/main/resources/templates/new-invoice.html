@@ -28,34 +28,46 @@
 				    
 				     <!-- Column 1 Billed To -->
 					    <div class="col-6">
-					    	 <div class="input-group mb-3">
-								  <h6>DETAILS OF RECEIVERS (BILL TO)</h6>								
+					    	 <div class="input-group mb-3 row">
+								  <h6 class="text-center">DETAILS OF RECEIVERS (BILL TO)</h6>								
 							 </div>
 					    	  
-					    
+					    	 <div class="d-flex">
+								  <input type="checkbox" value="checked" onclick="billToParty(); isBillToAndShipToChecked();" name="billTo_party_chk_box" id="billTo_party_chk_box" style="width: 23px; height: 20px;" class="mt-1 chbox">
+								  <p class="ms-2 chbox">Check this box to select from <em> list </em> </p>
+						  	 </div>
+					    	
 						      <div class="input-group mb-3">
-								  <span class="input-group-text" id="basic-addon1">Name</span>
-								  <input type="text" class="form-control" placeholder="Name" name="name">
+						      
+						      	  <span class="input-group-text" id="billTo_name_span">Name</span>
+								  <input type="text" class="form-control" placeholder="Name" name="billToName" id="billToName">
+						      		
+						      	  <select class="form-select" style="display: none" name="select_billTo_party" id="select_billTo_party" onchange="setBillToDetails()">
+									 <option selected>Select a product</option>
+									 <option id="billTo_party_selected" th:each="party: ${session.partyList}" th:name="billToParty" th:text="${party.partyName}"/>
+								  </select>
+								  
 							 </div>
 							 
 							 <div class="input-group mb-3">
-								  <span class="input-group-text" id="basic-addon1">Address</span>
-								  <input type="text" class="form-control" placeholder="Address.." name="address">
+								  <span class="input-group-text">Address</span>
+								  <!-- th:value="${session.billToParty.address}"   -->
+								  <input class="form-control" placeholder="Address.." name="billToAddress" id="billToAddress">
 							 </div>
 							 
 							 <div class="input-group mb-3">
-								  <span class="input-group-text" id="basic-addon1">State</span>
-								  <input type="text" class="form-control" placeholder="state" name="state">
+								  <span class="input-group-text">State</span>
+								  <input type="text" class="form-control" placeholder="state" name="billToState" id="billToState">
 							 </div>
 							 
 							 <div class="input-group mb-3">
-								  <span class="input-group-text" id="basic-addon1">State Code</span>
-								  <input type="text" class="form-control" placeholder="state_code" name="stateCode">
+								  <span class="input-group-text">State Code</span>
+								  <input type="text" class="form-control" placeholder="state_code" name="billToStateCode" id="billToStateCode">
 							 </div>
 							 
 							 <div class="input-group mb-3">
-								  <span class="input-group-text" id="basic-addon1">GSTIN No.</span>
-								  <input type="text" class="form-control" placeholder="GSTIN Number..." name="gstnNo">
+								  <span class="input-group-text">GSTIN No.</span>
+								  <input type="text" class="form-control" placeholder="GSTIN Number..." name="billToGstInNo" id="billToGstInNo">
 							 </div>
 							 
 					    </div>
@@ -65,35 +77,45 @@
 					      <!-- Column 2 Shipped To -->
 					      <div class="col-6">
 					      
-					      	 <div class="input-group mb-3">
-								  <h6>DETAILS OF CONSIGNEE (SHIPPED TO)</h6>								
+					      	 <div class="input-group mb-3 row">
+								  <h6 class="text-center">DETAILS OF CONSIGNEE (SHIPPED TO)</h6>								
 							 </div>
 					    	  
+					    		
+					    	 <div class="d-flex">
+								  <input type="checkbox" onclick="shipToParty(); isBillToAndShipToChecked();" name="shipTo_party_chk_box" id="shipTo_party_chk_box" style="width: 23px; height: 20px;" class="mt-1 chbox">
+								  <p class="ms-2 chbox">Check this box to select from <em> list </em> </p>
+						  	 </div>
 					    
 						      <div class="input-group mb-3">
-								  <span class="input-group-text" id="basic-addon1">Name</span>
-								  <input type="text" class="form-control" placeholder="Name" name="name">
+								  <span class="input-group-text" id="shipTo_name_span">Name</span>
+								  <input type="text" class="form-control" placeholder="Name" name="shippToName" id="shippToName">
+								  
+								  <select class="form-select" style="display: none" name="select_shipTo_party" id="select_shipTo_party" onchange="setShipToDetails()">
+									 <option selected>Select a product</option>
+									 <option id="billTo_party_selected" th:each="party: ${session.partyList}" th:name="billToParty" th:text="${party.partyName}"/>
+								  </select>
 							 </div>
 							 
 							 <div class="input-group mb-3">
-								  <span class="input-group-text" id="basic-addon1">Address</span>
-								  <input type="text" class="form-control" placeholder="Address.." name="address">
+								  <span class="input-group-text">Address</span>
+								  <input type="text" class="form-control" placeholder="Address.." name="shippToAddress" id="shippToAddress">
 							 </div>
 							 
 							 <div class="input-group mb-3">
-								  <span class="input-group-text" id="basic-addon1">State</span>
-								  <input type="text" class="form-control" placeholder="state" name="state">
+								  <span class="input-group-text">State</span>
+								  <input type="text" class="form-control" placeholder="state" name="shippToState" id="shippToState">
 							 </div>
 							 
 							 <div class="input-group mb-3">
-								  <span class="input-group-text" id="basic-addon1">State Code</span>
-								  <input type="text" class="form-control" placeholder="state_code" name="stateCode">
+								  <span class="input-group-text">State Code</span>
+								  <input type="text" class="form-control" placeholder="state_code" name="shippToStateCode" id="shippToStateCode">
 							 </div>
 							 
 							 <div class="input-group mb-3">
-								  <span class="input-group-text" id="basic-addon1">GSTIN No.</span>
-								  <input type="text" class="form-control" placeholder="GSTIN Number..." name="gstnNo">
-							 </div>					  
+								  <span class="input-group-text">GSTIN No.</span>
+								  <input type="text" class="form-control" placeholder="GSTIN Number..." name="shippToGstInNo" id="shippToGstInNo">
+							 </div>								  
 					      	
 					      </div>
 					    
@@ -105,23 +127,20 @@
 					<!-- GSTIN Details -->
 					 <div class="row">
 					 	<div class="col-6">
-					 	
-					 		<!-- value of this field to be generated dynamically -->
-					 		<div class="input-group mb-3 d-none">
-								  <span class="input-group-text" id="basic-addon1">Inv. No.</span>
-								  <input type="number" class="form-control" placeholder="Invoice No." name="invNo">
-						  </div>
-						  
+					 							  
 						  <div class="input-group mb-3">
-								  <span class="input-group-text" id="basic-addon1">Inv. Date.</span>
-								  <input type="number" class="form-control" placeholder="Invoice date." name="invDate">
+								  <span class="input-group-text">Inv. Date.</span>
+								  <input type="number" class="form-control" placeholder="Invoice date." name="invDate" id="invDate">
 						  </div>
 						  
 					 	</div>
 					      
 					      <div class="col-6">
 					 	
-					 		<!-- left blank -->
+					 		<div class="mb-3 d-flex">
+								  <input type="checkbox" onclick="billToShipToCheckBox();" name="billTo_shippTo_chk_box" id="billTo_shippTo_chk_box" style="width: 23px; height: 20px;" class="mt-1 chbox">
+								  <p class="ms-2 chbox">Check this box if <em> Bill To </em> & <em> Ship To </em> are same. </p>
+						  	</div>
 						  
 					 	  </div>
 					       
@@ -134,13 +153,13 @@
 						<table class="table table-bordered" id="order-table">
 							  <thead class="table-dark">
 							    <tr>							     
-									<th class="text-center">HSN</th>
-									<th class="text-center">SKU</th>
+									<th class="text-center" style="width: 150px;">HSN</th>
+									<th class="text-center" style="width: 185px;">SKU</th>
 									<th class="text-center">Particulars</th>
-									<th class="text-center">Quantity</th>
-									<th class="text-center">Price</th>
-									<th class="text-center">Amount</th>
-									<th class="no-print">
+									<th class="text-center" style="width: 100px;">Quantity</th>
+									<th class="text-center" style="width: 150px;">Price</th>
+									<th class="text-center" style="width: 150px;">Amount</th>
+									<th class="no-print" style="width: 35px;">
 									<img alt="add button" th:src="@{/img/plus.png}" class="icon-s" onclick="addRow()"></img>
 									</th>
 							    </tr>

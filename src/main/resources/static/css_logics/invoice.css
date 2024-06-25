@@ -1,4 +1,4 @@
-@charset "UTF-8";
+
 @media print {
 
 	/* hiding these elements at the time of print */
@@ -15,8 +15,13 @@
 		border: 0px;
 		background: none;
 	}
+	
+	.chbox{
+		display: none;
+	}
 }
 
 	.input-group-text{
 		width: 95px;
 	}
+	

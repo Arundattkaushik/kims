@@ -16,7 +16,7 @@ public class MasterSkuAPI {
 	MasterSkuServices mSkuServices;
 	
 	@PostMapping("/get-mSku-desc")
-	public String getMasterSkuDescByTitle(HttpServletRequest request) {
+	public String getMasterSkuDescByTitle(HttpServletRequest request) {		
 		return mSkuServices.getMasterDescriptionByMasterTitle(request.getParameter("title"));
 	}
 	
