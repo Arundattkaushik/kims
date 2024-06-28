@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{css/bootstrap.min.css.map}">
+<link rel="stylesheet" th:href="@{/css/home.css}">
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script type="text/javascript" th:src="@{/js_logics/company-details.js}"></script>
+<title>Company Details</title>
+</head>
+<body class="bg">
+<nav th:insert="~{fragments/navbar.html::nav}"></nav>
+
+<div class="container mt-4">
+
+<div class="row">
+		<div class="col-md-8 offset-md-2 bg-card p-4" style="border-radius: 10px;">
+		
+			<!-- form heading  -->
+			<div class="row text-center pt-2 pb-2">
+				<h1>Company details</h1>
+			</div>
+		
+			<form action="/update-company-details" method="post" id="companyDetailsForm">
+			
+				
+				<!-- Row 1 -->
+					<div class="row">
+						
+						<div class="col mb-3" >
+							 <label class="form-label">Company Name*</label>
+						     <input type="text" class="form-control" name="companyName" id="companyName" required="required" placeholder="Company Name">					
+						</div>	
+						
+						<div class="col mb-3" >
+							 <label class="form-label">Owner*</label>
+						     <input type="text" class="form-control"  name="companyOwner" id="companyOwner" required="required" placeholder="Owner">					
+						</div>	
+						
+					
+					</div>
+					
+					
+				<!-- Row 2  -->
+					<div class="row">
+					
+							<div class="col mb-3">
+							    <label for="exampleInputEmail1" class="form-label">Email*</label>
+							    <input type="email" class="form-control"  id="companyEmail" name="companyEmail" required="required" placeholder="someone@xyz.com">
+						   </div>
+						   
+						   <div class="col mb-3">
+							    <label for="exampleInputEmail1" class="form-label">Contact No.</label>
+							    <input type="number" class="form-control"  id="companyContactNo" name="companyContactNo" placeholder="98xxxxxxx6">
+						   </div>
+					</div>
+					
+					<!-- Row 3 -->
+					<div class="row">
+					
+							<div class="col mb-3" >
+								 <label class="form-label">Country</label>
+							     <input type="text" class="form-control" placeholder="INDIA" id="country" name="country">					
+							</div>	
+							
+							<div class="col mb-3" >
+								 <label class="form-label">State</label>
+							     <input type="text" class="form-control"  name="state" id="state" placeholder="Uttar Pradesh">					
+							</div>	
+					
+					</div>
+					
+					<!-- Row 3.1 -->
+					<div class="row">
+					
+							<div class="col mb-3" >
+								 <label class="form-label">City</label>
+							     <input type="text" class="form-control"  name="city" id="city" placeholder="Banglore">					
+							</div>	
+							
+							<div class="col mb-3">
+							    <label for="exampleInputEmail1" class="form-label">Zip Code</label>
+							    <input type="number" class="form-control"  id="zipCode" name="zipCode" placeholder="20xxx1">					   
+					 		</div>	
+					
+					</div>
+					
+					
+					<!-- Row 4 -->
+					<div class="row">					
+						<div class="col">
+						
+							 <div class="col mb-3">
+							    <label for="exampleInputEmail1" class="form-label">GSTIN</label>
+							    <input type="text" class="form-control"  id="gstin" name="gstin" placeholder="HS4567Bxxxxx8">					   
+					 		</div>
+						
+						</div>					
+					</div>
+					
+					
+					<!-- Row 5 -->
+					<div class="row">					
+						<div class="col">
+						
+							 <div class="form-floating mb-4 mt-4">
+								  <textarea class="form-control" placeholder="Leave a comment here" id="companyMailingAddress" name="companyMailingAddress" style="height: 120px"></textarea>
+								  <label id="address">Company mailing address</label>
+						  	 </div>
+						
+						</div>					
+					</div>
+					
+					
+					<!-- Row 6 -->
+					<div class="row">
+						<h3>Bank details</h3>
+					</div>
+					
+					<!-- Row 7 -->
+					<div class="row">
+						<div class="col">
+						
+							 <div class="col mb-3">
+							    <label for="exampleInputEmail1" class="form-label">Bank</label>
+							    <input type="text" class="form-control" id="bankName" name="bankName" placeholder="Kotak Bank">					   
+					 		</div>
+						
+						</div>
+										
+						<div class="col">
+						
+							 <div class="col mb-3">
+							    <label for="exampleInputEmail1" class="form-label">A/C No.</label>
+							    <input type="text" class="form-control"  id="bankAccountNumber" name="bankAccountNumber" placeholder="20xxxxxxxxxxxxx1">					   
+					 		</div>
+						
+						</div>
+						
+						<div class="col">
+						
+							 <div class="col mb-3">
+							    <label for="exampleInputEmail1" class="form-label">IFSC Code</label>
+							    <input type="text" class="form-control"  id="bankIfscCode" name="bankIfscCode" placeholder="PNBxx89">					   
+					 		</div>
+						
+						</div>
+												
+					</div>
+					
+					<!-- Row 8 -->
+					<div class="row">					
+						<div class="col">
+						
+							 <div class="col mt-3">
+							    <label class="form-label">A/C Type</label>							    				   
+					 		</div>
+					 		
+					 		<div class="col mt-3" id="account_type_default">
+							    <input type="radio" checked="checked" style="width: 16px; height: 16px;">					   
+								<label id="account_ty" class="form-label"></label>						    				   
+					 		</div>
+					 		
+					 		<div id="account_type" style="display: none;">
+					 		
+					 			<div class="col">
+						 			<input type="radio" value="saving" name="accountType" style="width: 16px; height: 16px;">					   
+								    <label class="form-label">Saving</label>	
+					 			</div>
+					 		
+						 		<div class="col">					   
+								    <input type="radio" value="current" name="accountType" style="width: 16px; height: 16px;">					   
+								    <label class="form-label">Current</label>	
+						 		</div>
+					 		
+						 		<div class="col">					 								   
+								     <input type="radio" value="salary" name="accountType" class="pt-3" style="width: 16px; height: 16px;">
+								     <label class="form-label">Salary</label>		
+						 		</div>
+						 		
+					 		</div>
+					 		
+					 		
+						
+						</div>
+						
+												
+					</div>
+					
+					<!-- Terms And Conditions  -->
+					<div class="row mt-3 mb-3">
+						<div class="col d-flex flex-column">
+							<label style="font-weight: bold;">Terms & Conditions:</label>
+							<textarea class="p-2" style="border-radius: 6px; height: 100px;" name="termsAndConditions" id="termsAndConditions"></textarea>
+						</div>	
+					
+					</div>
+					
+					<div class="row">
+						<div class="col mb-3">
+							<label class="form-label">Company Logo</label>
+							<input type="file" id="companyLogo" name="companyLogo" disabled="disabled">
+						</div>
+						
+						<div class="col mb-3">
+							<label id="authSignature">Authorized Signature</label>
+							<input type="file" name="authSignature" id="authSignature"/>					
+						</div>
+					
+					</div>
+					
+					
+						
+					
+					
+					
+				  <div style="text-align: center;" id="edit_btn">
+				  	<button type="button" onclick="enableEdit()" class="btn btn-primary" >Edit Details</button>				  
+				  </div>
+				  
+				  <div style="text-align: center; display: none;" id="update_btn">
+				  	<button type="submit" class="btn btn-primary">Update Details</button>				  
+				  </div>
+			</form>		
+					
+		</div>
+	</div>
+
+</div>
+
+
+</body>
+</html>

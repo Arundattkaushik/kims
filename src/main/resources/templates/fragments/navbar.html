@@ -48,8 +48,10 @@
        </div>
       
       <div class="d-flex flex-column text-center">
-       <img alt="user-icon" th:src="@{/img/user_icon_man.png}" style="height: 29px; width: 32px; border-radius: 50%;">
-       <a th:text="${session.user.fName}" style="font-size: 10px; color: white;" ></a>
+       <a class="btn pe-5" style="height: 29px; width: 32px;" href="/company-details"><img alt="user-icon" th:src="@{/img/user_icon_man.png}" style="height: 29px; width: 32px; border-radius: 50%;"></a>
+       <a class="mt-1" th:text="${session.user.fName}" style="font-size: 10px; color: white; text-decoration: none; font-weight: bold;" > 
+       		
+       </a>
       </div>
       </div>
       

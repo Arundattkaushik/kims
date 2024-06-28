@@ -2,7 +2,30 @@ $(document).ready(() => {
 	$('.btn-status').prop('disabled', true);
 	
 	loadPartyDataInSession();
+	loadCompanyDetails();
 })
+
+function loadCompanyDetails(){
+	$.ajax({
+		type: 'Get',
+		url: '/get-company-details',
+		success: function(data){	
+			console.log(data);
+			document.getElementById("bankName").innerHTML=data.bankName;
+			document.getElementById("bankAccountNo").innerHTML=data.bankAccountNumber;
+			document.getElementById("bankIFSC").innerHTML=data.bankIfscCode;
+			document.getElementById("termsAndCondtions").innerHTML=data.termsAndConditions;
+			document.getElementById("for-authorized-signature").innerHTML=data.companyName;
+			document.getElementById("companyGstin").innerHTML=data.gstin;
+			document.getElementById("companyMobile").innerHTML=data.companyContactNo;
+			document.getElementById("companyName").innerHTML=data.companyName;
+			document.getElementById("companyAddress").innerHTML=data.companyMailingAddress;
+		},
+		error: function(errorThrown) {
+			console.log("Error block run for => loadCompanyDetails() " + errorThrown)
+		}
+	});
+}
 
 
 
