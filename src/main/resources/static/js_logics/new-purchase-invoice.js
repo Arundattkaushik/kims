@@ -1,6 +1,7 @@
 $(document).ready(() => {
 	$('.btn-status').prop('disabled', true);
 	
+	loadPartyDataInSession();
 	loadCompanyDetails();
 })
 
@@ -9,37 +10,17 @@ function loadCompanyDetails(){
 		type: 'Get',
 		url: '/get-company-details',
 		success: function(data){	
-			/*console.log(data);*/
+			console.log(data);
 			document.getElementById("bankName").innerHTML=data.bankName;
-			document.getElementById("hbankName").value=data.bankName;
-			
-			
 			document.getElementById("bankAccountNo").innerHTML=data.bankAccountNumber;
-			document.getElementById("hbankAccountNo").value=data.bankAccountNumber;
-			
 			document.getElementById("bankIFSC").innerHTML=data.bankIfscCode;
-			document.getElementById("hbankIFSC").value=data.bankIfscCode;
-			
 			document.getElementById("termsAndCondtions").innerHTML=data.termsAndConditions;
-			document.getElementById("htermsAndCondtions").value=data.termsAndConditions;
-			
 			document.getElementById("for-authorized-signature").innerHTML=data.companyName;
 			document.getElementById("companyGstin").innerHTML=data.gstin;
-			document.getElementById("hcompanyGstin").value=data.gstin;
-			
-			
 			document.getElementById("companyMobile").innerHTML=data.companyContactNo;
-			document.getElementById("hcompanyMobile").value=data.companyContactNo;
-			
-			
 			document.getElementById("additionalContactNo").innerHTML=data.additionalContactNo;
-			document.getElementById("hadditionalContactNo").value=data.additionalContactNo;
-			
 			document.getElementById("companyName").innerHTML=data.companyName;
-			document.getElementById("hcompanyName").value=data.companyName;
-			
 			document.getElementById("companyAddress").innerHTML=data.companyMailingAddress;
-			document.getElementById("hcompanyAddress").value=data.companyMailingAddress;
 		},
 		error: function(errorThrown) {
 			console.log("Error block run for => loadCompanyDetails() " + errorThrown)
@@ -101,15 +82,12 @@ function loadPartyDataInSession(){
 	$.ajax({
 			type: 'GET',
 			url: '/get-master-avl-qty',			
-			success: function(data) {
+			success: function(data, textStatus) {
 				/*console.log("Success block: "+textStatus);*/
-				console.log("Success block:  loadPartyDataInSession()"+data);
 
 			},
-			error: function(errorThrown, xhr) {
-				alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
+			error: function(errorThrown) {
 				console.log("Error block run for => loadPartyDataInSession() " + errorThrown)
-				
 			}
 		});
 }
@@ -167,13 +145,13 @@ function billToParty() {
 	if (x == true) {
 
 		document.getElementById("select_billTo_party").style.display = "block";
-		/*document.getElementById("billTo_name_span").style.display = "none";*/
+		document.getElementById("billTo_name_span").style.display = "none";
 		document.getElementById("billToName").style.display = "none";
 
 	}
 	if (x == false) {
 
-		/*document.getElementById("billTo_name_span").style.display = "block";*/
+		document.getElementById("billTo_name_span").style.display = "block";
 		document.getElementById("billToName").style.display = "block";
 		document.getElementById("select_billTo_party").style.display = "none";
 
@@ -189,13 +167,13 @@ function shipToParty() {
 	if (x == true) {
 
 		document.getElementById("select_shipTo_party").style.display = "block";
-		/*document.getElementById("shipTo_name_span").style.display = "none";*/
+		document.getElementById("shipTo_name_span").style.display = "none";
 		document.getElementById("shippToName").style.display = "none";
 
 	}
 	if (x == false) {
 
-		/*document.getElementById("shipTo_name_span").style.display = "block";*/
+		document.getElementById("shipTo_name_span").style.display = "block";
 		document.getElementById("shippToName").style.display = "block";
 		document.getElementById("select_shipTo_party").style.display = "none";
 
@@ -268,7 +246,6 @@ function getMasterSkuQuantity(e) {
 	let mSku = document.getElementsByName("masterSku")[index].value;
 
 	/* making an ajax call to retreive master sku available quantiy from database by sending a request to API */
-	/* there is no use of this api now, just kept it for the sake of status button logic */
 	$.ajax({
 		type: 'POST',
 		url: '/get-master-avl-qty',
@@ -276,8 +253,12 @@ function getMasterSkuQuantity(e) {
 		success: function(data, textStatus, jqXHR) {
 			/* console.log("Success block: "+data);  */
 
-			
-			if (qty > 0 ) {
+
+			if (qty > data) {
+				document.getElementsByName("qty")[index].style.background = "red";
+				/* $('.btn-status').prop('disabled', true); */
+			}
+			if (qty > 0 && qty <= data) {
 				document.getElementsByName("qty")[index].style.background = "white";
 			}
 			if (qty <= 0) {
@@ -298,7 +279,7 @@ function submitButtonStatus() {
 	let col = document.getElementsByName("qty");
 	let count = 0;
 	for (let x = 0; x < col.length; x++) {
-		if (col[x].style.background == 'yellow') {
+		if (col[x].style.background == 'red' || col[x].style.background == 'yellow') {
 			count++;
 		}
 	}
@@ -367,11 +348,11 @@ function calGST() {
 
 
 	/*Setting GST values in their respective fields*/
-	document.getElementById("fcgstAmt").value = newCgst.toFixed(2);
-	document.getElementById("fsgstAmt").value = newfSgst.toFixed(2);
-	document.getElementById("figstAmt").value = newfIgst.toFixed(2);
+	document.getElementById("fcgstAmt").value = newCgst;
+	document.getElementById("fsgstAmt").value = newfSgst;
+	document.getElementById("figstAmt").value = newfIgst;
 
-	document.getElementById("fgTotal").value = (+(fTotal) + +(newCgst) + +(newfSgst) + +(newfIgst) + +(courCharge)).toFixed(2);
+	document.getElementById("fgTotal").value = (+(fTotal) + +(newCgst) + +(newfSgst) + +(newfIgst) + +(courCharge));
 
 }
 
@@ -388,10 +369,11 @@ function setDesc(e) {
 		url: '/get-mSku-desc',
 		data: { 'title': x },
 		success: function(data) {
-			/*console.log("Success block: "+data)*/
+			/*console.log("Success block: "+data)	*/
+			const y = data.split(",");
 
-			document.getElementsByName("particulars")[index].value = data[0].masterSkuDescription;
-			document.getElementsByName("hsn")[index].value = data[0].hsn;
+			document.getElementsByName("particulars")[index].value = y[0];
+			document.getElementsByName("hsn")[index].value = y[1];
 		},
 		error: function(errorThrown) {
 			console.log("Error block run for => setDesc(e) " + errorThrown)

@@ -9,19 +9,19 @@
 <link rel="stylesheet" th:href="@{js/datatables.min.css}">
 <script type="text/javascript" th:src="@{js/datatables.min.js}"></script>
 <script type="text/javascript" th:src="@{js_logics/sales.js}"></script>
-<title>SALES</title>
+<title>PURCHASE</title>
 </head>
 <body class="bg">
 <nav th:insert="~{fragments/navbar.html::nav}"></nav>
 
 <!-- page heading area -->
 <div>
-<h2 style="text-align: center; padding-top: 20px;">SALES</h2>
+<h2 style="text-align: center; padding-top: 20px;">PURCHASE</h2>
 </div>
 
 <!-- add button area -->
 <div style="display: flex; flex-direction: row-reverse; margin-right: 110px">
-<a type="button" class="btn btn-primary" href="/new-invoice" ><img class="icon-s me-1 pb-0" alt="" th:src="@{img/plus.png}">New Invoice</a>
+<a type="button" class="btn btn-primary" href="/new-purchase-invoice" ><img class="icon-s me-1 pb-0" alt="" th:src="@{img/plus.png}">New PO</a>
 </div>
 
 
@@ -42,10 +42,31 @@
 				      <th scope="col" style="text-align: center;">SGST</th>
 				      <th scope="col" style="text-align: center;">IGST</th>
 				      <th scope="col" style="text-align: center;">Total Amount</th>
+				      <th scope="col" style="text-align: center;">Action</th>
 				    </tr>
 				  </thead>
 				  <tbody>
-				
+				    <tr th:each="genOrder : ${session.gOrderList}">
+				      <th scope="row" th:text="${genOrder.id}"/>
+				      <td><a th:href="@{/order-summary?order_id=}+${genOrder.id}" th:each="prod: ${genOrder.products}" th:text="${prod}+' '" style="text-decoration: none;"></a></td>
+				      <td>
+					      <div style="display: flex; flex-direction: row; justify-content: space-evenly;"> 
+						       	<div style="margin-left: 20px;" th:each="qty: ${genOrder.orderQuantity}" th:text="${qty}"></div>
+						          
+					      </div> 
+				      </td>
+				      <td th:text="${genOrder.party}" style="text-align: center;"/>
+				      <td th:text="${genOrder.orderDate}" style="text-align: center;"/>	
+				      
+				      <!-- Action Column  -->			
+				      <td style="text-align: center;">
+				      
+				      <!-- Pending for fix  -->
+				      
+				      <a th:href="@{/order-summary?orderId=}+${genOrder.id}"><img alt="delete-icon" th:src="@{/img/delete.png}" class="icon-s"></a>
+					  <a th:href="@{#}"><img alt="edit-icon" th:src="@{/img/edit.png}" class="icon-s"></a>      
+				      </td>
+				    </tr>
 				  </tbody>
 				</table>
 

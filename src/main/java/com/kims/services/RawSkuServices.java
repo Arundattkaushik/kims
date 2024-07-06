@@ -31,4 +31,8 @@ public class RawSkuServices {
 	public RawSku getRawSkuById(int rawSku_id) {
 		return rawSkuRepository.getSkuById(rawSku_id);
 	}
+	
+	public void updateRawSkuQuantity(int rQty, int rId) {
+		rawSkuRepository.updateRawSkuQuantity(rQty, rId);
+	}
 }

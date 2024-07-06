@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pop Up</title>
+    <link rel="stylesheet" href="./popup.css">
+      
+</head>
+<body>
+    <div class="container">
+        <button class="btn" type="submit" onclick="openPopup()" id="submitBtn">Submit</button>
+
+        <div class="popup" id="popupbox">
+            <img th:src="@{/img/check.png}" alt="">
+            <h2>Thank You!</h2>
+            <p>Your details are submitted successfully!</p>
+            <button type="button" onclick="closePopup()">Ok</button>
+        </div>
+    </div>
+  
+    <script src="./popup.js"></script>  
+</body>
+</html>

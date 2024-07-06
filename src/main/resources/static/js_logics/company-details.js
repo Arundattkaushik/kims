@@ -2,11 +2,9 @@ $(document).ready(() => {
 	$.ajax({
 		type: 'Get',
 		url: '/get-company-details',
-		success: function(data, textStatus) {
-			console.log("Success block: " + data);
+		success: function(data) {
 
 			if (data != '') {
-				document.getElementById('companyLogo').value = '';
 				document.getElementById('companyName').value = data.companyName;
 				document.getElementById('companyOwner').value = data.companyOwner;
 				document.getElementById('companyEmail').value = data.companyEmail;
@@ -22,6 +20,17 @@ $(document).ready(() => {
 				document.getElementById('bankIfscCode').value = data.bankIfscCode;
 				document.getElementById('account_ty').innerHTML = data.accountType;
 				document.getElementById('termsAndConditions').innerHTML = data.termsAndConditions;
+				document.getElementById('additionalContactNo').value = data.additionalContactNo;
+				
+				if(data.accountType=='saving'){
+					document.getElementById('saving').checked=true;
+				}
+				if(data.accountType=='current'){
+					document.getElementById('current').checked=true;			
+				}
+				if(data.accountType=='salary'){
+					document.getElementById('salary').checked=true;			
+				}
 
 			}
 
@@ -36,6 +45,7 @@ $(document).ready(() => {
 	$('input').prop('disabled', true);
 	$('textarea').prop('disabled', true);
 });
+
 
 function enableEdit() {
 	document.getElementById('edit_btn').style.display = 'none';

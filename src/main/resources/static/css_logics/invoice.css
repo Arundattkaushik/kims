@@ -6,6 +6,10 @@
 		display: none;
 	}
 	
+	.navbar, .navbar-expand-lg, .bg-dark{
+		display: none;
+	}
+	
 	/* Removing border */
 	.form-control, .form-select, .input-group-text {
 		border: 0px;
@@ -19,9 +23,25 @@
 	.chbox{
 		display: none;
 	}
+
+	.h_particulars{
+		width: 250px;
+		height: 350px;
+	}
+	
+	#total_col{
+		margin-right: 30%;
+	}
+	
+	
+	
+	
+	
+	
 }
 
 	.input-group-text{
 		width: 95px;
 	}
+	
 	

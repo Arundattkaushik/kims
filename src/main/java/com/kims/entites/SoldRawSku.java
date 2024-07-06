@@ -1,5 +1,8 @@
 package com.kims.entites;
 
+
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,15 +11,13 @@ import lombok.Data;
 
 @Data
 @Entity
-public class RawSku {
-
+public class SoldRawSku {
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	private String name;
-	private String party_list;
+	private String rSku;
 	private int quantity;
-	private int price_per_unit;
-	private String description;
+	private LocalDate date;	
 	
 }

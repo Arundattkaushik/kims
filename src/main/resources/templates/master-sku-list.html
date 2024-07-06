@@ -8,6 +8,7 @@
 <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
 <link rel="stylesheet" th:href="@{js/datatables.min.css}">
 <script type="text/javascript" th:src="@{js/datatables.min.js}"></script>
+<script type="text/javascript" th:src="@{/js_logics/master_sku_list.js}"></script>
 <title>MASTER  SKU</title>
 </head>
 <body class="bg">
@@ -30,40 +31,41 @@
 				  <thead class="table-dark">
 				    <tr>
 				      <th scope="col">Id</th>
-				      <th scope="col" style="width: 340px; text-align: center;">SKU</th>
-				      <th scope="col" style="width: 340px; text-align: center;">HSN</th>
-				      <th scope="col" style="text-align: left;">Description</th>				     
-				      <th scope="col" style="text-align: center;">Price</th>
+				      <th scope="col" style="width: 240px; text-align: center;">SKU</th>
+				      <th scope="col" style="width: 140px;">HSN</th>
+				      <th scope="col" style="text-align: center;">Description</th>				     
+				      <th scope="col" style="width: 140px; text-align: center;">Price</th>
 				      <th scope="col" style="text-align: center;">Action</th>
 				    </tr>
 				  </thead>
-				  <tbody>
-				    <tr th:each="mSku : ${session.mSkuList}">
-				      <th scope="row" th:text="${mSku.id}"/>
-				      <td style="text-align: center;"><a th:href="@{/summary-master-sku?mSku_id=}+${mSku.id}" th:text="${mSku.masterSkuTitle}" style="text-decoration: none;  color: black;"></a></td>				      
-				      <td th:text="${mSku.hsn}" style="text-align: center;"/>
-				      <td th:text="${mSku.masterSkuDescription}" style="text-align: left;"/>
-				      <td th:text="${mSku.masterSkuPrice}" style="text-align: center;"/>	
-				      
-				      <!-- Action Column  -->			
-				      <td style="text-align: center;">
-				      
-				      <!-- Pending for fix  -->				      
-				      <a th:href="@{/delete-master-sku?master_id=}+${mSku.id}"><img alt="delete-btn" th:src="@{/img/delete.png}" class="icon-s"></a>
-					  <a th:href="@{#}"><img alt="edit-icon" th:src="@{/img/edit.png}" class="icon-s"></a>      
-				      </td>
-				    </tr>
+				  <tbody id="tbody">
+				    
 				  </tbody>
-				</table>
+			</table>
 
 		</div>
+		
+	<!-- Pop-up box -->
 
+	<div class="container popup" id="pop-box">
 
+		<div class="row">
+			<div class="col-md-4 offset-md-4 bg-card p-4" style="border-radius: 6px;">
+					<div>
+						<div class="d-flex">
+							<img alt="warning" src="img/warning.png" class="icon-sm">
+							<h2 class="ms-2 text-warning">Warning</h2>
+						</div>
+						<p class="ms-2 text-warning">Are you sure want to delete?</p>
+					</div>
+					
+					<div style="text-align: center;" class="mt-4">
+						<button type="button" class="btn btn-primary" onclick="closePopup()">Cancel</button>
+						<button type="button" class="btn btn-primary ms-2" onclick="deleteRowPerformed(this)">Delete</button>
+					</div>
+			</div>
+		</div>
+		
+	</div>
 </body>
-<script>
-$(document).ready(()=>{
-	$('#data-table').dataTable();
-})
-
-</script>
 </html>

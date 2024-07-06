@@ -6,7 +6,7 @@
 <link rel="stylesheet" th:href="@{css/bootstrap.min.css.map}">
 <link rel="stylesheet" th:href="@{/css/home.css}">
 <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
-<script type="text/javascript" th:src="@{/js_logics/master_sku.js}"></script>
+
 <title>New Master SKU</title>
 </head>
 <body class="bg">
@@ -23,10 +23,9 @@
 <div class="row">
 		<div class="col-md-8 offset-md-2 bg-card p-3" style="border-radius: 10px;">
 		
-			<form th:action="@{/create-master-sku}" method="post" id="order_form">
+			<form id="new_master_form" onsubmit="submitForm();redirectTo();">
 					
-					<div id="order_row">
-					   		
+					<div id="order_row">					   		
 					   		
 					   		<!-- Master SKU Title -->
 					   		<div class="row p-2">
@@ -40,7 +39,7 @@
 					   					<div class="col">
 					   					
 					   						<label class="mb-2">Price</label>
-									    	<input type="number" class="form-control" name="masterSkuPrice" id="masterSkuPrice" placeholder="Price"/>											
+									    	<input type="number" class="form-control" name="masterSkuPrice" value="0" id="masterSkuPrice" placeholder="Price"/>											
 												
 					   					</div>
 					   					
@@ -76,7 +75,6 @@
 							      		<select class="form-select" name="rawSku" id="rawSku" >
 							      		
 											  <option selected>Select a product</option>
-											  <option th:each="rawSku: ${session.rSkuList}" th:value="${rawSku.name}" th:text="${rawSku.name}"/>
 										
 										</select>
 							      </td>							      
@@ -99,6 +97,6 @@
 			</div>			
 		</div>
 	</div>
-
+<script type="text/javascript" th:src="@{/js_logics/new_master_sku.js}"></script>
 </body>
 </html>

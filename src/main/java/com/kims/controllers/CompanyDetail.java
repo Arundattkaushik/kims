@@ -5,35 +5,70 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import com.kims.entites.CompanyDetails;
-import com.kims.repositories.CompanyDetailsRepo;
+import com.kims.entites.User;
+import com.kims.services.CompanyDetailService;
 
 import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.Session;
 
 
 
 @Controller
 public class CompanyDetail {
 	@Autowired
-	private CompanyDetailsRepo companyDetailsRepo;
+	private CompanyDetailService companyDetailService;
 
 	@GetMapping("/company-details")
 	public String viewCompanyDetails(HttpSession session) {
-		return "company-details";
+		User user = (User)session.getAttribute("user");
+		if (user==null) {
+			return "redirect:/home";
+		}
+		else {
+			return "/company-details";
+		}	
 	}
 	
-	@PutMapping("/update-company-details")
+	
+	@PostMapping("/update-company-details")
 	public String updateCompanyDetails(@ModelAttribute("companyDetails") CompanyDetails companyDetails, HttpSession session) {
-		CompanyDetails cDetails = companyDetailsRepo.getCompanyDetails();
-		int cId = cDetails.getId();
-		System.out.println("cId before set:  "+companyDetails.getId());
-		companyDetails.setId(cId);
-		System.out.println("cId after set:  "+companyDetails.getId());
-		companyDetailsRepo.save(companyDetails);
-		return "redirect:/user-home";
+		try {
+			User user = (User)session.getAttribute("user");
+			if (user==null) {
+				return "redirect:/home";
+			}
+			
+			CompanyDetails cDetails = companyDetailService.getCompanyDetails();
+			if (cDetails==null) {
+				cDetails = new CompanyDetails();
+			} 
+			cDetails.setCompanyName(companyDetails.getCompanyName());
+			cDetails.setCompanyOwner(companyDetails.getCompanyOwner());
+			cDetails.setCompanyMailingAddress(companyDetails.getCompanyMailingAddress());
+			cDetails.setCompanyContactNo(companyDetails.getCompanyContactNo());
+			cDetails.setCompanyEmail(companyDetails.getCompanyEmail());
+			cDetails.setAccountType(companyDetails.getAccountType());
+			cDetails.setAdditionalContactNo(companyDetails.getAdditionalContactNo());
+			cDetails.setBankAccountNumber(companyDetails.getBankAccountNumber());
+			cDetails.setBankName(companyDetails.getBankName());
+			cDetails.setBankIfscCode(companyDetails.getBankIfscCode());
+			cDetails.setCity(companyDetails.getCity());
+			cDetails.setState(companyDetails.getState());
+			cDetails.setZipCode(companyDetails.getZipCode());
+			cDetails.setCountry(companyDetails.getCountry());
+			cDetails.setTermsAndConditions(companyDetails.getTermsAndConditions());
+			cDetails.setGstin(companyDetails.getGstin());
+			companyDetailService.saveCompanyDetails(cDetails);
+			return 	"redirect:/company-details";
+		} 
+		
+		catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/home";
+		}
+		
+		
 	}
 	
 	

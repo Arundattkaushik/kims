@@ -30,8 +30,12 @@ public class MasterSkuServices {
 		masterSkuRepository.deleteById(master_id);
 	}
 	
-	public String getMasterDescriptionByMasterTitle(String masterTitle) {
+	public List<MasterSku> getMasterDescriptionByMasterTitle(String masterTitle) {
 		return masterSkuRepository.getDescriptionFromSkuTitle(masterTitle);
+	}
+	
+	public MasterSku getMasterByMasterTitle(String masterTitle) {
+		return masterSkuRepository.getMasterByTitle(masterTitle);
 	}
 	
 }

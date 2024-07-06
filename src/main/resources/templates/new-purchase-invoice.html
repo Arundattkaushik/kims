@@ -7,16 +7,16 @@
 <link rel="stylesheet" th:href="@{/css/home.css}">
 <link rel="stylesheet" th:href="@{/css_logics/invoice.css}">
 <script th:src="@{js/jquery.min.js}"></script>
-<script th:src="@{js_logics/invoice.js}"></script>
+<script th:src="@{js_logics/new-purchase-invoice.js}"></script>
 
-<title>INVOICE</title>
+<title>PURCHASE INVOICE</title>
 </head>
 <body class="bg">
 	<nav th:insert="~{fragments/navbar.html::nav}"></nav>
 	
 	<div id="main_container">
 	
-		<form action="/sales-invoice" method="post">
+		<form action="" method="post">
 			
 			<div class="card">
 				  <div class="card-header">
@@ -24,9 +24,8 @@
 				  	<div class="row">
 				  		<div class="col">
 				  			<div class="d-flex">
-				  				<label style="font-weight: bold;">GSTIN:</label>				  				
+				  				<label style="font-weight: bold;">GSTIN:</label>
 				  				<p class="ms-2" id="companyGstin"></p>
-				  				<input hidden="hidden" name="companyGstin" id="hcompanyGstin">
 				  			</div>
 				  			
 				  			<div>
@@ -38,9 +37,7 @@
 				  		<div class="col text-center">
 				  			<h4 style="text-decoration: underline;">TAX INVOICE</h4>
 				  			<h5 id="companyName" class="text-danger"></h5>
-				  			<input id="hcompanyName" name="companyName" hidden="hidden">
 				  			<p id="companyAddress"></p>
-				  			<input id="hcompanyAddress" name="companyAddress" hidden="hidden">
 				  		</div>
 				  		
 				  		<div class="col d-flex">
@@ -53,12 +50,7 @@
 				  			<div class="col d-flex flex-column">
 				  				<label id="companyMobile"></label>
 					  			<label id="additionalContactNo" class="pe-2"></label>
-					  			<label id="invoiceNumver"></label>
-					  			
-					  			<!-- Hidden Fields for database (Arun Datt Kaushik) -->
-					  			<input id="hcompanyMobile" hidden="hidden" name="companyMobile">
-					  			<input id="hadditionalContactNo" hidden="hidden" name="additionalContactNo">
-					  			
+					  			<label id="invoiceNumver">FAM7U32500144327</label>
 				  			</div>
 				  			
 				  			
@@ -87,10 +79,10 @@
 						      <div class="input-group mb-2">
 						      
 						      	  <span class="input-group-text" id="billTo_name_span">Name</span>
-								  <input type="text" class="form-control" placeholder="Name" name="billToName" id="billToName">						      		
-						    
+								  <input type="text" class="form-control" placeholder="Name" name="billToName" id="billToName">
+						      		
 						      	  <select class="form-select" style="display: none" name="select_billTo_party" id="select_billTo_party" onchange="setBillToDetails()">
-									 <option selected></option>
+									 <option selected>Select a product</option>
 									 <option id="billTo_party_selected" th:each="party: ${session.partyList}" th:name="billToParty" th:text="${party.partyName}"/>
 								  </select>
 								  
@@ -139,7 +131,7 @@
 								  <input type="text" class="form-control" placeholder="Name" name="shippToName" id="shippToName">
 								  
 								  <select class="form-select" style="display: none" name="select_shipTo_party" id="select_shipTo_party" onchange="setShipToDetails()">
-									 <option selected></option>
+									 <option selected>Select a product</option>
 									 <option id="billTo_party_selected" th:each="party: ${session.partyList}" th:name="billToParty" th:text="${party.partyName}"/>
 								  </select>
 							 </div>
@@ -218,7 +210,7 @@
 							      <td>
 							      		<select class="form-select masterSku" name="masterSku" id="masterSku" onchange="setDesc(this)">
 											  <option selected>Select a product</option>
-											  <option id="mSku_selected" th:each="mSku: ${session.mSkuList}" th:name="mSku" th:text="${mSku.masterSkuTitle}"/>
+											  <option id="mSku_selected" th:each="mSku: ${session.mSkuList}" th:name="mSku[]" th:text="${mSku.masterSkuTitle}"/>
 										</select>
 							      </td>							      
 								  <td><input class="form-control particulars h_particulars" type="text" name="particulars" placeholder="Item description" style="height: 38px;"></input></td>
@@ -248,18 +240,15 @@
 					    
 					    	 <div class="input-group mb-3">
 								  <label style="font-weight: bold;">Bank Details:</label>								  
-								  <label class="ms-2" id="bankName">Bank Details: </label>
-								  <input id="hbankName" name="bankName" hidden="">								  
+								  <label class="ms-2" id="bankName">Bank Details: </label>								  
 							 </div>
 							 <div class="input-group mb-3">
 								  <label style="font-weight: bold;">Bank Account Number:</label>								  
-								  <label class="ms-2" id="bankAccountNo">Bank Details: </label>	
-								  <input id="hbankAccountNo" hidden="hidden" name="bankAccountNo">							  
+								  <label class="ms-2" id="bankAccountNo">Bank Details: </label>								  
 							 </div>
 							 <div class="input-group mb-3">
 								  <label style="font-weight: bold;">Bank Branch IFSC:</label>								  
-								  <label class="ms-2" id="bankIFSC">Bank Details: </label>
-								  <input id="hbankIFSC" name="bankIFSC" hidden="hidden">								  
+								  <label class="ms-2" id="bankIFSC">Bank Details: </label>								  
 							 </div>
 					     
 					    </div>
@@ -279,31 +268,31 @@
 							 
 							 <div class="input-group mb-2">
 								  <span class="input-group-text">CGST %</span>
-								  <input type="number" value="0" step=any class="form-control" id="fcgst" name="fcgst" onchange="calGST()">
+								  <input type="number" class="form-control" id="fcgst" name="fcgst" onchange="calGST()">
 								  
 								  <span class="input-group-text" style="width: 50px" >Rs</span>
-								  <input type="number" value="0" class="form-control bg-light" id="fcgstAmt" name="fcgstAmt" readonly="readonly">
+								  <input type="number" class="form-control bg-light" id="fcgstAmt" name="fcgstAmt" readonly="readonly">
 							 </div>
 							 
 							 <div class="input-group mb-2">
 								  <span class="input-group-text" >SGST %</span>
-								  <input type="number" value="0" step=any class="form-control" id="fsgst" name="fsgst" onchange="calGST()">
+								  <input type="number" class="form-control" id="fsgst" name="fsgst" onchange="calGST()">
 								  
 								  <span class="input-group-text" style="width: 50px" >Rs</span>
-								  <input type="number" value="0" class="form-control bg-light" id="fsgstAmt" name="fsgstAmt" readonly="readonly">
+								  <input type="number" class="form-control bg-light" id="fsgstAmt" name="fsgstAmt" readonly="readonly">
 							 </div>
 							 
 							 <div class="input-group mb-2">
 								  <span class="input-group-text" >IGST %</span>
-								  <input type="number" value="0" step=any class="form-control" id="figst" name="figst" onchange="calGST()">
+								  <input type="number" class="form-control" id="figst" name="figst" onchange="calGST()">
 								  
 								  <span class="input-group-text" style="width: 50px" >Rs</span>
-								  <input type="number" value="0" class="form-control bg-light" id="figstAmt" name="figstAmt" readonly="readonly">
+								  <input type="number" class="form-control bg-light" id="figstAmt" name="figstAmt" readonly="readonly">
 							 </div>
 							 
 							  <div class="input-group mb-2">
 								  <span class="input-group-text" >Courier Ch.</span>
-								  <input type="number" value="0" class="form-control" id="courierCharges" name="courierCharges" onchange="calGST()">
+								  <input type="number" class="form-control" id="courierCharges" name="courierCharges" onchange="calGST()">
 							 </div>
 							 
 							 <div class="input-group mb-2">
@@ -320,8 +309,7 @@
 					
 						<div class="col-9 mb-3">
 								  <label style="font-weight: bold;">Terms & Conditions</label>								  
-								  <label style="text-align: justify;" id="termsAndCondtions"></label>
-								  <input id="htermsAndCondtions" name="termsAndCondtions" hidden="hidden">								  
+								  <label style="text-align: justify;" id="termsAndCondtions"></label>								  
 						</div>
 						
 						<div class="col text-center" style="display: flex; flex-direction: column; justify-content: space-between;">
@@ -334,7 +322,7 @@
 					<!-- Checkout button -->
 					<div class="text-center">
 						<button type="button" class="btn btn-primary me-3" onclick="goPrint()" >Print</button>
-						<button type="submit" class="btn btn-primary btn-status">Checkout</button>
+						<button type="button" class="btn btn-primary btn-status">Checkout</button>
 					</div>				    
 				   
 				 </div>

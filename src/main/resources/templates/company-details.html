@@ -55,6 +55,11 @@
 							    <label for="exampleInputEmail1" class="form-label">Contact No.</label>
 							    <input type="number" class="form-control"  id="companyContactNo" name="companyContactNo" placeholder="98xxxxxxx6">
 						   </div>
+						   
+						   <div class="col mb-3">
+							    <label for="exampleInputEmail1" class="form-label">Additional Contact No.</label>
+							    <input type="number" class="form-control"  id="additionalContactNo" name="additionalContactNo" placeholder="98xxxxxxx6">
+						   </div>
 					</div>
 					
 					<!-- Row 3 -->
@@ -166,17 +171,17 @@
 					 		<div id="account_type" style="display: none;">
 					 		
 					 			<div class="col">
-						 			<input type="radio" value="saving" name="accountType" style="width: 16px; height: 16px;">					   
+						 			<input type="radio" value="saving" id="saving" name="accountType" style="width: 16px; height: 16px;">					   
 								    <label class="form-label">Saving</label>	
 					 			</div>
 					 		
 						 		<div class="col">					   
-								    <input type="radio" value="current" name="accountType" style="width: 16px; height: 16px;">					   
+								    <input type="radio" value="current" id="current" name="accountType" style="width: 16px; height: 16px;">					   
 								    <label class="form-label">Current</label>	
 						 		</div>
 					 		
 						 		<div class="col">					 								   
-								     <input type="radio" value="salary" name="accountType" class="pt-3" style="width: 16px; height: 16px;">
+								     <input type="radio" value="salary" id="salary" name="accountType" class="pt-3" style="width: 16px; height: 16px;">
 								     <label class="form-label">Salary</label>		
 						 		</div>
 						 		
@@ -221,7 +226,7 @@
 				  </div>
 				  
 				  <div style="text-align: center; display: none;" id="update_btn">
-				  	<button type="submit" class="btn btn-primary">Update Details</button>				  
+				  	<button type="submit" class="btn btn-primary" >Update Details</button>				  
 				  </div>
 			</form>		
 					

@@ -1,6 +1,5 @@
 package com.kims.controllers;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,12 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.kims.entites.MasterSku;
-import com.kims.entites.RawSku;
 import com.kims.entites.User;
 import com.kims.services.MasterSkuServices;
 import com.kims.services.RawSkuServices;
-import com.kims.utilities.Utils;
-
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,14 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MasterSkuController {
 	private Boolean qtyStatus = false;
 	@Autowired
-	private Utils utils;
-	@Autowired
 	private MasterSkuServices mSkuServices;
 	@Autowired
 	private RawSkuServices rawSkuServices;
-	
-	
-	private int stockValue = 0;
 
 	@GetMapping("/master-sku-list")
 	public String masterSkuList(HttpSession session) {

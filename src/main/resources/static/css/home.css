@@ -6,6 +6,9 @@
 
 .bg{
 	background: #EF9A9A;
+	
+	/* Because of navbar */
+	padding-top: 60px;
 }
 
 .flex-row{
@@ -26,6 +29,11 @@
 	height: 20px;
 }
 
+.icon-sm{
+	width: 40px;
+	height: 40px;
+}
+
 .color{
 	color: yellow;
 }
@@ -33,6 +41,23 @@
 .blink_me {
   animation: blinker 3s linear infinite;
 }
+
+.popup{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+}
+
+.popup-show{
+	visibility: visible;
+	top: 50%;
+	left:50%;
+	transform: translate(-50%, -50%) scale(1);
+}
+
 
 @keyframes blinker {
   50% {

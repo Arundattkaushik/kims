@@ -1,7 +1,5 @@
 package com.kims.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,13 +20,25 @@ public class RawSkuController {
 	
 	
 	@GetMapping("/raw-sku-list")
-	public String rawSkuList() {
-		return "raw-sku-list";
+	public String rawSkuList(HttpSession session) {
+		User user = (User)session.getAttribute("user");
+		if (user==null) {
+			return "home";
+		} 
+		else {
+			return "raw-sku-list";
+		}
 	}
 	
 	@GetMapping("/new-raw-sku")
-	public String newRawSku() {
-		return "new-raw-sku";
+	public String newRawSku(HttpSession session) {
+		User user = (User)session.getAttribute("user");
+		if (user==null) {
+			return "home";
+		}
+		else {
+			return "new-raw-sku";
+		}
 	}
 	
 	
