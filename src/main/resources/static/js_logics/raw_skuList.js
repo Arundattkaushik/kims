@@ -1,20 +1,79 @@
 $(document).ready(()=>{
 	dataTable();
-	$('label').css('color','yellow');
+	
 })
 
 function dataTable(){
-	$('#data-table').dataTable(); 
-
-	$.ajax({
-	       type: 'GET',
-	       url: '/get-raw-sku-list'
-		 });
+	
+	$('#data-table').dataTable({
+							paging: true,
+						    scrollCollapse: true,
+							autoFill: true,							
+						    scrollY: '400px',
+		
+		ajax: {
+			       type: 'Get',
+			       url: '/get-raw-sku-list',
+				 },
+				 columns:[
+				 			{data:"id", class:"text-start"},
+				 			{data:"name",
+				 			render: function (data) {								 
+				 								               return '<a style="text-decoration:none; color: blue; cursor: pointer;" onclick="rSkuDetails(this)")>'+ data+'</a>';								                
+				 								        }						
+				 									},
+				 			{data:"party_list"},
+				 			{data:"quantity", class:"text-center"},								
+				 			{data:"description"},								
+				 			{data:()=>{
+				 									return `<a onclick='deleteRow(this)' style="cursor: pointer"><img alt="delete-btn" src="img/delete.png" class="icon-s"></a>`
+				 			}, class:"text-center"
+				 		}
+				 								
+				 		],
+				 order: {
+				        data:'id',
+				         dir: 'desc'
+				  }
+		
+	}); 
 }
 
-function rSkuDetails(e){
-	let rowId = parseInt(e.innerHTML)
+
+
+function deleteRow(e){
+	let x = confirm('Are you sure want to delete?');
+	if(x==true){
+			let rId = getRowId(e);
+			$.ajax({
+				type:'post',
+				url:'/delete-rowsku-by-id',
+				data:{'rId': rId},
+				success:()=>{
+					window.location.reload();
+				},
+				error:()=>{
+					alert('Something went wrong!');
+				}
+			})
+	}
 	
+}
+
+
+function getRowId(e){
+	//$(e).parent().parent()
+		let rowIndex = $(e).parent().parent().index();
+		let selectedRow = $("#tbody tr")[rowIndex];
+		let allCellsInSelectedRow = selectedRow.cells;
+		let rowId = parseInt(allCellsInSelectedRow[0].innerHTML);
+		return rowId
+}
+
+
+
+function rSkuDetails(e){
+	let rowId = getRowId(e);
 	
 	$.ajax({
 					type: 'Post',
@@ -33,6 +92,7 @@ function rSkuDetails(e){
 
 function showPopUp(data){
 	document.getElementById('pop-box').classList.add('popup-show');
+	document.getElementById('table-data').style.opacity=0.3
 	document.getElementById('rId').innerHTML=data.id;
 	document.getElementById('rTitle').innerHTML=data.name;
 	document.getElementById('rAvlQty').innerHTML=data.quantity;
@@ -56,7 +116,8 @@ function updateQuantity(){
 								'rId':rId},			
 						success: function(data) {
 							if(data != null){
-								closePopup();								
+								closePopup();
+								window.location.reload();								
 							}
 						},
 						error: function(errorThrown) {
@@ -67,5 +128,6 @@ function updateQuantity(){
 
 function closePopup(){
 	document.getElementById('pop-box').classList.remove('popup-show');
+	document.getElementById('table-data').style.opacity=1;
 }
 

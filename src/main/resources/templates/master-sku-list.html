@@ -16,7 +16,7 @@
 
 <!-- page heading area -->
 <div>
-<h2 style="text-align: center; padding-top: 20px; font-weight: bolder;" class="blink_me">MASTER SKU TABLE</h2>
+<h3 style="text-align: center; padding-top: 20px; font-weight: bolder;">MASTER SKU TABLE</h3>
 </div>
 
 <!-- add button area -->
@@ -31,10 +31,9 @@
 				  <thead class="table-dark">
 				    <tr>
 				      <th scope="col">Id</th>
-				      <th scope="col" style="width: 240px; text-align: center;">SKU</th>
-				      <th scope="col" style="width: 140px;">HSN</th>
-				      <th scope="col" style="text-align: center;">Description</th>				     
-				      <th scope="col" style="width: 140px; text-align: center;">Price</th>
+				      <th scope="col" style="width: 35%; text-align: center;">Sku</th>
+				      <th scope="col" style="width: 20%; text-align: center;">HSN</th>
+				      <th scope="col" style="text-align: center;">Description</th>
 				      <th scope="col" style="text-align: center;">Action</th>
 				    </tr>
 				  </thead>
@@ -47,25 +46,68 @@
 		
 	<!-- Pop-up box -->
 
-	<div class="container popup" id="pop-box">
+	<div class="container popup" id="pop-box" style="background: white; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  width: 40%">
+			<form id="master-update-form" onsubmit="updateMaster()">
+			
+			
+							<div id="order_row">					   		
+					   		
+					   		<!-- Master SKU Title -->
+					   		<div class="row p-2">
+					   					<div class="col">
+					   					
+					   						<label class="mb-2">SKU Title*</label>
+									    	<input class="form-control" readonly="readonly" required="required" name="masterSkuTitle" id="masterSkuTitle" placeholder="Title"/>
+												
+					   					</div>				   					
+					   					
+					   					<div class="col">
+					   					
+					   						<label class="mb-2">HSN</label>
+									    	<input type="text" readonly="readonly" class="form-control" name="hsn" id="hsn" placeholder="HSN"/>
+					   					
+					   					</div>
+					   													   							   		
+					      	 </div>
+					      	 
+					      	 <div class="row p-3">	
+							   	<label class="mb-2" >Description</label>					   		 
+								<textarea class="form-control mb-2" readonly="readonly" style="height: 150px" id="masterSkuDescription" name="masterSkuDescription" placeholder="Description."></textarea>
+							 </div>
+					   		
+					   		
+					   	<!-- Table for Products -->
+						<table class="table" id="data-table">
+							  <thead>
+							    <tr>							     
+									<th>Item SKU</th>
+									<th>Quantity</th>
+								
+							    </tr>
+							    
+							  </thead>
+							  <tbody id="tbody2">
+							   
+							  </tbody>
+						</table>
+					   		
+					   		
 
-		<div class="row">
-			<div class="col-md-4 offset-md-4 bg-card p-4" style="border-radius: 6px;">
-					<div>
-						<div class="d-flex">
-							<img alt="warning" src="img/warning.png" class="icon-sm">
-							<h2 class="ms-2 text-warning">Warning</h2>
-						</div>
-						<p class="ms-2 text-warning">Are you sure want to delete?</p>
-					</div>
+				    </div>	
+	
+				<div class="text-center pb-2">
+					<button type="button" class="btn btn-primary" onclick="closeModel()">Close</button>
+					<button type="submit" class="btn btn-primary ms-2 d-none">Update</button>
 					
-					<div style="text-align: center;" class="mt-4">
-						<button type="button" class="btn btn-primary" onclick="closePopup()">Cancel</button>
-						<button type="button" class="btn btn-primary ms-2" onclick="deleteRowPerformed(this)">Delete</button>
-					</div>
-			</div>
-		</div>
+				</div>
+				
+			</form>
 		
+					
+			
 	</div>
+
+	
+	
 </body>
 </html>

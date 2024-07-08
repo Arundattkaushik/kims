@@ -16,7 +16,6 @@ public class RawSku {
 	private String name;
 	private String party_list;
 	private int quantity;
-	private int price_per_unit;
 	private String description;
 	
 }

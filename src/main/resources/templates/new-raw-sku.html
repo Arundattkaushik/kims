@@ -5,45 +5,42 @@
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 <link rel="stylesheet" th:href="@{css/bootstrap.min.css.map}">
 <link rel="stylesheet" th:href="@{/css/home.css}">
+<link rel="stylesheet" href="css/box-center.css">
 <script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
 <link rel="stylesheet" th:href="@{js/datatables.min.css}">
 <script type="text/javascript" th:src="@{js/datatables.min.js}"></script>
+<script type="text/javascript" src="js_logics/new_raw_sku.js"></script>
 <title>NEW :: RAW SKU</title>
-
-
 </head>
-<body class="bg">
-<nav th:insert="~{fragments/navbar.html::nav}"></nav>
-
-<!--Title area  -->
-
-<div class="container mt-5">
-
-<div class="row">
-		<div class="col-md-6 offset-md-3 bg-card p-4" style="border-radius: 10px;">
+<body>
+<div class="con">
+	<nav th:insert="~{fragments/navbar.html::nav}"></nav>
 		
-			<form action="/create-raw-sku" method="post">
+			<form id="new_raw" onsubmit="createRawSku(this)">
 			
 					<div class="row text-center p-3">
-						<h2 class="color yellow">NEW RAW SKU</h2>
+						<h2>NEW RAW SKU</h2>
 					</div>
 				
 					<div class="row">
 						
 							<div class="input-group mb-3">
 								  <span class="input-group-text" style="width: 100px; font-weight: bold;">Name</span>
-								  <input type="text" class="form-control" id="name" name="name" placeholder="SKU title">
-								  <span class="input-group-text" style="width: 100px; font-weight: bold;">Quantity</span>
-								  <input type="text" class="form-control" id="quantity" name="quantity" placeholder="eg 100.">					
+								  <input type="text" class="form-control" id="name" name="name" placeholder="SKU title">					
 							</div>	
 							
+							<div class="input-group mb-3">							
+								  <span class="input-group-text" style="width: 100px; font-weight: bold;">Quantity</span>
+								  <input type="number" class="form-control" id="quantity" name="quantity" placeholder="eg 100.">					
+							</div>
+							
 							<div class="input-group mb-3">
+							
 								  <span class="input-group-text" style="width: 100px; font-weight: bold;">Party</span>
 								  <select class="form-control" id="party_list" name="party_list">
 									  <option selected>Select a party from the list</option>									  
 								  </select>
-								  <span class="input-group-text" style="width: 100px; font-weight: bold;">Price</span>
-								  <input type="text" class="form-control" id="price_per_unit" name="price_per_unit" placeholder="eg 100.">
+								  
 							</div>							
 					</div>
 					
@@ -55,40 +52,11 @@
 	
 	
 						<div style="text-align: center;" class="mt-4">
-					  		<button type="submit" class="btn btn-primary" >Create Raw Sku</button>				  
+					  		<button type="submit" class="btn btn-primary" >Create Item</button>				  
 					  	</div>
 					  
 				</form>	
-			</div>			
 		</div>
-	</div>
-
 </body>
 
-<script>
-	$(document).ready(()=>{
-		$.ajax({
-            type: 'GET',
-            url: '/party-titles-list',
-            
-            success: function (data, textStatus ,jqXHR) {
-                /* console.log("Success block: "+data); */
-                
-                $.each(data, function (i, item) {
-                	$("#party_list").append($('<option>', { 
-                        value: item,
-                        text : item 
-                    }));
-                });
-                
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-            	console.log("Error block: "+errorThrown)
-            }
-    });
-
-		
-	})
-
-</script>
 </html>

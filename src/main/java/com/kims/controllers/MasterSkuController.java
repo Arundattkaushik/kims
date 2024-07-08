@@ -4,14 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-
-import com.kims.entites.MasterSku;
 import com.kims.entites.User;
 import com.kims.services.MasterSkuServices;
 import com.kims.services.RawSkuServices;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -43,24 +39,6 @@ public class MasterSkuController {
 			model.addAttribute("qtyStatus", qtyStatus);
 			return "new-master-sku";
 		}
-	}
-	
-	
-
-	@PostMapping("/create-master-sku")
-	public String createNewMasterSKU(@ModelAttribute("newMaster") MasterSku newMaster, HttpSession session) {
-		
-		User user = (User) session.getAttribute("user");
-		
-		if (user == null) {
-			return "redirect:/home";
-		} 
-		else {
-			mSkuServices.saveMasterSku(newMaster);
-			session.setAttribute("mSkuList", mSkuServices.getAllMasterSkus());
-
-		}
-		return "redirect:/master-sku-list";
 	}
 	
 	

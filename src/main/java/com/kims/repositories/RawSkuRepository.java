@@ -12,7 +12,7 @@ import com.kims.entites.RawSku;
 
 public interface RawSkuRepository extends JpaRepository<RawSku, Integer> {
 
-	@Query("SELECT r FROM RawSku r")
+	@Query("SELECT r FROM RawSku r order by r.id desc")
 	public List<RawSku> getAllRawSkus();
 	
 	@Query("SELECT r FROM RawSku r WHERE r.name=:title")

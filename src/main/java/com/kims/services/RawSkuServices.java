@@ -20,8 +20,9 @@ public class RawSkuServices {
 		return rawSkuRepository.getAllRawSkus();
 	}
 	
-	public void deleteRawSkuById(int rawSkuId) {
+	public Boolean deleteRawSkuById(int rawSkuId) {
 		rawSkuRepository.deleteById(rawSkuId);
+		return true;
 	}
 	
 	public RawSku getRawSkuByTitle(String title) {

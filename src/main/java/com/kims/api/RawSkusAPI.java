@@ -3,6 +3,7 @@ package com.kims.api;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -26,12 +28,25 @@ public class RawSkusAPI {
 	
 	@GetMapping("/get-raw-sku-list")
 	public ResponseEntity<Object> rawSkuList(HttpSession session) {
-//		session.setAttribute("rSkuList", rawSkuServices.getRawSkuList());
+		Optional<List<RawSku>> list = Optional.ofNullable(rawSkuServices.getRawSkuList());
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("message", "success");
+		
+		if(list.isPresent()) {
+		
+		map.put("message", "s");
 		map.put("status", HttpStatus.OK);
 		map.put("data", rawSkuServices.getRawSkuList());
-		return new ResponseEntity<Object>(map, HttpStatus.OK);
+		
+		
+		return new ResponseEntity<Object>(map, HttpStatus.OK);		
+		}
+		else {
+
+			map.put("message", "f");
+			map.put("status", HttpStatus.CONFLICT);
+			
+			return new ResponseEntity<Object>(map, HttpStatus.CONFLICT);	
+		}
 	}
 	
 	@PostMapping("/get-row-sku-by-id")
@@ -39,11 +54,46 @@ public class RawSkusAPI {
 		return rawSkuServices.getRawSkuById(Integer.parseInt(request.getParameter("rId")));
 	}
 	
+	@PostMapping("/delete-rowsku-by-id")
+	public ResponseEntity<Object> deleteRawSkuById(HttpServletRequest request) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Optional<Boolean> st = Optional.ofNullable(rawSkuServices.deleteRawSkuById(Integer.parseInt(request.getParameter("rId"))));
+		if (st.get()==true) {
+			map.put("message", "s");
+			map.put("status", HttpStatus.OK);
+			return new ResponseEntity<Object>(map, HttpStatus.OK);
+			
+		} 
+		else {
+			map.put("message", "f");
+			map.put("status", HttpStatus.CONFLICT);
+			return new ResponseEntity<Object>(map, HttpStatus.CONFLICT);
+		}
+	}
+	
+	
 	
 	@PostMapping("/update-row-sku-quantity")
 	public void updateRawSkuQuantiy(HttpServletRequest request) {
 		rawSkuServices.updateRawSkuQuantity(Integer.parseInt(request.getParameter("rQty")), Integer.parseInt(request.getParameter("rId")));
 	}
 	
+	
+	@PostMapping("/create-row-sku")
+	public ResponseEntity<Object> createRawSku(@ModelAttribute RawSku rawSku) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Optional<RawSku> sku = Optional.ofNullable(rawSkuServices.createRawSku(rawSkuServices.createRawSku(rawSku)));
+		if (sku.isPresent()) {
+			map.put("message", "s");
+			map.put("status", HttpStatus.OK);
+			map.put("data", sku.get());
+			return new ResponseEntity<Object>(map, HttpStatus.OK);
+		} 
+		else {
+			map.put("message", "f");
+			map.put("status", HttpStatus.CONFLICT);
+			return new ResponseEntity<Object>(map, HttpStatus.CONFLICT);
+		}
+	}
 	
 }

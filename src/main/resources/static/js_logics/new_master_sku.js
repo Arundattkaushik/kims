@@ -1,7 +1,4 @@
-$(document).ready(function(){
-	$("label").css("color","yellow");	
-	$("label").css('font-weight','bold');	
-	$("th").css("color","yellow");
+$(document).ready(function(){	
 	
 	// Function to load List of Raw Sku's
 	loadRowSkuList();		

@@ -3,9 +3,6 @@ package com.kims.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import com.kims.entites.RawSku;
 import com.kims.entites.User;
 import com.kims.services.RawSkuServices;
 
@@ -40,21 +37,7 @@ public class RawSkuController {
 			return "new-raw-sku";
 		}
 	}
-	
-	
-	@PostMapping("/create-raw-sku")
-	public String createNewRawSku(@ModelAttribute("rawsku") RawSku rawSku, HttpSession session) {
-		User user = (User)session.getAttribute("user");
-		if (user==null) {
-			return "home";
-		}
-		else {
-			
-			rawSkuServices.createRawSku(rawSku);
-			session.setAttribute("rSkuList", rawSkuServices.getRawSkuList());
-			return "redirect:/raw-sku-list";
-		}
-	}
+
 	
 	
 	@GetMapping("/delete_rawsku")

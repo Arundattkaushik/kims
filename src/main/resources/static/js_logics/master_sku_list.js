@@ -18,12 +18,11 @@ function loadTableData(){
 								{data:"id", class:"text-start"},
 								{data:"masterSkuTitle",
 								render: function (data) {								 
-								               return '<a style="text-decoration:none; color: blue; cursor: pointer;" onclick="updateRaw(this)")>'+ data+'</a>';								                
+								               return '<a style="text-decoration:none; color: blue; cursor: pointer;" onclick="showModel(this)")>'+ data+'</a>';								                
 								        }						
 									},
 								{data:"hsn"},
-								{data:"masterSkuDescription"},
-								{data:"masterSkuPrice", class:"text-center"},								
+								{data:"masterSkuDescription"},								
 								{data:()=>{
 									return `<a onclick='deleteRow(this)' style="cursor: pointer"><img alt="delete-btn" src="img/delete.png" class="icon-s"></a>`
 								}, class:"text-center"
@@ -43,6 +42,8 @@ function loadTableData(){
 }
 
 
+
+
 function getRowId(e){
 	//$(e).parent().parent()
 		let rowIndex = $(e).parent().parent().index();
@@ -52,49 +53,69 @@ function getRowId(e){
 		return rowId
 }
 
-function getValuesOfAllCellsOfARow(e){
-	let rowIndex = $(e).parent().parent().index();
-	let selectedRow = $("#tbody tr")[rowIndex];
-	let allCellsInSelectedRow = selectedRow.cells;
-	
-	const tdValue = [];
-	for(let i=0; i< allCellsInSelectedRow.length; i++){
-		tdValue[i] = allCellsInSelectedRow[i].innerHTML;
-	}
-	
-	return tdValue;
-}
 
-
-function updateRaw(e){
-	let x = getRowId(e);
-	const rowArr = getValuesOfAllCellsOfARow(e);
+function showModel(e){
+	document.getElementById('data-table').style.opacity=0.2;
+	document.getElementById('pop-box').classList.add('popup-show');
 	
-	let mSkuTitle = $(rowArr[1])[0].innerHTML;
-	let hsn = rowArr[2];
-	let desc = rowArr[3];
-	let amt = rowArr[4];
-	
-	
-}
-
-function deleteRowPerformed(e){
+	let mId = getRowId(e);
 	$.ajax({
-		type:'post',
-		url:'/delete-master',
-		data:{"id":getRowId(e)},
-		success:function(){
-			closePopup();
-			location.reload();
+		type:'Post',
+		url:'/get-master-by-id',
+		data:{'id':mId},
+		success:(data)=>{
+			document.getElementById('masterSkuTitle').value=data.data.masterSkuTitle;
+			document.getElementById('hsn').value=data.data.hsn;
+			document.getElementById('masterSkuDescription').innerHTML=data.data.masterSkuDescription;
+			
+			let tbody = $('#tbody2');
+			for(let i=0; i<data.data.rawSku.length; i++){
+				tbody.append(`
+				<tr>
+				<td>
+					<input readonly class="form-control" value="`+data.data.rawSku[i]+`"/>	
+				</td>
+				<td><input readonly type="number" class="form-control" id="rawskuquantity" name="rawskuquantity" value="`+data.data.rawskuquantity[i]+`"></td>
+				</tr>				
+				`);
+				console.log(tbody);
+				
+			}
+			
+		},
+		error:(errorThrown)=>{
+			alert('Something went wrong!'+errorThrown)
 		}
 	})
 }
 
-function deleteRow(){
-		document.getElementById('pop-box').classList.add('popup-show');		
+
+function closeModel(){
+	document.getElementById('pop-box').classList.remove('popup-show')
+	document.getElementById('data-table').style.opacity=1;
 }
 
-function closePopup(){
-	document.getElementById('pop-box').classList.remove('popup-show');
+
+function updateMaster(){
+	//let x = getRowId(e);
+	alert('x')
+	
+	
+}
+
+function deleteRow(e){
+	let rId = getRowId(e);
+	alert(rId)
+	let delConfirm = confirm('Are you sure want to delete?');
+	if(delConfirm==true){
+		$.ajax({
+				type:'post',
+				url:'/delete-master',
+				data:{"id":rId},
+				success:function(){
+					location.reload();
+				}
+			})			
+	}	
 }
 

@@ -17,60 +17,34 @@
 
 	<!-- page heading area -->
 	<div>
-		<h2 style="text-align: center; padding-top: 20px;">ITEM SKU TABLE</h2>
+		<h3 style="text-align: center; padding-top: 20px; font-weight: bolder;">RAW SKU TABLE</h3>
 	</div>
 	
-	<!-- Hidden Filed to get session  -->
-	<input hidden="hidden" value="${session.user}" id="session_value_check">
 
 	<!-- add button area -->
 	<div
 		style="display: flex; flex-direction: row-reverse; margin-right: 110px">
-		<a type="button" class="btn btn-primary" href="/new-raw-sku"><img
-			class="icon-s me-1 pb-0" alt="" th:src="@{img/plus.png}">ADD
-			SKU</a>
+		<a type="button" class="btn btn-primary" href="/new-raw-sku">
+		<img class="icon-s me-1 pb-0" alt="" th:src="@{img/plus.png}">ADD SKU</a>
 	</div>
 
 	<!-- table area -->
-	<div class="mt-2 p-0 container">
+	<div class="mt-2 p-0 container" id="table-data">
 
 		<table class="table" id="data-table">
 			<thead class="table-dark">
 				<tr>
 					<th scope="col" class="text-center">ID</th>
-					<th scope="col" class="text-center">ITEM SKU</th>
+					<th scope="col" class="text-center" style="width: 20%">Sku</th>
 
-					<th scope="col" class="text-center">Party</th>
-					<th scope="col" class="text-center">PRICE/UNIT</th>
-					<th scope="col" class="text-center">AVAILABLE IN STOCK</th>
-					<th scope="col" class="text-center">DESCRIPTION</th>
-					<th scope="col" style="text-align: right;">ACTION</th>
+					<th scope="col" class="text-center" style="width: 20%">Party</th>
+					<th scope="col" class="text-center">Quantity</th>
+					<th scope="col" class="text-center">Description</th>
+					<th scope="col" style="text-align: right;">Action</th>
 				</tr>
 			</thead>
-			<tbody>
-				<tr th:each="rSku : ${session.rSkuList}">
-					<th scope="row" th:text="${rSku.id}" onclick="rSkuDetails(this);"
-						style="text-align: center; cursor: pointer;" />
-					<td>
-						<!-- th:href="@{/update_rawsku?id=}+${rSku.id}"   --> <a
-						th:text="${rSku.name}" id="${rSku.id}"
-						style="text-decoration: none; color: black;"></a>
-					</td>
-
-					<td th:text="${rSku.party_list}" style="text-align: center;" />
-					<td th:text="${rSku.price_per_unit}" style="text-align: center;" />
-					<td th:text="${rSku.quantity}" style="text-align: center;" />
-					<td th:text="${rSku.description}" />
-
-					<!-- Action Column  -->
-					<td style="text-align: right;">
-						<!-- Pending for fix  --> <a
-						th:href="@{/delete_rawsku?rawsku_id=}+${rSku.id}"><img
-							alt="delete-btn" th:src="@{/img/delete.png}" class="icon-s"></a>
-						<a th:href="@{#}" hidden="hidden"><img alt="edit-icon"
-							th:src="@{/img/edit.png}" class="icon-s"></a>
-					</td>
-				</tr>
+			<tbody id="tbody">
+				
 			</tbody>
 
 		</table>
@@ -83,7 +57,7 @@
 	<div class="container popup" id="pop-box">
 
 		<div class="row">
-			<div class="col-md-4 offset-md-4 bg-card p-4" style="border-radius: 6px;">
+			<div class="col-md-4 offset-md-4 p-4" style="border-radius: 6px; background: white; border: 2px solid black; ">
 
 				<form action="" method="post">
 					

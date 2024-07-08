@@ -24,7 +24,6 @@ public class MasterSku {
 	
 	@ElementCollection
 	private int[] rawskuquantity;
-	private int masterSkuPrice;
 	private String hsn;
 	
 	public MasterSku(String masterSkuDescription, String hsn) {
