@@ -1,34 +1,35 @@
 $(document).ready(() => {
 	$.ajax({
 		type: 'Get',
-		url: '/get-company-details',
-		success: function(data) {
-
-			if (data != '') {
-				document.getElementById('companyName').value = data.companyName;
-				document.getElementById('companyOwner').value = data.companyOwner;
-				document.getElementById('companyEmail').value = data.companyEmail;
-				document.getElementById('companyContactNo').value = data.companyContactNo;
-				document.getElementById('country').value = data.country;
-				document.getElementById('state').value = data.state;
-				document.getElementById('city').value = data.city;
-				document.getElementById('zipCode').value = data.zipCode;
-				document.getElementById('gstin').value = data.gstin;
-				document.getElementById('companyMailingAddress').value = data.companyMailingAddress;
-				document.getElementById('bankName').value = data.bankName;
-				document.getElementById('bankAccountNumber').value = data.bankAccountNumber;
-				document.getElementById('bankIfscCode').value = data.bankIfscCode;
-				document.getElementById('account_ty').innerHTML = data.accountType;
-				document.getElementById('termsAndConditions').innerHTML = data.termsAndConditions;
-				document.getElementById('additionalContactNo').value = data.additionalContactNo;
+		url: '/company/detail',
+		success: function(res) {
+			
+			if (res != '') {
+				document.getElementById('companyName').value = res.data.companyName;
+				document.getElementById('companyOwner').value = res.data.companyOwner;
+				document.getElementById('companyEmail').value = res.data.companyEmail;
+				document.getElementById('companyContactNo').value = res.data.companyContactNo;
+				document.getElementById('country').value = res.data.country;
+				document.getElementById('state').value = res.data.state;
+				document.getElementById('city').value = res.data.city;
+				document.getElementById('zipCode').value = res.data.zipCode;
+				document.getElementById('gstin').value = res.data.gstin;
+				document.getElementById('eWayNo').value = res.data.ewayNo;
+				document.getElementById('companyMailingAddress').value = res.data.companyMailingAddress;
+				document.getElementById('bankName').value = res.data.bankName;
+				document.getElementById('bankAccountNumber').value = res.data.bankAccountNumber;
+				document.getElementById('bankIfscCode').value = res.data.bankIfscCode;
+				document.getElementById('account_ty').innerHTML = res.data.accountType;
+				document.getElementById('termsAndConditions').innerHTML = res.data.termsAndConditions;
+				document.getElementById('additionalContactNo').value = res.data.additionalContactNo;
 				
-				if(data.accountType=='saving'){
+				if(res.accountType=='saving'){
 					document.getElementById('saving').checked=true;
 				}
-				if(data.accountType=='current'){
+				if(res.accountType=='current'){
 					document.getElementById('current').checked=true;			
 				}
-				if(data.accountType=='salary'){
+				if(res.accountType=='salary'){
 					document.getElementById('salary').checked=true;			
 				}
 

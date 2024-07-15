@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+
 <meta charset="UTF-8">
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 <link rel="stylesheet" th:href="@{css/bootstrap.min.css.map}">
 <link rel="stylesheet" th:href="@{/css/home.css}">
-<script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
 <link rel="stylesheet" th:href="@{js/datatables.min.css}">
+<script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
 <script type="text/javascript" th:src="@{js/datatables.min.js}"></script>
-<script type="text/javascript" th:src="@{js_logics/party.js}"></script>
+<script type="text/javascript" th:src="@{js_logics/party_list.js}"></script>
 <title>PARTIES</title>
+
 </head>
-<body class="bg">
+
+<body class="bg d-flex flex-column">
 <nav th:insert="~{fragments/navbar.html::nav}"></nav>
 <!-- page heading area -->
 <div>
@@ -20,11 +23,11 @@
 
 <!-- add button area -->
 <div style="display: flex; flex-direction: row-reverse; margin-right: 110px">
-<a type="button" class="btn btn-primary" href="/new-party" ><img class="icon-s me-1 pb-0" alt="" th:src="@{img/plus.png}">New Party</a>
+<a type="button" class="btn btn-primary" href="/new-party" ><img class="icon-s me-1" alt="" src="img/plus.png">New Party</a>
 </div>
 
 <!-- table area -->
-<div class="mt-2 p-0 container">
+			<div class="mt-2 ps-1 pe-1">
 			
 			<table id="table-data" class="table">
 				  <thead class="table-dark">
@@ -37,24 +40,53 @@
 				      <th scope="col">Action</th>
 				    </tr>
 				  </thead>
-				  <tbody>
-				    <tr th:each="party : ${session.partyList}">
-				      <th scope="row" th:text="${party.id}"/>
-				      <td th:text="${party.partyName}"/>
-				      <td th:text="${party.email}"/>
-				      <td th:text="${party.mobile}"/>
-				      <td th:text="${party.address}"/>
-				      <td>
-				      
-				      <!-- Pending for fix  -->
-				      
-				      <a th:href="@{delete-party?party_id=}+${party.id}"><img alt="delete-icon" th:src="@{/img/delete.png}" class="icon-s"></a>
-					  <a href="#"><img alt="edit-icon" th:src="@{/img/edit.png}" class="icon-s"></a>      
-				      </td>
-				    </tr>
+				  <tbody id="tbody">
+				   
 				  </tbody>
-				</table>
+			</table>
 
 		</div>
+		
+			<!-- Pop-up box -->
+
+	<div class="container popup" id="pop-box">
+
+		<div class="row">
+			<div class="col-md-4 offset-md-4 p-4" style="border-radius: 6px; background: white; border: 2px solid black; ">
+
+				<form action="" method="post">
+					
+					
+
+					<div class="row">
+						<div class="col d-flex flex-column ms-5">
+							<label class="mb-3" style="font-weight: bold;">Id</label>
+							<label class="mb-3" style="font-weight: bold;">Title</label> 
+							<label class="mb-3" style="font-weight: bold;">Available Quantity</label> 						
+							<label class="mb-3" style="font-weight: bold;">Add Quantity</label> 						
+							<label class="mb-3" style="font-weight: bold;">New Quantity</label> 						
+						</div>	
+						
+						<div class="col d-flex flex-column">
+							<label class="mb-3" id="rId"></label>
+							<label class="mb-3" id="rTitle"></label> 
+							<label class="mb-3" id="rAvlQty"></label> 						
+							<input id="rAddQty" class="form-control mb-3" style="width: 70px;" type="number" onchange="calculateNewQuantity()"/> 						
+							<label class="mb-3" id="rTotalQty"></label> 						
+						</div>				
+					</div>
+					
+					
+					
+					<div style="text-align: center;" class="mt-4">
+						<button type="button" class="btn btn-primary" onclick="closeModel()">Cancel</button>
+						<button type="button" class="btn btn-primary ms-2" onclick="updateQuantity()">Update</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+		
+	</div>
 </body>
 </html>

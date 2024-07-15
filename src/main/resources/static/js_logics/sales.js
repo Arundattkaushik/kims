@@ -4,11 +4,17 @@ $(document).ready(function() {
 
 function dataTable() {
 	$('#table-data').dataTable({
+		paging: true,
+		scrollCollapse: true,
+		autoFill: true,							
+		scrollY: '385px',			
+		
 		ajax: {
 							type: 'Get',
-							url: '/get-sales',
+							url: '/sales/list',
 							dataSrc: 'data'				
 			},
+			
 				columns:[
 						{data:"invoiceNumber", class:"text-center"},
 						{data:(data)=>{
@@ -26,6 +32,8 @@ function dataTable() {
 						{data:"fgTotal"}
 						
 					],
+					
+					
 					order: {
 					       data:"invoiceNumber",
 					        dir: 'asc'

@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	
 	loadTableData();
 })
 
@@ -7,24 +8,34 @@ function loadTableData(){
 		
 					paging: true,
 				    scrollCollapse: true,
-				    scrollY: '410px',
+				    scrollY: '415px',
 		
 				ajax: {
 									type: 'Get',
-									url: '/msku-list',
-									dataSrc: 'data'				
+									url: '/raw-master/list',								
+									/*success:(data)=>{
+										
+											    console.log(`Key: ${key}, Value: ${value}`);
+											    console.log(data.data[0].rawSku[0].name);
+											}
+										
+									}	*/			
 					},
 						columns:[
-								{data:"id", class:"text-start"},
-								{data:"masterSkuTitle",
+								{data:"mid", class:"text-start"},
+								{data:"mtitle",
 								render: function (data) {								 
 								               return '<a style="text-decoration:none; color: blue; cursor: pointer;" onclick="showModel(this)")>'+ data+'</a>';								                
 								        }						
 									},
-								{data:"hsn"},
-								{data:"masterSkuDescription"},								
+								{data:"ordRawSkus[].name", 
+								render: (data)=>{
+									return '<p style="color: blue;">'+ data+'</p>';
+								}},
+								{data:"mhsn"},
+								{data:"mdesc"},								
 								{data:()=>{
-									return `<a onclick='deleteRow(this)' style="cursor: pointer"><img alt="delete-btn" src="img/delete.png" class="icon-s"></a>`
+									return `<a onclick='deleteRow(this)' style="cursor: pointer" hidden=true><img alt="delete-btn" src="img/delete.png" class="icon-s"></a>`
 								}, class:"text-center"
 							}
 								
@@ -35,9 +46,7 @@ function loadTableData(){
 							    }
 
 				
-			}			
-			
-	);
+	});
 	
 }
 
@@ -61,25 +70,27 @@ function showModel(e){
 	let mId = getRowId(e);
 	$.ajax({
 		type:'Post',
-		url:'/get-master-by-id',
+		url:'/raw-master/get',
 		data:{'id':mId},
 		success:(data)=>{
-			document.getElementById('masterSkuTitle').value=data.data.masterSkuTitle;
-			document.getElementById('hsn').value=data.data.hsn;
-			document.getElementById('masterSkuDescription').innerHTML=data.data.masterSkuDescription;
-			
+			document.getElementById('masterSkuTitle').value=data.data[0].mtitle;
+			document.getElementById('hsn').value=data.data[0].mhsn;
+			document.getElementById('masterSkuDescription').innerHTML=data.data[0].mdesc;			
+		
+
 			let tbody = $('#tbody2');
-			for(let i=0; i<data.data.rawSku.length; i++){
+			for(let i=0; i<data.data[0].ordRawSkus.length; i++){
+				
 				tbody.append(`
 				<tr>
-				<td>
-					<input readonly class="form-control" value="`+data.data.rawSku[i]+`"/>	
-				</td>
-				<td><input readonly type="number" class="form-control" id="rawskuquantity" name="rawskuquantity" value="`+data.data.rawskuquantity[i]+`"></td>
+					<td>
+						<input readonly class="form-control" value="`+data.data[0].ordRawSkus[i].name+`"/>	
+					</td>
+					<td>
+						<input readonly type="number" class="form-control" id="rawskuquantity" name="rawskuquantity" value="`+data.data[0].ordRawSkus[i].ordQty+`">
+					</td>
 				</tr>				
 				`);
-				console.log(tbody);
-				
 			}
 			
 		},
@@ -105,12 +116,11 @@ function updateMaster(){
 
 function deleteRow(e){
 	let rId = getRowId(e);
-	alert(rId)
 	let delConfirm = confirm('Are you sure want to delete?');
 	if(delConfirm==true){
 		$.ajax({
 				type:'post',
-				url:'/delete-master',
+				url:'/msku/delete',
 				data:{"id":rId},
 				success:function(){
 					location.reload();

@@ -13,9 +13,14 @@ public interface PartyRepository extends JpaRepository<Party, Integer> {
 	@Query("SELECT p FROM Party p")
 	public List<Party> getAllParties();
 	
-	@Query("SELECT partyName p FROM Party p")
+	@Query("SELECT name p FROM Party p")
 	public List<String> getTitleListOfParties();
 	
-	@Query("SELECT p FROM Party p Where p.partyName=:pTitle")
+	@Query("SELECT p FROM Party p Where p.id=:pId")
+	public Party findById(@Param("pId") Long pId);
+	
+	
+	//Will be deleted in future
+	@Query("SELECT p FROM Party p Where p.name=:pTitle")
 	public Party getPartyFromTitle(@Param("pTitle") String pTitle);
 }

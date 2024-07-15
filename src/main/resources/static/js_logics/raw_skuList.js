@@ -9,22 +9,22 @@ function dataTable(){
 							paging: true,
 						    scrollCollapse: true,
 							autoFill: true,							
-						    scrollY: '400px',
+						    scrollY: '415px',
 		
 		ajax: {
 			       type: 'Get',
-			       url: '/get-raw-sku-list',
-				 },
+			       url: '/raw-party/list'
+				   				  
+			  },
 				 columns:[
-				 			{data:"id", class:"text-start"},
-				 			{data:"name",
-				 			render: function (data) {								 
-				 								               return '<a style="text-decoration:none; color: blue; cursor: pointer;" onclick="rSkuDetails(this)")>'+ data+'</a>';								                
-				 								        }						
-				 									},
-				 			{data:"party_list"},
-				 			{data:"quantity", class:"text-center"},								
-				 			{data:"description"},								
+				 			{data:"rawSku.id", class:"text-start"},
+				 			{data:"rawSku.name", render: function (data) {								 
+				 							 return '<a style="text-decoration:none; color: blue; cursor: pointer;" onclick="rSkuDetails(this)")>'+ data+'</a>';								                
+				 						}						
+				 					},
+				 			{data:"party.name"},
+				 			{data:"rawSku.quantity", class:"text-center"},								
+				 			{data:"rawSku.description"},								
 				 			{data:()=>{
 				 									return `<a onclick='deleteRow(this)' style="cursor: pointer"><img alt="delete-btn" src="img/delete.png" class="icon-s"></a>`
 				 			}, class:"text-center"
@@ -47,18 +47,24 @@ function deleteRow(e){
 			let rId = getRowId(e);
 			$.ajax({
 				type:'post',
-				url:'/delete-rowsku-by-id',
+				url:'/rawsku/delete',
 				data:{'rId': rId},
-				success:()=>{
-					window.location.reload();
+				success:(res)=>{					
+						window.location.reload();
 				},
-				error:()=>{
-					alert('Something went wrong!');
+				error:(res)=>{
+					if(res.status === 403){
+						alert("Can't delete an item if its attached to a party.");						
+					}
+					//window.location.href='/error';
+					//window.location.reload();
 				}
 			})
 	}
 	
 }
+
+
 
 
 function getRowId(e){
@@ -77,7 +83,7 @@ function rSkuDetails(e){
 	
 	$.ajax({
 					type: 'Post',
-					url: '/get-row-sku-by-id',
+					url: '/rawsku/get',
 					data:{'rId':rowId},			
 					success: function(data) {
 						/*console.log("Success block: "+data.name); */
@@ -90,12 +96,15 @@ function rSkuDetails(e){
 			});	
 }
 
+
+
 function showPopUp(data){
+	
 	document.getElementById('pop-box').classList.add('popup-show');
 	document.getElementById('table-data').style.opacity=0.3
-	document.getElementById('rId').innerHTML=data.id;
-	document.getElementById('rTitle').innerHTML=data.name;
-	document.getElementById('rAvlQty').innerHTML=data.quantity;
+	document.getElementById('rId').innerHTML=data.data.id;
+	document.getElementById('rTitle').innerHTML=data.data.name;
+	document.getElementById('rAvlQty').innerHTML=data.data.quantity;
 }
 
 function calculateNewQuantity(){
@@ -111,11 +120,11 @@ function updateQuantity(){
 	
 		$.ajax({
 						type: 'Post',
-						url: '/update-row-sku-quantity',								
+						url: '/rawsku/update',								
 						data:{'rQty':rQty,
 								'rId':rId},			
-						success: function(data) {
-							if(data != null){
+						success: function(res) {
+							if(res != null){
 								closePopup();
 								window.location.reload();								
 							}

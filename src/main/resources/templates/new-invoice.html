@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en-EN">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-<link rel="stylesheet" th:href="@{css/bootstrap.min.css.map}">
-<link rel="stylesheet" th:href="@{/css/home.css}">
-<link rel="stylesheet" th:href="@{/css_logics/invoice.css}">
-<script th:src="@{js/jquery.min.js}"></script>
-<script th:src="@{js_logics/invoice.js}"></script>
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap.min.css.map">
+<link rel="stylesheet" href="/css/home.css">
+<link rel="stylesheet" href="/css_logics/invoice.css">
+<script src="/js/jquery.min.js"></script>
+<script src="/js_logics/invoice.js"></script>
 
 <title>INVOICE</title>
 </head>
@@ -16,21 +16,27 @@
 	
 	<div id="main_container">
 	
-		<form action="/sales-invoice" method="post">
+		<form action="/sale-invoice/create" method="post">
 			
 			<div class="card">
 				  <div class="card-header">
 				  
 				  	<div class="row">
-				  		<div class="col">
+				  		<div class="col">				  			
+				  			<div>
+				  				<img alt="company-logo" style="height: 69px;" src="img/ske_logo.png">
+				  			</div>
+				  			
 				  			<div class="d-flex">
 				  				<label style="font-weight: bold;">GSTIN:</label>				  				
 				  				<p class="ms-2" id="companyGstin"></p>
 				  				<input hidden="hidden" name="companyGstin" id="hcompanyGstin">
 				  			</div>
 				  			
-				  			<div>
-				  				<img alt="company-logo" style="height: 69px;" th:src="@{/img/ske_logo.png}">
+				  			<div class="d-flex">
+				  				<label style="font-weight: bold;">E Way No:</label>				  				
+				  				<p class="ms-2" id="eWayNo"></p>
+				  				<input hidden="hidden" name="heWayNo" id="heWayNo">
 				  			</div>
 				  			
 				  		</div>
@@ -90,8 +96,7 @@
 								  <input type="text" class="form-control" placeholder="Name" name="billToName" id="billToName">						      		
 						    
 						      	  <select class="form-select" style="display: none" name="select_billTo_party" id="select_billTo_party" onchange="setBillToDetails()">
-									 <option selected></option>
-									 <option id="billTo_party_selected" th:each="party: ${session.partyList}" th:name="billToParty" th:text="${party.partyName}"/>
+									 <!-- This is a auto populated list based on API response  -->
 								  </select>
 								  
 							 </div>
@@ -139,8 +144,7 @@
 								  <input type="text" class="form-control" placeholder="Name" name="shippToName" id="shippToName">
 								  
 								  <select class="form-select" style="display: none" name="select_shipTo_party" id="select_shipTo_party" onchange="setShipToDetails()">
-									 <option selected></option>
-									 <option id="billTo_party_selected" th:each="party: ${session.partyList}" th:name="billToParty" th:text="${party.partyName}"/>
+									 <!-- This is a auto populated list based on API response  -->
 								  </select>
 							 </div>
 							 
@@ -204,28 +208,32 @@
 									<th class="text-center">SKU</th>
 									<th class="text-center">Particulars</th>
 									<th class="text-center">Quantity</th>
+									<th class="text-center">Weight</th>
 									<th class="text-center ce">Price</th>
 									<th class="text-center">Amount</th>
 									<th class="no-print" style="width: 35px;">
-									<img alt="add button" th:src="@{/img/plus.png}" class="icon-s" onclick="addRow()"></img>
+									<img alt="add button" src="img/plus.png" class="icon-s" onclick="addRow()"></img>
 									</th>
 							    </tr>
 							    
 							  </thead>
 							  <tbody id="tbody">
 							    <tr id="trow">
-							      <td><input class="form-control particulars" type="text" name="hsn" id="hsn" placeholder="H54BU"></td>
 							      <td>
-							      		<select class="form-select masterSku" name="masterSku" id="masterSku" onchange="setDesc(this)">
-											  <option selected>Select a product</option>
-											  <option id="mSku_selected" th:each="mSku: ${session.mSkuList}" th:name="mSku" th:text="${mSku.masterSkuTitle}"/>
+							      		<input class="form-control particulars" type="text" name="hsn" id="hsn" readonly="readonly" placeholder="H54BU">
+							      </td>
+							      
+							      <td>
+							      		<select class="form-select masterSku" name="masterSku" id="masterSku" onchange="selectMaster(this)">											  
+											  <!-- this List is auto populated based on API response -->
 										</select>
 							      </td>							      
-								  <td><input class="form-control particulars h_particulars" type="text" name="particulars" placeholder="Item description" style="height: 38px;"></input></td>
+								  <td><textarea class="form-control particulars h_particulars" readonly="readonly" name="particulars" id="particulars" rows="1" placeholder="Item description" style="overflow:hidden; resize:none;" onkeypress="autoResize()" onchange="autoResize()"></textarea></td>
 							      <td><input class="form-control qty" type="number" name="qty" onchange="cal(this)"></td>
+							      <td><input class="form-control qty" type="number" name="weight"></td>
 							      <td><input class="form-control price" type="number" name="price" onchange="cal(this)"></td>
 							      <td><input class="form-control amount" type="number" name="amount" readonly="readonly"></td>
-							      <td class="no-print"><img alt="delete row" th:src="@{img/minus_btn.png}" class="icon-s" onclick="removeRow(this)">
+							      <td class="no-print"><img alt="delete row" src="img/minus_btn.png" class="icon-s" onclick="removeRow(this)">
 							      </td>							      
 							    </tr>
 							  </tbody>

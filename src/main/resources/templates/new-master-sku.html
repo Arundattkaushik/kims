@@ -17,7 +17,7 @@
 
 <div class="con" style="width: 35%">
 		
-			<form id="new_master_form" onsubmit="submitForm();redirectTo();">
+			<form id="new_master_form">
 					
 					<div id="order_row">					   		
 					   		
@@ -26,23 +26,23 @@
 					   					<div class="col">
 					   					
 					   						<label class="mb-2">SKU Title*</label>
-									    	<input class="form-control" required="required" name="masterSkuTitle" id="masterSkuTitle" placeholder="Title"/>
+									    	<input class="form-control" required="required" name="mSkuTitle" id="mSkuTitle" placeholder="Title"/>
 												
 					   					</div>				   					
 					   					
 					   					<div class="col">
 					   					
 					   						<label class="mb-2">HSN</label>
-									    	<input type="text" class="form-control" name="hsn" id="hsn" placeholder="HSN"/>
+									    	<input type="text" class="form-control" name="mHsn" id="mHsn" placeholder="HSN"/>
 					   					
 					   					</div>
 					   													   							   		
-					      	 </div>
-					      	 
-					      	 <div class="row p-3">	
-							   	<label class="mb-2" >Description</label>					   		 
-								<textarea class="form-control mb-2" style="height: 150px" name="masterSkuDescription" placeholder="Description."></textarea>
-							 </div>
+					      	 </div>					     
+							 
+							 <div class="form-floating p-2">
+						  		<textarea class="form-control" name="mSkuDesc" id="mSkuDesc" placeholder="Leave a comment here" style="height: 200px"></textarea>
+						  		<label class="text-danger">Description</label>
+							</div>
 					   		
 					   		
 					   	<!-- Table for Products -->
@@ -59,13 +59,11 @@
 							  <tbody id="tbody">
 							    <tr id="trow">
 							      <td>
-							      		<select class="form-select" name="rawSku" id="rawSku" >
-							      		
-											  <option selected>Select a product</option>
-										
+							      		<select class="form-select" name="rSkuIds" id="rSkuIds" >
+							      		  <!-- this list will be populated dynamically from the backend response -->
 										</select>
 							      </td>							      
-							      <td><input type="number" class="form-control" id="rawskuquantity" name="rawskuquantity" placeholder="eg. 5"></td>							      
+							      <td><input type="number" class="form-control" value="0" id="ordRawSkuQty" name="ordRawSkuQty" placeholder="eg. 5"></td>							      
 							      <td></td>
 							      <td><button class="btn btn-warning" type="button"	onclick="removeRow(this)">-</button></td>							      
 							    </tr>
@@ -77,7 +75,7 @@
 				    </div>	
 	
 					<div style="text-align: center;" class="mt-4">
-					  	<input type="submit" class="btn btn-primary" value="Create Master"/>				  
+					  	<input type="button" onclick="createMaster()" class="btn btn-primary" value="Create Master"/>				  
 					</div>
 							  
 				</form>	

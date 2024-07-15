@@ -2,27 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-<link rel="stylesheet" th:href="@{css/bootstrap.min.css.map}">
-<link rel="stylesheet" th:href="@{/css/home.css}">
-<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css.map">
+<link rel="stylesheet" href="/css/home.css">
+<link rel="stylesheet" href="css/box-center.css">
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="js_logics/new_party.js"></script>
 <title>Add Party</title>
 </head>
-<body class="bg">
+
+<body class="d-flex flex-column">
 <nav th:insert="~{fragments/navbar.html::nav}"></nav>
 
-<div class="container text-center pt-2">
-	<h1>New Party</h1>
+<div class="text-center mt-5 mb-3">
+	<h1><a href="#" style="text-decoration: none;">New Party</a></h1>
 </div>
 
-<div class="container mt-4">
 
 <div class="row">
-		<div class="col-md-6 offset-md-3 bg-card p-4" style="border-radius: 10px;">
+		<div class="con" style="width: 600px">
 		
 		<!-- action="/process-new-party" -->
 		
-			<form action="/create-new-party" method="post" id="partyForm" >
+			<form id="party_form" onsubmit="creatParty()">
 						
 						
 				<!-- Row 1 -->
@@ -30,7 +32,7 @@
 					
 						<div class="col mb-3" >
 							 <label class="form-label">Party Name*</label>
-						     <input type="text" class="form-control" name="partyName" required="required" placeholder="Party Name">					
+						     <input type="text" class="form-control" name="name" required="required" placeholder="Party Name">					
 						</div>	
 						
 						<div class="col mb-3">
@@ -93,15 +95,6 @@
 					
 		</div>
 	</div>
-
-</div>
-
-<script>
-	$(document).ready(()=>{
-		$('label').css('color','yellow');
-		$('#address').css('color','red');
-	})
-</script>
 
 </body>
 </html>

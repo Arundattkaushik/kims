@@ -1,6 +1,7 @@
 package com.kims.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,16 +14,21 @@ public class PartyServices {
 	@Autowired
 	private PartyRepository partyRepository;
 	
-	public Party createParty(Party party) {
-		return partyRepository.save(party);
+	public Optional<Party> createParty(Party party) {
+		return Optional.ofNullable(partyRepository.save(party));
 	}
 	
-	public List<Party> getParties(){
-		return partyRepository.getAllParties();
+	public Optional<Party> findPartyById(Long pId) {
+		return Optional.ofNullable(partyRepository.findById(pId));
 	}
 	
-	public void deletePartyById(int partyId) {
+	public Optional<List<Party>> getParties(){
+		return Optional.ofNullable(partyRepository.getAllParties());
+	}
+	
+	public Optional<Boolean> deletePartyById(int partyId) {
 		partyRepository.deleteById(partyId);
+		return Optional.of(true);
 	}
 	
 	
@@ -30,4 +36,8 @@ public class PartyServices {
 		return partyRepository.getPartyFromTitle(pTitle);
 	}
 
+	
+//	public List<RawSku> getRawSkuAndParty(){
+//		return partyRepository.getRawSkuAndParty();
+//	}
 }

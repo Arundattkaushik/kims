@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-<link rel="stylesheet" th:href="@{/css/card.css}">
-<link rel="stylesheet" th:href="@{css/bootstrap.min.css.map}">
-<link rel="stylesheet" th:href="@{/css/home.css}">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/card.css">
+<link rel="stylesheet" href="css/bootstrap.min.css.map">
+<link rel="stylesheet" href="css/home.css">
 <meta charset="UTF-8">
 <title>Error</title>
 </head>
 <body style="left: 38%; top: 25%; position: absolute;" class="bg">
 
 <div>
- <div class="popup">
-    <div class="popup-h">
-        <img class="popup-img" th:src="@{/img/cloud.png}" alt="alert-img" style="margin-left: 100px; margin-top: 20px;">
-    </div>
-    <div class="popup-b">
-        <h3 style="text-align: center; font-size: 18px; padding-bottom: 10px;" class="text-primary">Oops! It seems you are logged out!</h3>
-        <a class="btn btn-primary" href="/user-home" style="margin: 0 auto; 
-        display: block; width: 100px;height: 40px; border-radius: 10px;">Home</a>
-    </div>
+ 	<div class="popup">
  
- </div>
+   	 	<div class="popup-h">
+   	 	    <img class="popup-img" src="img/cloud.png" alt="alert-img" style="margin-left: 100px; margin-top: 20px;">
+   	 	</div>
+   	 	<div class="popup-b">
+   	 	    <h3 style="text-align: center; font-size: 18px; padding-bottom: 10px;" class="text-primary">Oops! It seems you are logged out!</h3>
+   	 	    <a class="btn btn-primary" href="/user-home" style="margin: 0 auto; 
+    		    display: block; width: 100px;height: 40px; border-radius: 10px;">Home</a>
+    	</div>
+ 
+	 </div>
 </div>
 
 </body>

@@ -1,26 +1,25 @@
 package com.kims.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.kims.entites.SalesInvoice;
-import com.kims.repositories.SalesRepo;
+import com.kims.repositories.SalesInvoiceRepo;
 
 @Service
 public class SalesService {
 	@Autowired
-	private SalesRepo salesRepo;
+	private SalesInvoiceRepo sInvoiceRepos;
 	
-	public SalesInvoice saveSalesInvoice(SalesInvoice salesInvoice) {
-		return salesRepo.save(salesInvoice);
+	public Optional<SalesInvoice> save(SalesInvoice salesInvoice) {
+		return Optional.ofNullable(sInvoiceRepos.save(salesInvoice));	
 	}
 	
 	public List<SalesInvoice> getSalesInvoice() {		
-		return salesRepo.getSalesData();
+		return sInvoiceRepos.getSalesData();
 	}
 
 }

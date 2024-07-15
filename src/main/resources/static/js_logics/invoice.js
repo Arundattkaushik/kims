@@ -2,44 +2,50 @@ $(document).ready(() => {
 	$('.btn-status').prop('disabled', true);
 	
 	loadCompanyDetails();
+	loadPartyList();
+	loadMasterSkuList();
 })
 
 function loadCompanyDetails(){
 	$.ajax({
 		type: 'Get',
-		url: '/get-company-details',
-		success: function(data){	
-			/*console.log(data);*/
-			document.getElementById("bankName").innerHTML=data.bankName;
-			document.getElementById("hbankName").value=data.bankName;
+		url: '/company/detail',
+		success: function(res){	
+			/*console.log(res.data);*/
+			document.getElementById("bankName").innerHTML=res.data.bankName;
+			document.getElementById("hbankName").value=res.data.bankName;
 			
 			
-			document.getElementById("bankAccountNo").innerHTML=data.bankAccountNumber;
-			document.getElementById("hbankAccountNo").value=data.bankAccountNumber;
+			document.getElementById("bankAccountNo").innerHTML=res.data.bankAccountNumber;
+			document.getElementById("hbankAccountNo").value=res.data.bankAccountNumber;
 			
-			document.getElementById("bankIFSC").innerHTML=data.bankIfscCode;
-			document.getElementById("hbankIFSC").value=data.bankIfscCode;
+			document.getElementById("bankIFSC").innerHTML=res.data.bankIfscCode;
+			document.getElementById("hbankIFSC").value=res.data.bankIfscCode;
 			
-			document.getElementById("termsAndCondtions").innerHTML=data.termsAndConditions;
-			document.getElementById("htermsAndCondtions").value=data.termsAndConditions;
+			document.getElementById("termsAndCondtions").innerHTML=res.data.termsAndConditions;
+			document.getElementById("htermsAndCondtions").value=res.data.termsAndConditions;
 			
-			document.getElementById("for-authorized-signature").innerHTML=data.companyName;
-			document.getElementById("companyGstin").innerHTML=data.gstin;
-			document.getElementById("hcompanyGstin").value=data.gstin;
-			
-			
-			document.getElementById("companyMobile").innerHTML=data.companyContactNo;
-			document.getElementById("hcompanyMobile").value=data.companyContactNo;
+			document.getElementById("for-authorized-signature").innerHTML=res.data.companyName;
+			document.getElementById("companyGstin").innerHTML=res.data.gstin;
+			document.getElementById("hcompanyGstin").value=res.data.gstin;
 			
 			
-			document.getElementById("additionalContactNo").innerHTML=data.additionalContactNo;
-			document.getElementById("hadditionalContactNo").value=data.additionalContactNo;
+			document.getElementById("eWayNo").innerHTML=res.data.ewayNo;
+			document.getElementById("heWayNo").value=res.data.ewayNo;
 			
-			document.getElementById("companyName").innerHTML=data.companyName;
-			document.getElementById("hcompanyName").value=data.companyName;
 			
-			document.getElementById("companyAddress").innerHTML=data.companyMailingAddress;
-			document.getElementById("hcompanyAddress").value=data.companyMailingAddress;
+			document.getElementById("companyMobile").innerHTML=res.data.companyContactNo;
+			document.getElementById("hcompanyMobile").value=res.data.companyContactNo;
+			
+			
+			document.getElementById("additionalContactNo").innerHTML=res.data.additionalContactNo;
+			document.getElementById("hadditionalContactNo").value=res.data.additionalContactNo;
+			
+			document.getElementById("companyName").innerHTML=res.data.companyName;
+			document.getElementById("hcompanyName").value=res.data.companyName;
+			
+			document.getElementById("companyAddress").innerHTML=res.data.companyMailingAddress;
+			document.getElementById("hcompanyAddress").value=res.data.companyMailingAddress;
 		},
 		error: function(errorThrown) {
 			console.log("Error block run for => loadCompanyDetails() " + errorThrown)
@@ -48,19 +54,41 @@ function loadCompanyDetails(){
 }
 
 
+function loadPartyList(){
+	let billTo = $('#select_billTo_party');
+	let shipTo = $('#select_shipTo_party');
+	$.ajax({
+					type: 'Get',
+					url: '/party/list',			
+					success: function(res) {
+						/*console.log("Success block: "+textStatus);*/ 
+						for(let i =0; i<res.data.length; i++){							
+							billTo.append('<option value="'+ res.data[i].id +'">' + res.data[i].name + "</option>");
+							shipTo.append('<option value="'+ res.data[i].id +'">' + res.data[i].name + "</option>");
+						}
+						
+
+					},
+					error: function(errorThrown) {
+						console.log("Error block run for => setBillToDetails() " + errorThrown)
+					}
+			});	
+}
+
 
 function setBillToDetails(){
 	let billToParty = document.getElementById("select_billTo_party").value;
+	
 	$.ajax({
 				type: 'Post',
-				url: '/get-bill-to-party',
-				data:{'pTitle':billToParty},			
-				success: function(data) {
+				url: '/party/get',
+				data:{'id':billToParty},			
+				success: function(res) {
 					/*console.log("Success block: "+textStatus);*/ 
-					document.getElementById("billToAddress").value=data.address;
-					document.getElementById("billToState").value=data.state;
-					document.getElementById("billToStateCode").value=data.stateCode;
-					document.getElementById("billToGstInNo").value=data.gstin;
+					document.getElementById("billToAddress").value=res.data.address;
+					document.getElementById("billToState").value=res.data.state;
+					document.getElementById("billToStateCode").value=res.data.stateCode;
+					document.getElementById("billToGstInNo").value=res.data.gstin;
 
 				},
 				error: function(errorThrown) {
@@ -77,14 +105,14 @@ function setShipToDetails(){
 	let shipToParty = document.getElementById("select_shipTo_party").value;
 		$.ajax({
 					type: 'Post',
-					url: '/get-ship-to-party',
-					data:{'pTitle':shipToParty},			
-					success: function(data, textStatus) {
+					url: '/party/get',
+					data:{'id':shipToParty},			
+					success: function(res) {
 						/*console.log("Success block: "+textStatus);*/ 
-						document.getElementById("shippToAddress").value=data.address;
-						document.getElementById("shippToState").value=data.state;
-						document.getElementById("shippToStateCode").value=data.stateCode;
-						document.getElementById("shippToGstInNo").value=data.gstin;
+						document.getElementById("shippToAddress").value=res.data.address;
+						document.getElementById("shippToState").value=res.data.state;
+						document.getElementById("shippToStateCode").value=res.data.stateCode;
+						document.getElementById("shippToGstInNo").value=res.data.gstin;
 
 					},
 					error: function(errorThrown) {
@@ -97,12 +125,12 @@ function setShipToDetails(){
 
 
 
-function loadPartyDataInSession(){
+/*function loadPartyDataInSession(){
 	$.ajax({
 			type: 'GET',
 			url: '/get-master-avl-qty',			
 			success: function(data) {
-				/*console.log("Success block: "+textStatus);*/
+				console.log("Success block: "+textStatus);
 				console.log("Success block:  loadPartyDataInSession()"+data);
 
 			},
@@ -112,7 +140,7 @@ function loadPartyDataInSession(){
 				
 			}
 		});
-}
+}*/
 
 
 /* Bill To, Ship To logic*/
@@ -121,7 +149,7 @@ function billToShipToCheckBox() {
 
 	/* Bill To Details*/
 	let billToName = document.getElementById("billToName").value;
-	let billToNamefromlist = document.getElementById("select_billTo_party").value;
+	let billToNamefromlist = $('#select_billTo_party option:selected').text();
 	
 	
 	let billToAddress = document.getElementById("billToAddress").value;
@@ -271,9 +299,9 @@ function getMasterSkuQuantity(e) {
 	/* there is no use of this api now, just kept it for the sake of status button logic */
 	$.ajax({
 		type: 'POST',
-		url: '/get-master-avl-qty',
+		url: '/msku/avl-qty',
 		data: { 'title': mSku },
-		success: function(data, textStatus, jqXHR) {
+		success: function(res) {
 			/* console.log("Success block: "+data);  */
 
 			
@@ -287,7 +315,7 @@ function getMasterSkuQuantity(e) {
 			submitButtonStatus(e);
 
 		},
-		error: function(jqXHR, textStatus, errorThrown) {
+		error: function(errorThrown) {
 			console.log("Error block run for => getMasterSkuQuantity(e) " + errorThrown);
 		}
 	});
@@ -377,21 +405,45 @@ function calGST() {
 
 
 
+/*Loading list of master skus at page load*/
+function loadMasterSkuList(){
+	let msku = $('#masterSku');
+	$.ajax({
+		type: 'Get',
+		url: '/msku/list',		
+		success: function(res) {
+			/*console.log("Success block: "+data)*/			
+			for(let i =0; i<res.data.length; i++){	
+				//console.log(res.data[i].mskuTitle)						
+				msku.append('<option value="'+ res.data[i].id +'">' + res.data[i].mskuTitle + "</option>");				
+			}
+			
+		},
+		error: function(errorThrown) {
+			console.log("Error block run for => setDesc(e) " + errorThrown)
+		}
+	});
+	
+}
+
+
+
+
 /* Setting description  */
-function setDesc(e) {
+function selectMaster(e) {
 	let index = $(e).parent().parent().index();
 	let x = document.getElementsByName("masterSku")[index].value;
-
+	
 	/* making an ajax call to retreive data from database by sending a request to controller */
 	$.ajax({
-		type: 'POST',
-		url: '/get-mSku-desc',
-		data: { 'title': x },
-		success: function(data) {
+		type: 'Post',
+		url: '/msku/get',
+		data: { 'id': x },
+		success: function(res) {
 			/*console.log("Success block: "+data)*/
 
-			document.getElementsByName("particulars")[index].value = data[0].masterSkuDescription;
-			document.getElementsByName("hsn")[index].value = data[0].hsn;
+			document.getElementsByName("particulars")[index].value = res.data.mskuDesc;
+			document.getElementsByName("hsn")[index].value = res.data.mhsn;
 		},
 		error: function(errorThrown) {
 			console.log("Error block run for => setDesc(e) " + errorThrown)
@@ -402,6 +454,15 @@ function setDesc(e) {
 	getMasterSkuQuantity(e);
 }
 
+
+/*Auto resizing text/perticular text box*/
+function autoResize(){
+	let textarea = document.getElementById('particulars');
+	textarea.addEventListener('input', () => {
+	    textarea.style.height = 'auto'; // Reset the height
+	    textarea.style.height = textarea.scrollHeight + 'px'; // Set to scroll height
+	});
+}
 
 /* function to print invoice */
 function goPrint() {

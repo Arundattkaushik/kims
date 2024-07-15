@@ -9,91 +9,125 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.kims.dto.RawPartyDTO;
+import com.kims.entites.Party;
 import com.kims.entites.RawSku;
+import com.kims.services.PartyServices;
+import com.kims.services.RawPartyServices;
 import com.kims.services.RawSkuServices;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
-
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
+@RequestMapping("/rawsku")
 public class RawSkusAPI {
 	@Autowired
 	private RawSkuServices rawSkuServices;
-	
-	@GetMapping("/get-raw-sku-list")
-	public ResponseEntity<Object> rawSkuList(HttpSession session) {
-		Optional<List<RawSku>> list = Optional.ofNullable(rawSkuServices.getRawSkuList());
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		if(list.isPresent()) {
-		
-		map.put("message", "s");
-		map.put("status", HttpStatus.OK);
-		map.put("data", rawSkuServices.getRawSkuList());
-		
-		
-		return new ResponseEntity<Object>(map, HttpStatus.OK);		
-		}
-		else {
+	@Autowired
+	private PartyServices pServices;
+	@Autowired
+	private RawPartyServices rawPartyServices;
 
+	@GetMapping("/list")
+	public ResponseEntity<Object> rawSkuList() {
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		List<RawSku> list = rawSkuServices.getRawSkuList();
+
+
+			map.put("message", "s");
+			map.put("status", HttpStatus.OK);
+			map.put("data", list);
+
+			return new ResponseEntity<Object>(map, HttpStatus.OK);
+
+	}
+		
+		
+		
+
+	@PostMapping("/get")
+	public ResponseEntity<Object> getRawSkuById(HttpServletRequest request) {
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		Optional<RawSku> op = rawSkuServices.getById(Long.valueOf(request.getParameter("rId")));
+
+		if (op.isPresent()) {
+			map.put("message", "s");
+			map.put("status", HttpStatus.OK);
+			map.put("data", op.get());
+			return new ResponseEntity<Object>(map, HttpStatus.OK);
+
+		} else {
 			map.put("message", "f");
-			map.put("status", HttpStatus.CONFLICT);
-			
-			return new ResponseEntity<Object>(map, HttpStatus.CONFLICT);	
+			map.put("data", "no record found with this Id");
+			map.put("status", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	@PostMapping("/get-row-sku-by-id")
-	public RawSku getRawSku(HttpServletRequest request) {
-		return rawSkuServices.getRawSkuById(Integer.parseInt(request.getParameter("rId")));
-	}
-	
-	@PostMapping("/delete-rowsku-by-id")
+
+	@PostMapping("/delete")
 	public ResponseEntity<Object> deleteRawSkuById(HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		Optional<Boolean> st = Optional.ofNullable(rawSkuServices.deleteRawSkuById(Integer.parseInt(request.getParameter("rId"))));
-		if (st.get()==true) {
+
+		// Integer.parseInt(request.getParameter("rId"))
+		Optional<List<RawPartyDTO>> st = rawPartyServices.findByRawSku(
+				rawSkuServices.getById(Long.valueOf(Integer.parseInt(request.getParameter("rId")))).get());
+
+		if (st.isEmpty()) {
+			rawSkuServices.deleteRawSkuById(Integer.parseInt(request.getParameter("rId")));
 			map.put("message", "s");
 			map.put("status", HttpStatus.OK);
+
+			return new ResponseEntity<Object>(map, HttpStatus.OK);
+		} else {
+			map.put("message", "can't an item if its attached to a party");
+			map.put("status", HttpStatus.FORBIDDEN);
+			return new ResponseEntity<Object>(map, HttpStatus.FORBIDDEN);
+		}
+	}
+
+	@PostMapping("/update")
+	public void updateRawSkuQuantiy(HttpServletRequest request) {
+		rawSkuServices.updateRawSkuQuantity(Integer.parseInt(request.getParameter("rQty")),
+				Long.valueOf(request.getParameter("rId")));
+	}
+
+	@PostMapping("/create")
+	public ResponseEntity<Object> createRawSku(@ModelAttribute RawSku rSku) {
+		Map<String, Object> map = new HashMap<String, Object>();		
+		Optional<RawPartyDTO> newDto = Optional.empty();
+		Optional<Party> party = pServices.findPartyById(rSku.getPartyId());
+		Optional<RawSku> sku = Optional.ofNullable(rawSkuServices.createRawSku(rSku));
+		
+
+		if (sku.isPresent()) {
+			
+			if (party.isPresent()) {
+				newDto = rawPartyServices.saveDto(party.get(), sku.get());				
+			} 
+		}
+		
+		if (newDto.isPresent()) {
+			map.put("message", "s");
+			map.put("status", HttpStatus.OK);
+			map.put("data", newDto.get());
 			return new ResponseEntity<Object>(map, HttpStatus.OK);
 			
-		} 
+		}
 		else {
 			map.put("message", "f");
-			map.put("status", HttpStatus.CONFLICT);
-			return new ResponseEntity<Object>(map, HttpStatus.CONFLICT);
+			map.put("data", "no party found with this Id");
+			map.put("status", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Object>(map, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+
+		
 	}
-	
-	
-	
-	@PostMapping("/update-row-sku-quantity")
-	public void updateRawSkuQuantiy(HttpServletRequest request) {
-		rawSkuServices.updateRawSkuQuantity(Integer.parseInt(request.getParameter("rQty")), Integer.parseInt(request.getParameter("rId")));
-	}
-	
-	
-	@PostMapping("/create-row-sku")
-	public ResponseEntity<Object> createRawSku(@ModelAttribute RawSku rawSku) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		Optional<RawSku> sku = Optional.ofNullable(rawSkuServices.createRawSku(rawSkuServices.createRawSku(rawSku)));
-		if (sku.isPresent()) {
-			map.put("message", "s");
-			map.put("status", HttpStatus.OK);
-			map.put("data", sku.get());
-			return new ResponseEntity<Object>(map, HttpStatus.OK);
-		} 
-		else {
-			map.put("message", "f");
-			map.put("status", HttpStatus.CONFLICT);
-			return new ResponseEntity<Object>(map, HttpStatus.CONFLICT);
-		}
-	}
-	
+
 }

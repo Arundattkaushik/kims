@@ -11,11 +11,11 @@ public class CompanyDetailService {
 	@Autowired
 	private CompanyDetailsRepo companyDetailsRepo;
 	
-	public CompanyDetails getCompanyDetails() {
+	public CompanyDetails details() {
 		return companyDetailsRepo.getCompanyDetails();
 	}
 	
-	public CompanyDetails saveCompanyDetails(CompanyDetails companyDetails) {
+	public CompanyDetails save(CompanyDetails companyDetails) {
 		return companyDetailsRepo.save(companyDetails);
 	}
 	

@@ -3,22 +3,24 @@
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css.map}">
 <link rel="stylesheet" th:href="@{/css/home.css}">
+<link rel="stylesheet" href="css/box-center.css">
 <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
 <meta charset="UTF-8">
-<title>SkE</title>
+<title>Log in to S.K Enterprises</title>
 </head>
-<body class="bg">
 
-<div class="container mt-2 pt-4 mt-5">
+<body class="d-flex flex-column">
+
+<div class="text-center row mb-3">
+	<h1><a href="#" style="text-decoration: none;">S.K Enterprises</a></h1>
+</div>
+
+<div class="con">
 	<div class="row">
-		<div class="col-md-4 offset-md-4 card bg-card mt-5" style="border-radius: 10px;">
+			<div class="text-center">Log in to S.K Enterprises</div>
 		
 			<form th:action="@{/login}" method="post" class="p-4">
 			
-					<div class="text-center row">
-					<h1 class="main-head text-warning">Login</h1>
-					</div>
-				
 				  <div class="mb-3">
 				    <label for="email" class="form-label">Email address</label>
 				    <input 
@@ -48,20 +50,14 @@
 				  </div>
 			</form>		
 			
-			<div style="display: flex;" class="ms-5">
-				<p><a class="link-opacity-75" href="/forgot-password" style="margin-left: 3px; text-decoration: none; color: black;">Reset Password</a></p>
-				<p><a class="link-opacity-75" href="/sign-up" style="margin-left: 130px; text-decoration: none; color: black;">Register</a></p>
+			<div class="d-flex text-center" style="justify-content: space-around;">
+				<p><a href="/forgot-password" style="text-decoration: none;">Forgotten Password?</a></p>
+				<p><a href="/sign-up" style="text-decoration: none;">Sign up</a></p>
 			</div>	
-					
-		</div>
+
 	</div>
 </div>
 
 </body>
-<script>
-$(document).ready(function(){
-	$("label").css("color","yellow");
-	$("a").css("color","yellow");
-})
-</script>
+
 </html>

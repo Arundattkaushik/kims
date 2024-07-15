@@ -16,7 +16,7 @@
 <div class="con">
 	<nav th:insert="~{fragments/navbar.html::nav}"></nav>
 		
-			<form id="new_raw" onsubmit="createRawSku(this)">
+			<form id="new_raw">
 			
 					<div class="row text-center p-3">
 						<h2>NEW RAW SKU</h2>
@@ -37,8 +37,9 @@
 							<div class="input-group mb-3">
 							
 								  <span class="input-group-text" style="width: 100px; font-weight: bold;">Party</span>
-								  <select class="form-control" id="party_list" name="party_list">
-									  <option selected>Select a party from the list</option>									  
+								  <select class="form-control" id="partyId" name="partyId">
+									  	<!-- select field to select and party from dropdown list 
+									  	     populated by data fetched from backend API response -->								  
 								  </select>
 								  
 							</div>							
@@ -47,12 +48,12 @@
 					
 						<div class="form-floating">
 						  <textarea class="form-control" name="description" id="description" placeholder="Leave a comment here" style="height: 200px"></textarea>
-						  <label>Description</label>
+						  <label class="text-danger">Description</label>
 						</div>
 	
 	
 						<div style="text-align: center;" class="mt-4">
-					  		<button type="submit" class="btn btn-primary" >Create Item</button>				  
+					  		<button type="button" onclick="createRawSku()" class="btn btn-primary" >Create Item</button>				  
 					  	</div>
 					  
 				</form>	

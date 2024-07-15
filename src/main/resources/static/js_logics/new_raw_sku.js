@@ -7,42 +7,54 @@ $(document).ready(()=>{
 function createRawSku(){
 	let form = $('#new_raw');
 	let formData = form.serialize();
-	alert(formData)
+
 	
 	$.ajax({
 		type:'Post',
-		url:'/create-row-sku',
+		url:'/rawsku/create',
+		contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 		data:formData,
-		success:()=>{
+		success:(response)=>{
+		if(response.status === 'OK') {
+			alert("Raw SKU created successfully!");
 			window.location.href='raw-sku-list';
+			    } else {
+			        alert("Failed to create Raw SKU!");
+					window.location.href='/new-raw-sku';
+			    }
+		},
+		error:()=>{
+			alert("Error while creating Raw SKU!");
+			window.location.href='/error';
 		}
 	})
-	
+   
 }
 
 
 function loadPartyList(){
+	//alert('hello gorillas')
 	$.ajax({
-	            type: 'GET',
-	            url: '/parties-list',
+	            type: 'Get',
+	            url: '/party/list',
 	            
-	            success: function (data, textStatus ,jqXHR) {
-	                /* console.log("Success block: "+data); */
+	            success: function (res) {
+	                /*alert("Success block: "+res.data.length);*/
 	                
-					if(data == null || data == ''){
+					if(res == null || res == ''){
 						console.log(errorThrown)
 					}
 					else{				
-					for(let i=0; i<data.length; i++){
+					for(let i=0; i<res.data.length; i++){ 
 						
-						$('#party_list').append(
-							'<option value="' + data[i].partyName + '">' + data[i].partyName + "</option>"
+						$('#partyId').append(
+							'<option value="'+ res.data[i].id +'">' + res.data[i].name + "</option>"
 										);
 					}
 				}
 	                
 	           },
-	           error: function (jqXHR, textStatus, errorThrown) {
+	           error: function (errorThrown) {
 	           		alert("Something went wrong! "+errorThrown)
 	           }
 	    });

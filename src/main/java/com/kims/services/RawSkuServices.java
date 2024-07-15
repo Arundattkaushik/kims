@@ -1,6 +1,8 @@
 package com.kims.services;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +19,7 @@ public class RawSkuServices {
 	}
 	
 	public List<RawSku> getRawSkuList(){
-		return rawSkuRepository.getAllRawSkus();
+		return rawSkuRepository.findAll();
 	}
 	
 	public Boolean deleteRawSkuById(int rawSkuId) {
@@ -29,11 +31,12 @@ public class RawSkuServices {
 		return rawSkuRepository.getSkuByTitle(title);
 	}
 	
-	public RawSku getRawSkuById(int rawSku_id) {
-		return rawSkuRepository.getSkuById(rawSku_id);
+	public Optional<RawSku> getById(Long rawSku_id) {
+		return Optional.ofNullable(rawSkuRepository.getById(rawSku_id));
 	}
 	
-	public void updateRawSkuQuantity(int rQty, int rId) {
-		rawSkuRepository.updateRawSkuQuantity(rQty, rId);
+	public void updateRawSkuQuantity(int rQty, Long rId) {
+		
+		rawSkuRepository.updateQuantity(rQty, rId);
 	}
 }

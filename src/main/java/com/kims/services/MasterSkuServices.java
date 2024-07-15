@@ -1,6 +1,7 @@
 package com.kims.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,11 +15,11 @@ public class MasterSkuServices {
 	@Autowired
 	private MasterSkuRepository masterSkuRepository;
 	
-	public MasterSku saveMasterSku(MasterSku masterSku) {
-		return masterSkuRepository.save(masterSku);
-	}
+	public Optional<MasterSku> saveMasterSku(MasterSku sku) {
+        return Optional.of(masterSkuRepository.save(sku));
+    }
 	
-	public MasterSku getMasterSkuById(int masterId) {
+	public MasterSku getMasterSkuById(Long masterId) {
 		return masterSkuRepository.getMasterSkuById(masterId);
 	}
 	
@@ -29,14 +30,6 @@ public class MasterSkuServices {
 	public Boolean deleteMasterSkuById(int master_id) {
 		masterSkuRepository.deleteById(master_id);
 		return true;
-	}
-	
-	public List<MasterSku> getMasterDescriptionByMasterTitle(String masterTitle) {
-		return masterSkuRepository.getDescriptionFromSkuTitle(masterTitle);
-	}
-	
-	public MasterSku getMasterByMasterTitle(String masterTitle) {
-		return masterSkuRepository.getMasterByTitle(masterTitle);
 	}
 	
 }

@@ -17,7 +17,7 @@ public class SoldRawSkuServices {
 		return soldRawSkuRepo.findById(srsId);
 	}
 	
-	public SoldRawSku saveSoldRawSku(SoldRawSku soldRawSku){
+	public SoldRawSku save(SoldRawSku soldRawSku){
 		return soldRawSkuRepo.save(soldRawSku);
 	}
 

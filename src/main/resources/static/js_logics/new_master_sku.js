@@ -5,14 +5,15 @@ $(document).ready(function(){
 });
 
 
-function submitForm(){		
+function createMaster(){		
 		$.ajax({
 				type: 'Post',
-				url:'/create-master',	
+				url:'/msku/create',	
 				async: false,
 				caches: false,					
 				data: $('#new_master_form').serialize(),
 				success:()=>{
+					alert("Created Successfully!")
 							window.location.href='/master-sku-list';	
 							return false;
 												
@@ -44,7 +45,7 @@ function loadRowSkuList(){
 	/*console.log('hello')*/
 	$.ajax({
 		type:'Get',
-		url:'/get-raw-sku-list',
+		url:'/rawsku/list',
 		success:function(data, errorThrown){
 				if(data == null || data == ''){
 					console.log(errorThrown)
@@ -52,8 +53,8 @@ function loadRowSkuList(){
 				else{				
 				for(let i=0; i<data.data.length; i++){
 					
-					$('#rawSku').append(
-						'<option value="' + data.data[i].name + '">' + data.data[i].name + "</option>"
+					$('#rSkuIds').append(
+						'<option value="' + data.data[i].id + '">' + data.data[i].name + "</option>"
 					);
 				}
 			}
