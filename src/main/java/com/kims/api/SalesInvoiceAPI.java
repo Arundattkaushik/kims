@@ -55,7 +55,7 @@ public class SalesInvoiceAPI {
 		}
 		
 		//Saving grand total in words before persisting sales invoice in db
-		invoice.setGTotalInWords(Utils.convert(invoice.getFgTotal().longValue()));
+		invoice.setGTotalInWords(Utils.numberToWords(invoice.getFgTotal().doubleValue()));
 		Optional<SalesInvoice> sInvoice = service.save(invoice);
 		
 		try {

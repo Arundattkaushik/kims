@@ -34,6 +34,7 @@ public class Utils {
     }
 	
 	
+	
 	private static final String[] tensNames = {
 	        "",
 	        " ten",
@@ -70,29 +71,22 @@ public class Utils {
 	        " nineteen"
 	    };
 
-	    private static String convertLessThanOneThousand(int number) {
-	        String current;
+		
+		 private static String convertLessThanOneThousand(int number) { String
+		 current;
+		 
+		 if (number % 100 < 20) { current = numNames[number % 100]; number /= 100; }
+		 else { current = numNames[number % 10]; number /= 10;
+		 
+		 current = tensNames[number % 10] + current; number /= 10; } if (number == 0)
+		 return current; return numNames[number] + " hundred" + current; }
+		
 
-	        if (number % 100 < 20) {
-	            current = numNames[number % 100];
-	            number /= 100;
-	        } else {
-	            current = numNames[number % 10];
-	            number /= 10;
-
-	            current = tensNames[number % 10] + current;
-	            number /= 10;
-	        }
-	        if (number == 0) return current;
-	        return numNames[number] + " hundred" + current;
-	    }
-
-	    private static String convertLessThanOneHundred(int number) {
-	        if (number < 20) {
-	            return numNames[number];
-	        }
-	        return tensNames[number / 10] + numNames[number % 10];
-	    }
+	
+	 private static String convertLessThanOneHundred(int number) { if (number <
+	 20) { return numNames[number]; } return tensNames[number / 10] +
+	 numNames[number % 10]; }
+	 
 
 	    public static String convert(long number) {
 	        if (number == 0) {
@@ -101,21 +95,20 @@ public class Utils {
 
 	        String snumber = Long.toString(number);
 
-	        // pad with "0"
-	        String mask = "000000000000";
+	        // pad with "0", Just to make sure the initial length of the number it is necessary
+	        String mask = "000000000";
 	        DecimalFormat df = new DecimalFormat(mask);
-	        snumber = df.format(number);
-
-	        // XXnnnnnnnnnn
+	        snumber = df.format(number);	       
+	        
 	        int crores = Integer.parseInt(snumber.substring(0, 2));
-	        // nnnnXXnnnnnn
+	        
 	        int lakhs = Integer.parseInt(snumber.substring(2, 4));
-	        // nnnnnnXXnnnn
+	        
 	        int thousands = Integer.parseInt(snumber.substring(4, 6));
-	        // nnnnnnnnXXX
-	        int hundreds = Integer.parseInt(snumber.substring(6, 9));
-	        // nnnnnnnnnnn
-	        int rest = Integer.parseInt(snumber.substring(9, 12));
+	        
+	        int hundreds = Integer.parseInt(snumber.substring(6, 7));
+	        
+	        int rest = Integer.parseInt(snumber.substring(7, 9));
 
 	        String result = "";
 
@@ -132,7 +125,7 @@ public class Utils {
 	        }
 
 	        if (hundreds > 0) {
-	            result += convertLessThanOneThousand(hundreds) + " ";
+	            result += convertLessThanOneThousand(hundreds) + " hundreds ";
 	        }
 
 	        if (rest > 0) {
@@ -142,7 +135,8 @@ public class Utils {
 	        return result.trim().replaceAll("\\s+", " ");
 	    }
 
-	    public static String convert(double amount) {
+	    //This is the final method that we have to use in any class
+	    public static String numberToWords(double amount) {
 	        long rupees = (long) amount;
 	        long paise = Math.round((amount - rupees) * 100);
 
@@ -150,13 +144,6 @@ public class Utils {
 	        String paisePart = paise > 0 ? " and " + convert(paise) + " paise" : "";
 
 	        return "INR " + rupeePart + paisePart;
-	    }
-
-	    public static void main(String[] args) {
-	        System.out.println("*** " + convert(2597625)); // Test case for 2597625
-//	        System.out.println("*** " + convert(123456789.25));
-//	        System.out.println("*** " + convert(100200300.04));
-//	        System.out.println("*** " + convert(0));
 	    }
 	
 }
