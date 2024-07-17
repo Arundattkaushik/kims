@@ -92,7 +92,7 @@ public class HomeController {
 			}
 			session.setAttribute("user", user);
 			sessionHandler.sessionLoader(session);
-			return "redirect:/user-home";
+			return "redirect:/dashboard";
 	}
 	
 	

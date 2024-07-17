@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap.min.css.map">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<script src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="js/cloudfare.js"></script>
+<script src="/js_logics/dashboard.js"></script>
+<title>Dashboard</title>
+</head>
+<body class="bg">
+<nav th:insert="~{fragments/navbar.html::nav}"></nav>
+
+ <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>SKE</h2>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="active">Dashboard</li>           
+            <li>Profile</li>
+            
+        </ul>
+    </div>
+    <div class="main-content">
+        <header>
+            <h1>Dashboard</h1>
+            <div class="header-actions">
+                <input type="text" placeholder="Type here...">
+                <button>Sign In</button>
+            </div>
+        </header>
+        <div class="cards">
+            <div class="card">
+                <h2>Today's Sale</h2>
+                <p>Rs 53k</p>
+                <p>+55% than last week</p>
+            </div>
+            <div class="card">
+                <h2>Today's Best Selling User</h2>
+                <p>2,300</p>
+                <p>+3% than last month</p>
+            </div>
+            <div class="card">
+                <h2>New Clients In 30 days</h2>
+                <p>3,462</p>
+                <p>+2% than yesterday</p>
+            </div>
+            <div class="card">
+                <h2>Sales</h2>
+                <p>103,430 K</p>
+                <p>+5% than yesterday</p>
+            </div>
+        </div>
+        <div class="charts">
+            <div class="chart-card">
+                <h2>Sales Over a Period</h2>
+                <canvas id="salesOverPeriodChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h2>Top 10 Sold Items</h2>
+                <canvas id="topSoldItemsChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h2>Sales Over a Period</h2>
+                <canvas id="salesOverPeriodChart2"></canvas>
+            </div>
+            <div class="chart-card">
+                <h2>Comparison with Previous Periods</h2>
+                <canvas id="comparisonChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <script src="js_logics/dashboard.js"></script>
+
+
+</body>
+</html>

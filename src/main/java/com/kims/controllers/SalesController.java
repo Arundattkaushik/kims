@@ -35,4 +35,19 @@ public class SalesController {
 		}
 	}
 	
+	
+	
+	@GetMapping("/view-sinvoice")
+	public String viewInvoice(HttpSession session) {
+		User user = (User)session.getAttribute("user");
+		if (user==null) {
+			return "redirect:/home";
+		}
+		else {
+			return "p_sale_invoice";
+		}
+	}
+	
+	
+	
 }

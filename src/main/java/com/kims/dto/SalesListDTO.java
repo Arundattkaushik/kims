@@ -1,4 +1,4 @@
-package com.kims.entites;
+package com.kims.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -10,26 +10,16 @@ import org.springframework.data.annotation.Transient;
 import com.kims.utilities.Utils;
 
 import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.Data;
 
 @Data
-@Entity
-public class SalesInvoice {
+public class SalesListDTO {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	
-	//Generating invoice number
-	private String invoiceNumber = Utils.generateInvoiceNumber();
+	private String invoiceNumber;
 	
 	/* Company GSTIN & Contact Details */
 	private String companyGstin; 
-	private String hudyamDl; 
+	private String heWayNo; 
 	private String companyName; 
 	private String companyAddress; 
 	private String companyMobile; 
@@ -57,29 +47,21 @@ public class SalesInvoice {
 	private String shippToState;
 	private String shippToStateCode;
 	private String shippToGstInNo;
-	private String eWayBillNo;
-	private String pONumber;
 	
 	/* General Details */
 	private LocalDate invDate;
 	
 	/* Ordered Product Details */
-	@ElementCollection
 	private List<String> hsn;
 	
-	@ElementCollection
-	private List<Long> masterSku = new ArrayList<Long>();
+	private List<String> masterSku = new ArrayList<String>();
 	
-	@ElementCollection
 	private List<Integer> qty = new ArrayList<Integer>();
 	
-	@ElementCollection
-	private List<String> uom;
+	private List<BigDecimal> weight;
 	
-	@ElementCollection
 	private List<BigDecimal> price;
 	
-	@ElementCollection
 	private List<BigDecimal> amount;
 
 	/* Bank Details */
@@ -101,6 +83,4 @@ public class SalesInvoice {
 	
 	/* Terms And Conditions */
 	private String termsAndCondtions;
-	
-	
 }

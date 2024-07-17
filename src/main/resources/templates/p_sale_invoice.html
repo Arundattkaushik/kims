@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap.min.css.map">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css_logics/p_sale_invoice.css">
+<script src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js_logics/p_sales_invoice.js"></script>
+<meta charset="UTF-8">
+<title>Sales Invoice</title>
+</head>
+<body>
+     <div class="invoice-container">
+		        <!-- Header  -->
+		       	<div class="head-grid">
+					  <div class="companylogo d-flex">
+					  		<img class="logo" src="img/ske_logo.png" alt="Company Logo">
+					  		<h1 class="title">TAX INVOICE</h1>
+					  </div>
+					  
+					  <div class="companyMobile">
+					  	 Mobile No.
+					  </div>
+					  
+					  <div>
+					  		<p id="mobile"></p>		  
+					  </div>
+					    
+					  <div class="companyMobile">
+					  		Office No.
+					  </div>
+					  
+					  <div class="">
+					  		<p id="additionalMobile"></p>
+					  </div>
+					  
+					  <div class="head-grid-bottom">.
+					  
+					  </div>
+				</div>
+				
+        
+        <!-- company info  -->
+      <div class="company-info-container">
+      
+	      	<div class="company-add">
+	      		<p id="company-name"></p>
+	      		<p id="company-address"></p>
+	      		
+	      		<main class="comp-add-main">
+	      			<p>
+	      				<span>GSTIN :</span>
+	      				<span id="company-gstin"></span>
+	      			</p>
+	      			
+	      			<p>
+	      				<span>State code :</span>
+	      				<span id="state-code"></span>
+	      			</p>
+	      			
+	      		</main>	      		
+	      	</div>      	
+      	
+	      	<div>
+	      		Date
+	      	</div>
+	      	
+	      	<div>
+	      		<p id="invoice-date"></p>
+	      	</div>
+	      	
+	      	<div>
+	      		Invoice No.
+	      	</div>
+	      	
+	      	<div>
+	      		<p id="invoice-number"></p>
+	      	</div>
+	      	
+	      	<div>
+	      		EWay No.
+	      	</div>
+	      	
+	      	<div>
+	      		<p id="ewayno"></p>
+	      	</div>
+	      	
+	      	<div class="d-flex udhyam-reg">
+	      		<p style="font-weight: bold;">UDYAM-Reg No:</p>
+	            <p id="udyam-reg-no" style="margin-left: 10px;"></p>
+	      	</div>
+	      	
+	      	<div>
+	      		P.O.No.
+	      	</div>
+	      	
+	      	<div>
+	      		<p id="po-number"></p>
+	      	</div>
+      	
+      </div>
+     
+     <!-- Company Address -->
+     <div class="billto-shipto-grid">
+     		<div class="blank_row_bts">.</div>
+     </div>
+     
+		      <div class="bill_to_ship_to_header">
+		     		<div class="b_0">Details of Receiver/Bill to:</div>
+		     		<div class="b_1">Details of Ship to:</div>
+		     		
+		     		<div class="b_2">Name</div>
+		     		<div class="b_3"><p id="bill_to_name"></div>
+		     		
+		     		<div class="s_1">Name</div>
+		     		<div class="s_2"><p id="ship_to_name"></p>  </div>
+		     		
+		     		
+		     		<div class="b_6">Address</div>
+		     		<div class="b_7"><p id="bill_to_address"></p></div>
+		     		
+		     		
+		     		<div class="s_3">Address</div>
+		     		<div class="s_4"><p id="ship_to_address"></p></div>
+		     		
+		     		
+		     		<div class="b_10">State</div>
+		     		<div class="b_11"><p id="bill_to_state"></p></div>
+		     		
+		     		
+		     		<div class="s_5">State</div>
+		     		<div class="s_6"><p id="ship_to_state"></p></div>
+		     		
+		     		
+		     		<div class="b_14">State code</div>
+		     		<div class="b_15"><p id="bill_to_state_code"></p></div>
+		     		
+		     		
+		     		<div class="s_7">State code</div>
+		     		<div class="s_8"><p id="ship_to_state_code"></p></div>
+		     		
+		     		
+		     		<div class="b_18">GSTIN</div>
+		     		<div class="b_19"><p id="bill_to_gstin"></p></div>
+		     		
+		     		
+		     		<div class="s_20">GSTIN</div>
+		     		<div class="s_21"><p id="ship_to_gstin"></p></div>
+		     </div>
+             
+
+        
+        
+        <div class="item-details">
+            <table id="item-table">
+                <thead>
+                    <tr>
+                        <th>S.NO</th>
+                        <th>HSN</th>
+                        <th>Name of Product/Service</th>
+                        <th>SKU</th>
+                        <th>UOM</th>
+                        <th>QTY</th>
+                        <th>Rate</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- <tr>
+                        <td>1</td>
+                        <td></td>
+                        <td>smps transformer</td>
+                        <td>4400</td>
+                        <td></td>
+                        <td>9.75</td>
+                        <td>42900</td>
+                        <td>42900</td>
+                    </tr> -->
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="7">TOTAL</td>
+                        <td id="totalAmt"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+         
+         <!-- Showing total -->
+       <div class="grid-container">
+       
+		  <div class="item1">
+		  		<p class="fw-bold">Total Invoice Amount In Words:</p>
+		  		<p id="amountInWords"></p> 
+		  </div>
+		  
+		  <div class="item2">
+		  		<p>CGST</p>	
+		  			  		 
+		  </div>
+		  
+		  <div class="item3">
+		  		<span id="cgst_percent"></span> %:
+		  		  		
+		  </div> 
+		   
+		  <div class="item4">
+		  		<p id="cgst"></p>	 
+		  </div>
+		  
+		  <div class="item5">
+		  		<p>SGST</p>   
+		  </div>		  
+		  
+		  <div class="item6">
+		  		 <span id="sgst_percent"></span> %:
+		  </div>
+		  
+		  <div class="item7">
+		  		<p id="sgst"></p> 
+		  </div>
+		  
+		  <div class="item8">
+		  		<p>IGST</p>
+		  </div>
+		  
+		  <div class="item9">
+		  		<span id="igst_percent"></span> %:
+		  </div>
+		  
+		  <div class="item10">
+		  		<p id="igst"></p>
+		  </div>
+		    
+		</div>
+        
+       
+       <!-- Showing bank details -->
+       <div class="bank_grid">
+       		<div class="d-flex">
+       			<p>Bank Details:</p>
+	        	<p id="bankName"></p>
+       		</div>
+       		
+       		<div>
+       			Courier Ch.
+       		</div>
+       		
+       		<div>
+       			<p id="courier_ch">
+       		</div>
+       		
+       		<div class="d-flex">       		
+       			<p>Account No.:</p>
+	        	<p id="bankAcNumber"></p>
+       		</div>
+       		
+       		<div>Discount</div>
+       		
+       		<div><p id="discount"></p></div>
+       		
+       		<div class="d-flex">
+       			<p>Branch IFSC:</p>
+	        	<p id="branchIFSC"></p>
+       		</div>
+       		
+       		<div>
+       			Total
+       		</div>
+       		
+       		<div>
+       			<p id="gTotal"></p>
+       		</div>
+       		
+       </div>
+       
+ 		<!-- Footer for terms & conditions  -->
+ 		<div class="tac_grid">
+ 			<div class="t_1">
+ 				<p id="termsAndConditions"></p>
+ 			</div>
+ 			
+ 			<div class="t_2">
+ 				<p>Receiver's sign.</p>
+ 			</div>
+ 			
+ 			<div class="t_3">
+ 				<p>Authorized sign.</p>
+                <p id="company_name" style="font-size: 8px"></p>
+ 			</div>
+ 			
+ 		</div>
+ 		
+ 		
+ 		
+        <div class="row">
+            <div class="col-9">
+                                
+            </div>
+            <div class="col">
+            	
+            </div>
+            <div class="col">            	          		
+                	                
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>

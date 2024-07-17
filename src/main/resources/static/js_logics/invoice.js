@@ -30,8 +30,8 @@ function loadCompanyDetails(){
 			document.getElementById("hcompanyGstin").value=res.data.gstin;
 			
 			
-			document.getElementById("eWayNo").innerHTML=res.data.ewayNo;
-			document.getElementById("heWayNo").value=res.data.ewayNo;
+			document.getElementById("udyamDl").innerHTML=res.data.hudyamDl;
+			document.getElementById("udyamDl").value=res.data.hudyamDl;
 			
 			
 			document.getElementById("companyMobile").innerHTML=res.data.companyContactNo;

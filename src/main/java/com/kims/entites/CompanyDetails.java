@@ -20,7 +20,7 @@ public class CompanyDetails {
 	private String city;
 	private String zipCode;
 	private String gstin;
-	private String eWayNo;
+	private String hudyamDl;
 	private String companyMailingAddress;
 	private String bankName;
 	private String bankAccountNumber;

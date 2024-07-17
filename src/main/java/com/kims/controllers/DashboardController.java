@@ -10,14 +10,14 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class DashboardController {
 	
-	@GetMapping("/user-home")
+	@GetMapping("/dashboard")
 	public String getMethodName(HttpSession session) {
 		User user = (User)session.getAttribute("user");
 		if (user==null) {
 			return "redirect:/home";
 		}
 		else {
-			return "user-home";
+			return "dashboard";
 		}
 	}
 	

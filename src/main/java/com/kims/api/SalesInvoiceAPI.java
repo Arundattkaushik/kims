@@ -14,6 +14,8 @@ import com.kims.services.SalesService;
 import com.kims.services.SoldRawSkuServices;
 import com.kims.utilities.Utils;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -23,6 +25,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
 
 
 @RestController
@@ -111,6 +114,35 @@ public class SalesInvoiceAPI {
 	
 	
 	
-	
-	
+	@PostMapping("/invoice-by-id")
+	public ResponseEntity<Object> saleInvoiceById(HttpServletRequest request) {
+		
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			try {
+			SalesInvoice sInvoice = service.findSaleInvoiceById(Long.valueOf(request.getParameter("id")));
+			
+			if (sInvoice != null) {
+				map.put("message", "s");
+				map.put("status", HttpStatus.OK);
+				map.put("data", sInvoice);
+				return new ResponseEntity<Object>(map, HttpStatus.OK);
+				
+			} else {
+				map.put("message", "f");
+				map.put("status", HttpStatus.INTERNAL_SERVER_ERROR);			
+				return new ResponseEntity<Object>(map, HttpStatus.INTERNAL_SERVER_ERROR);
+
+			}
+			
+		} 
+
+		
+		catch (Exception e) {
+			map.put("message", "f");
+			map.put("status", HttpStatus.BAD_REQUEST);			
+			map.put("data", "Something went wrong!");			
+			return new ResponseEntity<Object>(map, HttpStatus.BAD_REQUEST);
+		}
+	}	
 }

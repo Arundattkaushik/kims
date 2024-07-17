@@ -21,5 +21,10 @@ public class SalesService {
 	public List<SalesInvoice> getSalesInvoice() {		
 		return sInvoiceRepos.getSalesData();
 	}
+	
+	
+	public SalesInvoice findSaleInvoiceById(Long id){
+		return sInvoiceRepos.invoiceById(id);
+	}
 
 }

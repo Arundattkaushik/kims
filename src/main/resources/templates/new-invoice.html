@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en-EN">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap.min.css.map">
-<link rel="stylesheet" href="/css/home.css">
-<link rel="stylesheet" href="/css_logics/invoice.css">
-<script src="/js/jquery.min.js"></script>
-<script src="/js_logics/invoice.js"></script>
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css_logics/invoice.css">
+<script src="js/jquery.min.js"></script>
+<script src="js_logics/invoice.js"></script>
 
 <title>INVOICE</title>
 </head>
@@ -34,9 +34,9 @@
 				  			</div>
 				  			
 				  			<div class="d-flex">
-				  				<label style="font-weight: bold;">E Way No:</label>				  				
-				  				<p class="ms-2" id="eWayNo"></p>
-				  				<input hidden="hidden" name="heWayNo" id="heWayNo">
+				  				<label style="font-weight: bold;">UDYAM DL:</label>				  				
+				  				<p class="ms-2" id="udyamDl"></p>
+				  				<input hidden="hidden" name="hudyamDl" id="udyamDl">
 				  			</div>
 				  			
 				  		</div>
@@ -80,7 +80,7 @@
 				    <div class="row">
 				    
 				     <!-- Column 1 Billed To -->
-					    <div class="col-6">
+					    <div class="col">
 					    	 <div class="input-group mb-2 row">
 								  <h6 class="text-center">DETAILS OF RECEIVERS (BILL TO)</h6>								
 							 </div>
@@ -109,25 +109,25 @@
 							 
 							 <div class="input-group mb-2">
 								  <span class="input-group-text">State</span>
-								  <input type="text" class="form-control" placeholder="state" name="billToState" id="billToState">
+								  <input type="text" class="form-control" placeholder="State" name="billToState" id="billToState">
 							 </div>
 							 
 							 <div class="input-group mb-2">
 								  <span class="input-group-text">State Code</span>
-								  <input type="text" class="form-control" placeholder="state_code" name="billToStateCode" id="billToStateCode">
+								  <input type="text" class="form-control" placeholder="State code" name="billToStateCode" id="billToStateCode">
 							 </div>
 							 
 							 <div class="input-group mb-2">
 								  <span class="input-group-text">GSTIN No.</span>
-								  <input type="text" class="form-control" placeholder="GSTIN Number..." name="billToGstInNo" id="billToGstInNo">
-							 </div>
+								  <input type="text" class="form-control" placeholder="Bill to GSTIN..." name="billToGstInNo" id="billToGstInNo">
+							 </div>							 
 							 
 					    </div>
 					    
 					    
 					    
 					      <!-- Column 2 Shipped To -->
-					      <div class="col-6">
+					      <div class="col">
 					      
 					      	 <div class="input-group mb-2 row">
 								  <h6 class="text-center">DETAILS OF CONSIGNEE (SHIPPED TO)</h6>								
@@ -155,49 +155,53 @@
 							 
 							 <div class="input-group mb-2">
 								  <span class="input-group-text">State</span>
-								  <input type="text" class="form-control" placeholder="state" name="shippToState" id="shippToState">
+								  <input type="text" class="form-control" placeholder="State" name="shippToState" id="shippToState">
 							 </div>
 							 
 							 <div class="input-group mb-2">
 								  <span class="input-group-text">State Code</span>
-								  <input type="text" class="form-control" placeholder="state_code" name="shippToStateCode" id="shippToStateCode">
+								  <input type="text" class="form-control" placeholder="State code" name="shippToStateCode" id="shippToStateCode">
 							 </div>
 							 
 							 <div class="input-group mb-2">
 								  <span class="input-group-text">GSTIN No.</span>
-								  <input type="text" class="form-control" placeholder="GSTIN Number..." name="shippToGstInNo" id="shippToGstInNo">
-							 </div>								  
+								  <input type="text" class="form-control" placeholder="Shipp to GSTIN ..." name="shippToGstInNo" id="shippToGstInNo">
+							 </div>							 						  
 					      	
 					      </div>
 					    
 					    
-					    <!-- Column 3  -->
+					    <!-- Column 3 GSTIN Details  -->
+					    <div class="col">
+					    
+						  	   <div class="input-group mb-2 row">
+								  <h6 class="text-center">ADITIONAL DETAILS</h6>								
+							 </div>
+						  
+						  
+							  <div class="d-flex">
+									<input type="checkbox" onclick="billToShipToCheckBox();" name="billTo_shippTo_chk_box" id="billTo_shippTo_chk_box" style="width: 23px; height: 20px;" class="mt-1 chbox">
+									<p class="ms-2 chbox">Check this box if <em> Bill To </em> & <em> Ship To </em> are same. </p>
+							  </div>
+					    							 
+							  <div class="input-group mb-2">
+								  <span class="input-group-text">E Way Bill No.</span>
+								  <input type="text" class="form-control" placeholder="E WAY BILL Number..." name="eWayBillNo" id="eWayBillNo">
+							 </div>
+							 
+							 <div class="input-group mb-2">
+								  <span class="input-group-text">PO No.</span>
+								  <input type="text" class="form-control" placeholder="PO Number..." name="pONumber" id="pONumber">
+							 </div>	
+							 
+							 <div class="input-group mb-2">
+								  <span class="input-group-text">Inv. Date.*</span>
+								  <input type="date" class="form-control" placeholder="Invoice date." name="invDate" id="invDate" required>
+						  </div>
+					    
+					    </div>
 					   
 					</div>
-					
-					<!-- GSTIN Details -->
-					 <div class="row">
-					 	<div class="col-6">
-					 							  
-						  <div class="input-group mb-2">
-								  <span class="input-group-text">Inv. Date.</span>
-								  <input type="date" class="form-control" placeholder="Invoice date." name="invDate" id="invDate">
-						  </div>
-						  
-					 	</div>
-					      
-					      <div class="col-6">
-					 	
-					 		<div class="mb-2 d-flex">
-								  <input type="checkbox" onclick="billToShipToCheckBox();" name="billTo_shippTo_chk_box" id="billTo_shippTo_chk_box" style="width: 23px; height: 20px;" class="mt-1 chbox">
-								  <p class="ms-2 chbox">Check this box if <em> Bill To </em> & <em> Ship To </em> are same. </p>
-						  	</div>
-						  
-					 	  </div>
-					       
-					      
-					      
-					 </div>
 					
 					
 					<!-- Table for Particulars -->
@@ -208,7 +212,7 @@
 									<th class="text-center">SKU</th>
 									<th class="text-center">Particulars</th>
 									<th class="text-center">Quantity</th>
-									<th class="text-center">Weight</th>
+									<th class="text-center">UOM</th>
 									<th class="text-center ce">Price</th>
 									<th class="text-center">Amount</th>
 									<th class="no-print" style="width: 35px;">
@@ -230,7 +234,12 @@
 							      </td>							      
 								  <td><textarea class="form-control particulars h_particulars" readonly="readonly" name="particulars" id="particulars" rows="1" placeholder="Item description" style="overflow:hidden; resize:none;" onkeypress="autoResize()" onchange="autoResize()"></textarea></td>
 							      <td><input class="form-control qty" type="number" name="qty" onchange="cal(this)"></td>
-							      <td><input class="form-control qty" type="number" name="weight"></td>
+							      <td><select class="form-select qty" name="uom" id="uom">
+								      	<option value="KG">KG</option>
+								      	<option value="PCS">PCS</option>
+								      	<option value="Pairs">Pairs</option>
+								      </select>
+							      </td>
 							      <td><input class="form-control price" type="number" name="price" onchange="cal(this)"></td>
 							      <td><input class="form-control amount" type="number" name="amount" readonly="readonly"></td>
 							      <td class="no-print"><img alt="delete row" src="img/minus_btn.png" class="icon-s" onclick="removeRow(this)">
@@ -341,7 +350,7 @@
 					
 					<!-- Checkout button -->
 					<div class="text-center">
-						<button type="button" class="btn btn-primary me-3" onclick="goPrint()" >Print</button>
+						<button type="button" class="btn btn-primary me-3" onclick="goPrint()" style="display: none;" >Print</button>
 						<button type="submit" class="btn btn-primary btn-status">Checkout</button>
 					</div>				    
 				   

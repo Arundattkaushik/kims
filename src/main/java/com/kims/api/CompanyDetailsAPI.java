@@ -76,7 +76,7 @@ public class CompanyDetailsAPI {
 			cDetails.setCountry(companyDetails.getCountry());
 			cDetails.setTermsAndConditions(companyDetails.getTermsAndConditions());
 			cDetails.setGstin(companyDetails.getGstin());
-			cDetails.setEWayNo(companyDetails.getEWayNo());
+			cDetails.setHudyamDl(companyDetails.getHudyamDl());
 			
 			CompanyDetails cd = companyDetailService.save(cDetails);
 			if (cd == null) {
