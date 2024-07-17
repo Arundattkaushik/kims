@@ -6,6 +6,33 @@ $(document).ready(() => {
 	loadMasterSkuList();
 })
 
+
+function createInvoice(e){
+	e.preventDefault();
+	let form = $('#sales_invoicec_form');
+	let formData = form.serialize();
+	console.log(formData)
+	
+	$.ajax({
+		type: 'POST',
+		url:'/sale-invoice/create',
+		data:formData,
+		success:(res)=>{
+			console.log(res.data);
+			if(res !='' || res != null){
+				alert('Created Successfully!')
+				window.location.href='/sales';
+			}
+		},
+		error:()=>{
+				alert('Something Went wrong!')
+				window.location.href='/error';
+		}
+	})
+}
+
+
+
 function loadCompanyDetails(){
 	$.ajax({
 		type: 'Get',
@@ -31,7 +58,7 @@ function loadCompanyDetails(){
 			
 			
 			document.getElementById("udyamDl").innerHTML=res.data.hudyamDl;
-			document.getElementById("udyamDl").value=res.data.hudyamDl;
+			document.getElementById("hudyamDl").value=res.data.hudyamDl;
 			
 			
 			document.getElementById("companyMobile").innerHTML=res.data.companyContactNo;
@@ -122,25 +149,6 @@ function setShipToDetails(){
 	
 }
 
-
-
-
-/*function loadPartyDataInSession(){
-	$.ajax({
-			type: 'GET',
-			url: '/get-master-avl-qty',			
-			success: function(data) {
-				console.log("Success block: "+textStatus);
-				console.log("Success block:  loadPartyDataInSession()"+data);
-
-			},
-			error: function(errorThrown, xhr) {
-				alert('Request Status: ' + xhr.status + ' Status Text: ' + xhr.statusText + ' ' + xhr.responseText);
-				console.log("Error block run for => loadPartyDataInSession() " + errorThrown)
-				
-			}
-		});
-}*/
 
 
 /* Bill To, Ship To logic*/
@@ -399,7 +407,8 @@ function calGST() {
 	document.getElementById("fsgstAmt").value = newfSgst.toFixed(2);
 	document.getElementById("figstAmt").value = newfIgst.toFixed(2);
 
-	document.getElementById("fgTotal").value = (+(fTotal) + +(newCgst) + +(newfSgst) + +(newfIgst) + +(courCharge)).toFixed(2);
+	let fval = (+(fTotal) + +(newCgst) + +(newfSgst) + +(newfIgst) + +(courCharge)).toFixed(2);
+	document.getElementById("fgTotal").value = Math.floor(fval);
 
 }
 

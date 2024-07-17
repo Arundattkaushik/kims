@@ -16,7 +16,7 @@
 	
 	<div id="main_container">
 	
-		<form action="/sale-invoice/create" method="post">
+		<form method="post" id="sales_invoicec_form" onsubmit="createInvoice(event)">
 			
 			<div class="card">
 				  <div class="card-header">
@@ -36,7 +36,7 @@
 				  			<div class="d-flex">
 				  				<label style="font-weight: bold;">UDYAM DL:</label>				  				
 				  				<p class="ms-2" id="udyamDl"></p>
-				  				<input hidden="hidden" name="hudyamDl" id="udyamDl">
+				  				<input hidden="hidden" name="hudyamDl" id="hudyamDl">
 				  			</div>
 				  			
 				  		</div>

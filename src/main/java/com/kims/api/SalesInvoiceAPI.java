@@ -3,6 +3,7 @@ package com.kims.api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kims.dto.SaleInvoiceDTO;
 import com.kims.entites.MasterSku;
 import com.kims.entites.RawSku;
 import com.kims.entites.SalesInvoice;
@@ -16,7 +17,9 @@ import com.kims.utilities.Utils;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -118,22 +121,69 @@ public class SalesInvoiceAPI {
 	public ResponseEntity<Object> saleInvoiceById(HttpServletRequest request) {
 		
 			Map<String, Object> map = new HashMap<String, Object>();
-			
+			SaleInvoiceDTO siDTO = new SaleInvoiceDTO();
+			List<MasterSku> lm = new ArrayList<MasterSku>();
+
 			try {
 			SalesInvoice sInvoice = service.findSaleInvoiceById(Long.valueOf(request.getParameter("id")));
 			
-			if (sInvoice != null) {
-				map.put("message", "s");
-				map.put("status", HttpStatus.OK);
-				map.put("data", sInvoice);
-				return new ResponseEntity<Object>(map, HttpStatus.OK);
-				
-			} else {
-				map.put("message", "f");
-				map.put("status", HttpStatus.INTERNAL_SERVER_ERROR);			
-				return new ResponseEntity<Object>(map, HttpStatus.INTERNAL_SERVER_ERROR);
-
+			for (int i = 0; i < sInvoice.getMasterSku().size(); i++) {
+				MasterSku mSku = mServices.getMasterSkuById(sInvoice.getMasterSku().get(i));
+				lm.add(mSku);
 			}
+			
+			siDTO.setInvoiceNumber(sInvoice.getInvoiceNumber());
+			siDTO.setCompanyGstin(sInvoice.getCompanyGstin());
+			siDTO.setHudyamDl(sInvoice.getHudyamDl());
+			siDTO.setCompanyName(sInvoice.getCompanyName());
+			siDTO.setCompanyAddress(sInvoice.getCompanyAddress());
+			siDTO.setCompanyMobile(sInvoice.getCompanyMobile());
+			siDTO.setAdditionalContactNo(sInvoice.getAdditionalContactNo());
+			
+			siDTO.setBillToName(sInvoice.getBillToName());
+			siDTO.setSelect_billTo_party(sInvoice.getSelect_billTo_party());
+			siDTO.setBillToAddress(sInvoice.getBillToAddress());
+			siDTO.setBillToState(sInvoice.getBillToState());
+			siDTO.setBillToStateCode(sInvoice.getBillToStateCode());
+			siDTO.setBillToGstInNo(sInvoice.getBillToGstInNo());
+			
+			siDTO.setShippToName(sInvoice.getShippToName());
+			siDTO.setSelect_shipTo_party(sInvoice.getSelect_shipTo_party());
+			siDTO.setShippToAddress(sInvoice.getShippToAddress());
+			siDTO.setShippToState(sInvoice.getShippToState());
+			siDTO.setShippToStateCode(sInvoice.getShippToStateCode());
+			siDTO.setShippToGstInNo(sInvoice.getShippToGstInNo());
+			siDTO.setEWayBillNo(sInvoice.getEWayBillNo());
+			siDTO.setPONumber(sInvoice.getPONumber());
+			
+			siDTO.setInvDate(sInvoice.getInvDate());
+			siDTO.setMasterSku(lm);
+			siDTO.setQty(sInvoice.getQty());
+			siDTO.setUom(sInvoice.getUom());
+			siDTO.setPrice(sInvoice.getPrice());
+			siDTO.setAmount(sInvoice.getAmount());
+			
+			siDTO.setBankName(sInvoice.getBankName());
+			siDTO.setBankAccountNo(sInvoice.getBankAccountNo());
+			siDTO.setBankIFSC(sInvoice.getBankIFSC());
+			
+			siDTO.setFTotal(sInvoice.getFTotal());
+			siDTO.setFcgst(sInvoice.getFcgst());
+			siDTO.setFcgstAmt(sInvoice.getFcgstAmt());
+			siDTO.setFsgst(sInvoice.getFsgst());
+			siDTO.setFsgstAmt(sInvoice.getFsgstAmt());
+			siDTO.setFigst(sInvoice.getFigst());
+			siDTO.setFigstAmt(sInvoice.getFigstAmt());
+			
+			siDTO.setCourierCharges(sInvoice.getCourierCharges());
+			siDTO.setFgTotal(sInvoice.getFgTotal());
+			siDTO.setGTotalInWords(sInvoice.getGTotalInWords());
+			siDTO.setTermsAndCondtions(sInvoice.getTermsAndCondtions());
+			
+			map.put("message", "s");
+			map.put("status", HttpStatus.OK);
+			map.put("data", siDTO);
+			return new ResponseEntity<Object>(map, HttpStatus.OK);
 			
 		} 
 

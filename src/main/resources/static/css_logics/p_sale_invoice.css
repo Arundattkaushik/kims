@@ -8,13 +8,14 @@ body {
 .invoice-container {
     width: 800px;
     margin: 20px auto;
-    padding: 10px;
+    border: 1px solid black;
+    padding: 5px;
 }
 
 
 .head-grid{
 	display: grid;
-	grid-template-columns: 65% auto auto;
+	grid-template-columns: 65% 16% auto;
 }
 
 .companylogo{
@@ -44,6 +45,7 @@ body {
 
 .head-grid div{
 	border: 1px solid black;
+	padding-left: 4px;
 }
 
 
@@ -99,6 +101,7 @@ body {
 
 .company-info-container div{
 	border: 1px solid black;
+	padding-left: 4px;
 }
 
 
@@ -115,12 +118,16 @@ body {
 
 .bill_to_ship_to_header{
 	display: grid;
-	grid-template-columns: auto, auto, auto, auto;
+}
+
+.b_2, .s_1, .b_6, .s_3, .b_10, .s_5, .b_14, .s_7, .b_18, .s_20{
+	font-weight: bold;
 }
 
 
 .bill_to_ship_to_header div{
 	border: 1px solid black;
+	padding-left: 4px;
 }
 
 
@@ -157,12 +164,13 @@ body {
 
 .grid-container{
 	display: grid;
-    grid-template-columns: 60% 15% 10% auto;
+    grid-template-columns: 60% 12% 14% auto;
 }
 
 
 .grid-container div{
 	border: 1px solid black;
+	padding-left: 4px;
 }
 
 
@@ -174,18 +182,19 @@ body {
 
 .bank_grid{
 	display: grid;
-	grid-template-columns: 75% 10% auto;
+	grid-template-columns: 72% 14% auto;
 }
 
 
 .bank_grid div{
 	border: 1px solid black;
+	padding-left: 4px;
 }
 
 
 .tac_grid{
 	display:grid;
-	grid-template-columns: 75% auto auto;
+	grid-template-columns: 72% auto auto;
 }
 
 
@@ -209,10 +218,8 @@ body {
 
 .tac_grid div{
 	border: 1px solid black;
+	padding-left: 4px;
 }
-
-
-
 
 
 

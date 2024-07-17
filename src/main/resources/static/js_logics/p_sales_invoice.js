@@ -59,12 +59,7 @@ function loadSaleInvoice(e){
 			document.getElementById('ship_to_state').innerHTML = res.data.shippToState;
 			document.getElementById('ship_to_state_code').innerHTML = res.data.shippToStateCode;
 			document.getElementById('ship_to_gstin').innerHTML = res.data.shippToGstInNo;
-			
-			
-			//table seciton
-			document.getElementById('totalAmt').innerHTML=res.data.ftotal;
-			
-			
+
 						
 			
 			//GST % section
@@ -100,7 +95,11 @@ function loadSaleInvoice(e){
 			//invoice footer
 			document.getElementById('termsAndConditions').innerHTML = res.data.termsAndCondtions;
 			document.getElementById('company_name').innerHTML = res.data.companyName;
+
 			
+			//table seciton
+			document.getElementById('totalAmt').innerHTML=res.data.ftotal;
+
 			
 			//printing table 
 			for(let i=0; i<res.data.masterSku.length; i++){
@@ -108,21 +107,16 @@ function loadSaleInvoice(e){
 				let tbody = $('#table-body');
 				tbody.append(`<tr>
 								  <td>`+(i+1)+`</td>
-								  <td>`+res.data.hsn[i]+`</td>
-								  <td>smps transformer</td>
-								  <td>SKU `+(i+1)+`</td>
-								  <td>UOM `+(i+1)+`</td>
+								  <td>`+res.data.masterSku[i].mhsn+`</td>
+								  <td>`+res.data.masterSku[i].mskuTitle+`</td>
+								  <td>`+res.data.masterSku[i].mskuDesc+`</td>
+								  <td>`+res.data.uom[i]+`</td>
 								  <td>`+res.data.qty[i]+`</td>
 								  <td>`+res.data.price[i]+`</td>
 								  <td>`+res.data.amount[i]+`</td>
-							</tr>`);
+							</tr>`);									
 									
-									
-			}
-			
-			
-			
-			
+			}			
 			
 		},
 		error:(errorThrown)=>{
