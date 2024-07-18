@@ -408,6 +408,8 @@ function calGST() {
 	document.getElementById("figstAmt").value = newfIgst.toFixed(2);
 
 	let fval = (+(fTotal) + +(newCgst) + +(newfSgst) + +(newfIgst) + +(courCharge)).toFixed(2);
+	
+	//This change was made on client requirement that is why we are celing down values.
 	document.getElementById("fgTotal").value = Math.floor(fval);
 
 }

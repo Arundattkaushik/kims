@@ -16,13 +16,14 @@ function getRowId(e){
 }
 
 
-function loadSaleInvoice(e){
+function loadSaleInvoice(e){	
 	
 	$.ajax({
 		type:'Post',
 		url:'/sale-invoice/invoice-by-id',
 		data:{'id':e},
 		success:(res)=>{
+			
 			
 			//contact information
 			document.getElementById('mobile').innerHTML = res.data.companyMobile;

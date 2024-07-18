@@ -2,13 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-<link rel="stylesheet" th:href="@{css/bootstrap.min.css.map}">
-<link rel="stylesheet" th:href="@{/css/home.css}">
-<script type="text/javascript" th:src="@{js/jquery.min.js}"></script>
-<link rel="stylesheet" th:href="@{js/datatables.min.css}">
-<script type="text/javascript" th:src="@{js/datatables.min.js}"></script>
-<script type="text/javascript" th:src="@{js_logics/sales.js}"></script>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap.min.css.map">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="js/datatables.min.css">
+<link rel="stylesheet"  href="css_logics/sales_list.css">
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/datatables.min.js"></script>
+<script type="text/javascript" src="js_logics/sales.js"></script>
 <title>SALES</title>
 </head>
 <body class="bg">
@@ -28,15 +30,15 @@
 <!-- table area -->
 <div class="mt-2 p-0 container">
 			
-			<table class="table" id="table-data">
+			<table class="table" id="table-data" data-page-length='10'>
 				  <thead class="table-dark">
 				    <tr>
 				      <th scope="col" class="text-start" >Invoice No.</th>
-				      <th scope="col" style="text-align: center; ">Party</th>				      
-				      <th scope="col" style="text-align: center;">HSN</th>
+				      <th scope="col" style="text-align: center;">Party</th>				      
+				      <th scope="col" style="text-align: center;" data-class="hsn">HSN</th>
 				      <th scope="col" style="text-align: center;">SKU</th>
-				      <th scope="col" style="text-align: center;">Quantity</th>
-				      <th scope="col" style="text-align: center;">Price</th>
+				      <th scope="col" style="text-align: center;" data-class="hsn">Quantity</th>
+				      <!-- <th scope="col" style="text-align: center;" data-class="hsn">Price</th> -->
 				      <th scope="col" style="text-align: center;">Sales Amount</th>
 				      <th scope="col" style="text-align: center;">CGST</th>
 				      <th scope="col" style="text-align: center;">SGST</th>
